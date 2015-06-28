@@ -49,6 +49,8 @@ _(Coming soon)_
 Maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## Release History
+_Version: 0.0.0 (28.06.2015)_
+> The basic animation works. The next step is to focus on the progress aspect!
 
 ## License
 Copyright (c) 2015 Raoul van Rüschen  
