@@ -44,3 +44,6 @@ Temporary Items
 
 # Dependencies
 node_modules
+
+# Logs
+*.log
