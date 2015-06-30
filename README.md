@@ -6,7 +6,7 @@
 
 A hypotrochoid progress visualisation library written in JavaScript.
 
-## Usage
+## Installation
 
 This module can be used directly in the browser:
 
@@ -14,20 +14,18 @@ This module can be used directly in the browser:
 <script src="/js/hygress.min.js"></script>
 ```
 
-You can also install it as a dependency of your project with [npm](https://www.npmjs.com).
+You can also install it with [npm](https://www.npmjs.com).
 
 ```sh
 $ npm install hygress
 ``` 
 
+## Usage
+
 ```javascript
-// Optional way of using it.
+// Note: using require is not necessary in a browser.
 var Hygress = require("hygress");
-```
 
-You then use it as follows:
-
-```javascript
 var hygress = new Hygress({
  size: [400, 300]
 });

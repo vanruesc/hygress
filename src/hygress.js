@@ -9,37 +9,36 @@ var Hypotrochoid = require("./hypotrochoid");
  * @constructor
  * @param {Object} [options] - The settings.
  * @param {number} [options.dt] - A delta time constant.
- * @param {number} [options.htOptions] - The hypotrochoid settings.
+ * @param {number} [options.htSettings] - The hypotrochoid settings.
  * @param {number} [options.size] - The canvas size.
  */
 
 function Hygress(options)
 {
- var htOptions, canvas;
+ var self = this;
 
  this.animId = 0;
  this.dt = 1.0 / 60.0;
- this.now = Date.now();
+ this.now = Date.now() / 1000;
  this.then = this.now;
  this.accumulator = 0;
 
- canvas = document.createElement("canvas");
- canvas.id = "hygress";
+ this.ctx = document.createElement("canvas").getContext("2d");
+ this.ctx.canvas.id = "hygress";
+ this.ht = new Hypotrochoid(Hypotrochoid.Settings.PENTAGRAM);
 
  if(options !== undefined)
  {
-  if(options.htOptions !== undefined) { htOptions = options.htOptions; }
   if(options.dt !== undefined) { this.dt = options.dt; }
-
-  if(options.size !== undefined)
-  {
-   canvas.width = options.size[0];
-   canvas.height = options.size[1];
-  }
+  this.ht.settings = options.htSettings;
+  this.size = options.size;
  }
 
- this.ctx = canvas.getContext("2d");
- this.ht = new Hypotrochoid(htOptions);
+ /**
+  * The internal animation loop.
+  */
+
+ this._render = function() { self.render(); };
 }
 
 /**
@@ -68,11 +67,11 @@ Object.defineProperty(Hygress.prototype, "size", {
  {
   var min;
 
-  if(s !== undefined)
+  if(s !== undefined && s.length === 2)
   {
    min = (s[0] < s[1]) ? s[0] : s[1];
-   this.ctx.canvas.width = s[0];
-   this.ctx.canvas.height = s[1];
+   this.ctx.canvas.width = min;
+   this.ctx.canvas.height = min;
    this.ht.distance = min * 0.4;
    this.ht.origin.x = this.ht.origin.y = min >> 1;
   }
@@ -86,8 +85,8 @@ Object.defineProperty(Hygress.prototype, "size", {
 Hygress.prototype.render = function()
 {
  this.now = Date.now() / 1000;
- this.accumulator += ( this.now -  this.then);
- this.then =  this.now;
+ this.accumulator += (this.now - this.then);
+ this.then = this.now;
 
  if(this.accumulator >= this.dt)
  {
@@ -97,8 +96,7 @@ Hygress.prototype.render = function()
 
  this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
  this.ht.draw(this.ctx);
-
- this.animId = requestAnimationFrame(this.render);
+ this.animId = requestAnimationFrame(this._render);
 };
 
 /**

@@ -36,8 +36,8 @@ function Hypotrochoid(options)
  this.firstCoord = {x: 0.0, y: 0.0};
  this.prevCoord = {x: 0.0, y: 0.0};
 
- this.innerRadius = 0.59;
- this.outerRadius = 0.2;
+ this.innerRadius = 0.2;
+ this.outerRadius = 0.59;
  this.distance = 0.0;
  this.iterations = 16;
  this.rotationSpeed = 0.046;
@@ -57,6 +57,44 @@ function Hypotrochoid(options)
 }
 
 /**
+ * Getter and Setter for all parameters.
+ * 
+ * @param {Object} options - The new settings.
+ * @param {number} [options.R] - Radius of the outer circle.
+ * @param {number} [options.r] - Radius of the inner circle.
+ * @param {number} [options.d] - Distance from the center to the inner circle.
+ * @param {{x: number, y: number}} [options.origin] - Object with x and y components, representing the origin coordinates.
+ * @param {number} [options.rotation] - Sets the rotational direction and speed. (Negative for left rotation, 0.0 for no rotation.)
+ * @param {number} [options.iterations] - Limits the processing of too detailed hypotrochoids. Default: no limit.
+ */
+
+Object.defineProperty(Hypotrochoid.prototype, "settings", {
+ get: function()
+ {
+  return {
+   r: this.innerRadius,
+   R: this.outerRadius,
+   d: this.distance,
+   iterations: this.iterations,
+   rotation: this.rotationSpeed,
+   origin: this.origin
+  };
+ },
+ set: function(options)
+ {
+  if(options !== undefined)
+  {
+   if(options.r !== undefined) { this.innerRadius = options.r; }
+   if(options.R !== undefined) { this.outerRadius = options.R; }
+   if(options.d !== undefined) { this.distance = options.d; }
+   if(options.iterations !== undefined) { this.iterations = options.iterations; }
+   if(options.rotation !== undefined) { this.rotationSpeed = options.rotation; }
+   if(options.origin !== undefined) { this.origin = options.origin; }
+  }
+ }
+});
+
+/**
  * Updates hue and rotation.
  */
 
@@ -65,7 +103,7 @@ Hypotrochoid.prototype.update = function()
  this.hue -= 0.5;
  if(this.hue <= -360.0) { this.hue = 0.0; }
  this.rotation -= this.rotationSpeed;
- if(Math.abs(this.rotation) > this.TWO_PI) { this.rotation = 0.0; }
+ if(Math.abs(this.rotation) > this.TWO_PI) { this.rotation -= this.TWO_PI; }
 };
 
 /**
@@ -89,7 +127,7 @@ Hypotrochoid.prototype.draw = function(ctx)
  this.prevCoord.x = 0.0;
  i = this.iterations;
 
- while(i > 0 && (ignore || !equal(this.firstCoord.x - x) || !equal(this.firstCoord.y - y)))
+ while(i >= 0 && (ignore || !equal(this.firstCoord.x - x) || !equal(this.firstCoord.y - y)))
  {
   ctx.beginPath();
 
@@ -122,5 +160,20 @@ Hypotrochoid.prototype.draw = function(ctx)
 
  ctx.restore();
 };
+
+/**
+ * Predefined hypotrochoids.
+ */
+
+Hypotrochoid.Settings = Object.freeze({
+ PENTAGRAM: {
+  r: 3.0,
+  R: 5.0,
+  d: 5.0,
+  iterations: 5,
+  rotation: 0.02,
+  origin: {x: 0.0, y: 0.0}
+ }
+});
 
 module.exports = Hypotrochoid;
