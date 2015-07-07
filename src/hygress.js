@@ -25,7 +25,7 @@ function Hygress(options)
 
  this.ctx = document.createElement("canvas").getContext("2d");
  this.ctx.canvas.id = "hygress";
- this.ht = new Hypotrochoid(Hypotrochoid.Settings.PENTAGRAM);
+ this.ht = new Hypotrochoid();
 
  if(options !== undefined)
  {
@@ -108,8 +108,6 @@ Hygress.prototype.stop = function()
  if(this.animId !== 0)
  {
   cancelAnimationFrame(this.animId);
-  this.ctx.canvas.style.opacity = 0.0;
-  this.ctx.canvas.style.transform = "scale(0.0)";
   this.animId = 0;
  }
 };
@@ -124,10 +122,27 @@ Hygress.prototype.start = function()
 {
  if(this.animId === 0)
  {
-  this.ctx.canvas.style.opacity = 1.0;
-  this.ctx.canvas.style.transform = "scale(1.0)";
   this.render();
  }
 };
+
+/**
+ * Predefined hypotrochoids.
+ */
+
+Hygress.Hypotrochoid = Object.freeze({
+ PENTAGRAM: {
+  r: 3.0,
+  R: 5.0,
+  iterations: 5,
+  rotation: 0.03
+ },
+ ZAYESH: {
+  r: 0.2,
+  R: 0.59,
+  iterations: 16,
+  rotation: 0.046
+ }
+});
 
 module.exports = Hygress;

@@ -4,7 +4,7 @@
 [![npm version](https://badge.fury.io/js/hygress.svg)](http://badge.fury.io/js/hygress) 
 [![Dependencies](https://david-dm.org/vanruesc/hygress.svg?branch=master)](https://david-dm.org/vanruesc/hygress)
 
-A hypotrochoid progress visualisation library written in JavaScript.
+A hypotrochoid progress visualisation library.
 
 ## Installation
 
@@ -23,7 +23,7 @@ $ npm install hygress
 ## Usage
 
 ```javascript
-// Note: using require is not necessary in a browser.
+// Note: using require is not necessary with the browser bundle.
 var Hygress = require("hygress");
 
 var hygress = new Hygress({
