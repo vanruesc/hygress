@@ -1,13 +1,8 @@
 {
   "name": "hygress",
   "description": "A hypotrochoid progress visualisation library.",
-  "keywords": [
-    "hypotrochoid",
-    "progress",
-    "canvas",
-    "visualisation"
-  ],
-  "version": "0.0.4",
+  "keywords": ["hypotrochoid", "progress", "canvas", "visualisation"],
+  "version": "0.0.5",
   "homepage": "https://github.com/vanruesc/hygress",
   "author": {
     "name": "Raoul van Rueschen",
