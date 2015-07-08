@@ -48,8 +48,7 @@ hygress.size = [window.innerWidth, window.innerHeight];
 // Step the animation.
 requestAnimationFrame(hygress.render);
 
-// In case you want to clear the canvas manually
-// and the clearCanvas flag wa set to false.
+// You need to clear the canvas if the clearCanvas flag is set to false.
 var ctx = hygress.canvas.getContext("2d");
 ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
