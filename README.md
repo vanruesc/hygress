@@ -38,7 +38,7 @@ var hygress = new Hygress({
 document.body.appendChild(hygress.canvas);
 
 // You can also give Hygress your own canvas if you want.
-var myCanvas = document.createElement("canvas")
+var myCanvas = document.createElement("canvas");
 hygress.canvas = myCanvas;
 document.body.appendChild(myCanvas);
 
