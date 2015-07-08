@@ -1,5 +1,5 @@
 /**
- * hygress build 08-07-2015
+ * hygress build 09-07-2015
  *
  * Copyright 2015 Raoul van Rueschen
  * 
@@ -119,7 +119,7 @@ Object.defineProperty(Hygress.prototype, "size", {
  * Renders the progress.
  */
 
-Hygress.prototype.render = function()
+Hygress.prototype._render = function()
 {
  this.now = Date.now() / 1000;
  this.accumulator += (this.now - this.then);
