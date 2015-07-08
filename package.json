@@ -1,6 +1,6 @@
 {
   "name": "hygress",
-  "description": "A hypotrochoid progress visualisation library.",
+  "description": "A hy(potrochoid pro)gress visualisation library.",
   "keywords": ["hypotrochoid", "progress", "canvas", "visualisation"],
   "version": "0.0.6",
   "homepage": "https://github.com/vanruesc/hygress",

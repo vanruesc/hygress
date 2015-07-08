@@ -4,7 +4,7 @@
 [![npm version](https://badge.fury.io/js/hygress.svg)](http://badge.fury.io/js/hygress) 
 [![Dependencies](https://david-dm.org/vanruesc/hygress.svg?branch=master)](https://david-dm.org/vanruesc/hygress)
 
-A hypotrochoid progress visualisation library. The animation that this module 
+A hy(potrochoid pro)gress visualisation library. The animation that this module 
 provides can be combined with other rendering processes and doesn't use an 
 isolated animation loop. The decision of where, when and how Hygress should 
 draw something is entirely yours.
