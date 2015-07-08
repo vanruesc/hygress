@@ -100,7 +100,7 @@ Object.defineProperty(Hygress.prototype, "size", {
  * Renders the progress.
  */
 
-Hygress.prototype.render = function()
+Hygress.prototype._render = function()
 {
  this.now = Date.now() / 1000;
  this.accumulator += (this.now - this.then);
