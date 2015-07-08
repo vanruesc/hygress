@@ -10,6 +10,7 @@ var Hypotrochoid = require("./hypotrochoid");
  * @param {Object} [options] - The settings.
  * @param {number} [options.dt] - A delta time constant.
  * @param {number} [options.htSettings] - The hypotrochoid settings.
+ * @param {boolean} [options.clearCanvas] - Whether the canvas should be cleared when rendering. Default is true.
  * @param {number} [options.size] - The canvas size.
  */
 
@@ -17,7 +18,7 @@ function Hygress(options)
 {
  var self = this;
 
- this.animId = 0;
+ this.clear = true;
  this.dt = 1.0 / 60.0;
  this.now = Date.now() / 1000;
  this.then = this.now;
@@ -30,23 +31,40 @@ function Hygress(options)
  if(options !== undefined)
  {
   if(options.dt !== undefined) { this.dt = options.dt; }
+  if(options.clearCanvas !== undefined) { this.clear = options.clearCanvas; }
   this.ht.settings = options.htSettings;
   this.size = options.size;
  }
 
  /**
-  * The internal animation loop.
+  * Expose the internal render function.
   */
 
- this._render = function() { self.render(); };
+ this.render = function() { self._render(); };
 }
 
 /**
  * Getter for the internal canvas.
  */
 
+Object.defineProperty(Hygress.prototype, "clearCanvas", {
+ get: function() { return this.clear; },
+ set: function(c) { this.clear = c; }
+});
+
+/**
+ * Getter for the internal canvas.
+ */
+
 Object.defineProperty(Hygress.prototype, "canvas", {
- get: function() { return this.ctx.canvas; }
+ get: function() { return this.ctx.canvas; },
+ set: function(c)
+ {
+  if(c !== undefined && c.getContext !== undefined)
+  {
+   this.ctx = c.getContext("2d");
+  }
+ }
 });
 
 /**
@@ -94,36 +112,12 @@ Hygress.prototype.render = function()
   this.accumulator -= this.dt;
  }
 
- this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+ if(this.clear)
+ {
+  this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+ }
+
  this.ht.draw(this.ctx);
- this.animId = requestAnimationFrame(this._render);
-};
-
-/**
- * Stops the module.
- */
-
-Hygress.prototype.stop = function()
-{
- if(this.animId !== 0)
- {
-  cancelAnimationFrame(this.animId);
-  this.animId = 0;
- }
-};
-
-/**
- * Starts the module.
- *
- * @param {} - .
- */
-
-Hygress.prototype.start = function()
-{
- if(this.animId === 0)
- {
-  this.render();
- }
 };
 
 /**

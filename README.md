@@ -4,7 +4,10 @@
 [![npm version](https://badge.fury.io/js/hygress.svg)](http://badge.fury.io/js/hygress) 
 [![Dependencies](https://david-dm.org/vanruesc/hygress.svg?branch=master)](https://david-dm.org/vanruesc/hygress)
 
-A hypotrochoid progress visualisation library.
+A hypotrochoid progress visualisation library. The animation that this module 
+provides can be combined with other rendering processes and doesn't use an 
+isolated animation loop. The decision of where, when and how Hygress should 
+draw something is entirely yours.
 
 ## Installation
 
@@ -27,17 +30,31 @@ $ npm install hygress
 var Hygress = require("hygress");
 
 var hygress = new Hygress({
- size: [400, 300]
+ size: [400, 300],
+ clearCanvas: false
 });
 
-// Grab the canvas and put in on the page.
+// Grab the canvas and put it on the page.
 document.body.appendChild(hygress.canvas);
 
-// Starts the animation.
-hygress.start();
+// You can also give Hygress your own canvas if you want.
+var myCanvas = document.createElement("canvas")
+hygress.canvas = myCanvas;
+document.body.appendChild(myCanvas);
 
-// Stops the animation.
-hygress.stop();
+// Define the current canvas' size.
+hygress.size = [window.innerWidth, window.innerHeight];
+
+// Step the animation.
+requestAnimationFrame(hygress.render);
+
+// In case you want to clear the canvas manually
+// and the clearCanvas flag wa set to false.
+var ctx = hygress.canvas.getContext("2d");
+ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+// Sick of clearing manually?
+hygress.clearCanvas = true;
 ```
 
 ## Documentation
