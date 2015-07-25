@@ -27,6 +27,9 @@ function equal(a, b)
  * @param {{x: number, y: number}} [options.origin] - Object with x and y components, representing the origin coordinates.
  * @param {number} [options.rotation] - Sets the rotational direction and speed. (Negative for left rotation, 0.0 for no rotation.)
  * @param {number} [options.iterations] - Limits the processing of very detailed hypotrochoids. Default: 64.
+ * @param {number} [options.opacity] - The opacity. Default: 0.75.
+ * @param {number} [options.lineWidth] - The line width. Default: 0.5.
+ * @param {boolean} [options.colourRoll] - The line width. Default: true.
  */
 
 function Hypotrochoid(options)
@@ -37,26 +40,21 @@ function Hypotrochoid(options)
  this.step = 360.0 * Math.PI / 180.0;
  this.hue = 0.0;
  this.firstCoord = {x: 0.0, y: 0.0};
- this.prevCoord = {x: 0.0, y: 0.0};
+ this.prevCoord = {x: 0.0, y: 0.0}; // Not to be confused with "pervCoord".
 
- this.innerRadius = 0.42;
- this.outerRadius = 0.86;
- this.distance = 0.0;
+ // Set the defaults.
+ this.r = 0.42;
+ this.R = 0.86;
+ this.d = 0.0;
  this.iterations = 64;
  this.rotationSpeed = 0.01;
  this.origin = {x: 0.0, y: 0.0};
+ this.opacity = 0.75;
+ this.lineWidth = 0.5;
+ this.colourRoll = true;
 
- if(options !== undefined)
- {
-  if(options.r !== undefined) { this.innerRadius = options.r; }
-  if(options.R !== undefined) { this.outerRadius = options.R; }
-  if(options.d !== undefined) { this.distance = options.d; }
-  if(options.iterations !== undefined) { this.iterations = options.iterations; }
-  if(options.rotation !== undefined) { this.rotationSpeed = options.rotation; }
-  if(options.origin !== undefined) { this.origin = options.origin; }
- }
-
- this.invInnerRadius = 1.0 / this.innerRadius;
+ this.setting = options;
+ this.rInv = 1.0 / this.r;
 }
 
 /**
@@ -69,30 +67,39 @@ function Hypotrochoid(options)
  * @param {{x: number, y: number}} [options.origin] - Object with x and y components, representing the origin coordinates.
  * @param {number} [options.rotation] - Sets the rotational direction and speed. (Negative for left rotation, 0.0 for no rotation.)
  * @param {number} [options.iterations] - Limits the processing of too detailed hypotrochoids. Default: no limit.
+ * @param {number} [options.opacity] - The opacity. Default: 0.75.
+ * @param {number} [options.lineWidth] - The line width. Default: 0.5.
+ * @param {boolean} [options.colourRoll] - The line width. Default: true.
  */
 
 Object.defineProperty(Hypotrochoid.prototype, "settings", {
  get: function()
  {
   return {
-   r: this.innerRadius,
-   R: this.outerRadius,
-   d: this.distance,
+   r: this.r,
+   R: this.R,
+   d: this.d,
    iterations: this.iterations,
    rotation: this.rotationSpeed,
-   origin: this.origin
+   origin: this.origin,
+   opacity: this.opacity,
+   lineWidth: this.lineWidth,
+   colourRoll: this.colourRoll
   };
  },
  set: function(options)
  {
   if(options !== undefined)
   {
-   if(options.r !== undefined) { this.innerRadius = options.r; }
-   if(options.R !== undefined) { this.outerRadius = options.R; }
-   if(options.d !== undefined) { this.distance = options.d; }
+   if(options.r !== undefined) { this.r = options.r; }
+   if(options.R !== undefined) { this.R = options.R; }
+   if(options.d !== undefined) { this.d = options.d; }
    if(options.iterations !== undefined) { this.iterations = options.iterations; }
    if(options.rotation !== undefined) { this.rotationSpeed = options.rotation; }
    if(options.origin !== undefined) { this.origin = options.origin; }
+   if(options.opacity !== undefined) { this.opacity = options.opacity; }
+   if(options.lineWidth !== undefined) { this.lineWidth = options.lineWidth; }
+   if(options.colourRoll !== undefined) { this.colourRoll = options.colourRoll; }
   }
  }
 });
@@ -103,26 +110,33 @@ Object.defineProperty(Hypotrochoid.prototype, "settings", {
 
 Hypotrochoid.prototype.update = function()
 {
- this.hue -= 0.5;
- if(this.hue <= -360.0) { this.hue += 360.0; }
- this.rotation -= this.rotationSpeed;
- if(Math.abs(this.rotation) > this.TWO_PI) { this.rotation -= this.TWO_PI; }
+ if(this.colourRoll)
+ {
+  this.hue -= 0.5;
+  if(this.hue <= -360.0) { this.hue += 360.0; }
+ }
+
+ if(!equal(this.rotationSpeed, 0.0))
+ {
+  this.rotation -= this.rotationSpeed;
+  if(Math.abs(this.rotation) >= this.TWO_PI) { this.rotation -= this.TWO_PI; }
+ }
 };
 
 /**
  * Draws the hypotrochoid onto the given 2D-context.
  * This function does not clear the canvas.
  *
- * @param {CanvasRenderingContext2D} ctx
+ * @param {CanvasRenderingContext2D} ctx - The surface to draw on.
  */
 
 Hypotrochoid.prototype.draw = function(ctx)
 {
- var i, q, x = 0.0, y = 0.0, ignore = true;
+ var i, q, x = 0.0, y = 0.0, bypass = true;
 
  ctx.save();
 
- ctx.lineWidth = 0.5;
+ ctx.lineWidth = this.lineWidth;
  ctx.lineCap = "round";
  ctx.globalCompositeOperation = "source-over";
 
@@ -130,16 +144,16 @@ Hypotrochoid.prototype.draw = function(ctx)
  this.prevCoord.x = 0.0;
  i = this.iterations;
 
- while(i >= 0 && (ignore || !equal(this.firstCoord.x, x) || !equal(this.firstCoord.y, y)))
+ while(i >= 0 && (bypass || !equal(this.firstCoord.x, x) || !equal(this.firstCoord.y, y)))
  {
   ctx.beginPath();
 
-  if(ignore) { ignore = false; }
+  if(bypass) { bypass = false; }
   this.theta += this.step;
 
-  q = (this.innerRadius / this.outerRadius - 1.0) * this.theta; 
-  x = (this.innerRadius - this.outerRadius) * Math.cos(this.theta) + this.distance * Math.cos(q + this.rotation) + (this.origin.x) + (this.outerRadius - this.innerRadius);
-  y = (this.innerRadius - this.outerRadius) * Math.sin(this.theta) - this.distance * Math.sin(q + this.rotation) + (this.origin.y);
+  q = (this.r / this.R - 1.0) * this.theta; 
+  x = (this.r - this.R) * Math.cos(this.theta) + this.d * Math.cos(q + this.rotation) + this.origin.x + (this.R - this.r);
+  y = (this.r - this.R) * Math.sin(this.theta) - this.d * Math.sin(q + this.rotation) + this.origin.y;
 
   if(this.prevCoord.x)
   {
@@ -150,10 +164,10 @@ Hypotrochoid.prototype.draw = function(ctx)
   {
    this.firstCoord.x = x;
    this.firstCoord.y = y;
-   ignore = true;
+   bypass = true;
   }
 
-  ctx.strokeStyle = "hsla(" + (this.hue % 360) + ", 100%, 50%, 0.75)";
+  ctx.strokeStyle = "hsla(" + (this.hue % 360) + ", 100%, 50%, " + this.opacity + ")";
   ctx.stroke();
 
   this.prevCoord.x = x;

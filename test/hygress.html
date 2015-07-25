@@ -8,13 +8,23 @@
     <meta name="robots" content="noindex, nofollow">
     <script src="../build/hygress.js"></script>
     <script>
+
+    var hygress;
+
+    function render()
+    {
+     hygress.render();
+     requestAnimationFrame(render);
+    }
+
     document.addEventListener("DOMContentLoaded", function()
     {
-      var hygress = new Hygress();
+      hygress = new Hygress({hypotrochoid: Hygress.Hypotrochoid.ZAYESH});
       document.getElementById("container").appendChild(hygress.canvas);
       hygress.size = [600, 600];
-      hygress.start();
+      render();
     });
+
     </script>
   </head>
   <body style="background-color: rgb(30, 30, 30)">
