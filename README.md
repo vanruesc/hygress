@@ -30,6 +30,7 @@ $ npm install hygress
 var Hygress = require("hygress");
 
 var hygress = new Hygress({
+ hypotrochoid: Hygress.Hypotrochoid.PENTAGRAM,
  size: [400, 300],
  clearCanvas: false
 });
@@ -45,15 +46,23 @@ document.body.appendChild(myCanvas);
 // Define the current canvas' size.
 hygress.size = [window.innerWidth, window.innerHeight];
 
+// Specifically define the hypotrochoid's size.
+hygress.htSize = 100.0;
+
 // Step the animation.
 requestAnimationFrame(hygress.render);
 
-// You need to clear the canvas if the clearCanvas flag is set to false.
+// You need to clear the canvas if the clearCanvas flag has been set to false.
 var ctx = hygress.canvas.getContext("2d");
 ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
 // Sick of clearing manually?
 hygress.clearCanvas = true;
+
+// Linearly transition the opacity and scale.
+hygress.transitionTime = 1.25; // seconds
+hygress.opacity = 0.0;
+hygress.scale = 0.0;
 ```
 
 ## Documentation
