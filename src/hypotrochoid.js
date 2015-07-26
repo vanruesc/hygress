@@ -29,7 +29,10 @@ function equal(a, b)
  * @param {number} [options.iterations] - Limits the processing of very detailed hypotrochoids. Default: 64.
  * @param {number} [options.opacity] - The opacity. Default: 0.75.
  * @param {number} [options.lineWidth] - The line width. Default: 0.5.
- * @param {boolean} [options.colourRoll] - The line width. Default: true.
+ * @param {boolean} [options.colourRoll] - Whether the colour should change continuously. Default: true.
+ * @param {number} [options.hue] - The hue in degree. If not specified, the hue starts at 0°.
+ * @param {number} [options.saturation] - The saturation in percent. Defaults to 100%.
+ * @param {number} [options.luminance] - The luminance in percent. Defaults to 50%.
  */
 
 function Hypotrochoid(options)
@@ -38,9 +41,8 @@ function Hypotrochoid(options)
  this.rotation = 0.0;
  this.theta = 0.0;
  this.step = 360.0 * Math.PI / 180.0;
- this.hue = 0.0;
  this.firstCoord = {x: 0.0, y: 0.0};
- this.prevCoord = {x: 0.0, y: 0.0}; // Not to be confused with "pervCoord".
+ this.prevCoord = {x: 0.0, y: 0.0};
 
  // Set the defaults.
  this.r = 0.42;
@@ -52,6 +54,9 @@ function Hypotrochoid(options)
  this.opacity = 0.75;
  this.lineWidth = 0.5;
  this.colourRoll = true;
+ this.hue = 0.0;
+ this.saturation = 100.0;
+ this.luminance = 50.0;
 
  this.setting = options;
  this.rInv = 1.0 / this.r;
@@ -69,7 +74,10 @@ function Hypotrochoid(options)
  * @param {number} [options.iterations] - Limits the processing of too detailed hypotrochoids. Default: no limit.
  * @param {number} [options.opacity] - The opacity. Default: 0.75.
  * @param {number} [options.lineWidth] - The line width. Default: 0.5.
- * @param {boolean} [options.colourRoll] - The line width. Default: true.
+ * @param {boolean} [options.colourRoll] - Whether the colour should change continuously. Default: true.
+ * @param {number} [options.hue] - The hue in degree. If not specified, the hue starts at 0°.
+ * @param {number} [options.saturation] - The saturation in percent. Defaults to 100%.
+ * @param {number} [options.luminance] - The luminance in percent. Defaults to 50%.
  */
 
 Object.defineProperty(Hypotrochoid.prototype, "settings", {
@@ -84,7 +92,10 @@ Object.defineProperty(Hypotrochoid.prototype, "settings", {
    origin: this.origin,
    opacity: this.opacity,
    lineWidth: this.lineWidth,
-   colourRoll: this.colourRoll
+   colourRoll: this.colourRoll,
+   saturation: this.saturation,
+   luminance: this.luminance,
+   hue: this.hue
   };
  },
  set: function(options)
@@ -100,6 +111,9 @@ Object.defineProperty(Hypotrochoid.prototype, "settings", {
    if(options.opacity !== undefined) { this.opacity = options.opacity; }
    if(options.lineWidth !== undefined) { this.lineWidth = options.lineWidth; }
    if(options.colourRoll !== undefined) { this.colourRoll = options.colourRoll; }
+   if(options.saturation !== undefined) { this.saturation = options.saturation; }
+   if(options.luminance !== undefined) { this.luminance = options.luminance; }
+   if(options.hue !== undefined) { this.hue = options.hue; }
   }
  }
 });
@@ -144,10 +158,10 @@ Hypotrochoid.prototype.draw = function(ctx)
  this.prevCoord.x = 0.0;
  i = this.iterations;
 
+ ctx.beginPath();
+
  while(i >= 0 && (bypass || !equal(this.firstCoord.x, x) || !equal(this.firstCoord.y, y)))
  {
-  ctx.beginPath();
-
   if(bypass) { bypass = false; }
   this.theta += this.step;
 
@@ -167,13 +181,13 @@ Hypotrochoid.prototype.draw = function(ctx)
    bypass = true;
   }
 
-  ctx.strokeStyle = "hsla(" + (this.hue % 360) + ", 100%, 50%, " + this.opacity + ")";
-  ctx.stroke();
-
   this.prevCoord.x = x;
   this.prevCoord.y = y;
   --i;
  }
+
+ ctx.strokeStyle = "hsla(" + this.hue + ", " + this.saturation + "%, " + this.luminance + "%, " + this.opacity + ")";
+ ctx.stroke();
 
  ctx.restore();
 };

@@ -1,5 +1,5 @@
 /**
- * hygress v0.0.7 build 25.07.2015
+ * hygress v0.0.8 build 27.07.2015
  * https://github.com/vanruesc/hygress
  * Copyright 2015 Raoul van Rueschen, Zlib
  */
@@ -20,6 +20,12 @@ var Hypotrochoid = require("./hypotrochoid");
  * @param {HTMLCanvasElement} [options.canvas] - The canvas to use. A new one will be created if none is supplied.
  * @param {boolean} [options.clearCanvas] - Whether the canvas should be cleared before rendering. Default is true.
  * @param {boolean} [options.colourRoll] - Whether the colour should iterate over the colour spectrum. Default is true.
+ * @param {number} [options.hue] - The hue in degree. If not specified, the hue starts at 0°.
+ * @param {number} [options.saturation] - The saturation in percent. Defaults to 100%.
+ * @param {number} [options.luminance] - The luminance in percent. Defaults to 50%.
+ * @param {number} [options.opacity] - The initial opacity. Defaults to 0.75.
+ * @param {number} [options.scale] - The initial scale. Defaults to 1.0.
+ * @param {number} [options.transitionTime] - The initial transitionTime. Defaults to 0.2.
  * @param {Array} [options.size] - The canvas size.
  */
 
@@ -59,17 +65,25 @@ function Hygress(options)
  {
   if(options.dt !== undefined) { this.dt = options.dt; }
   if(options.clearCanvas !== undefined) { this.clearCanvas = options.clearCanvas; }
+  if(options.transitionTime !== undefined) { this.transitionTime = options.transitionTime; }
   if(options.colourRoll !== undefined) { this.ht.colourRoll = options.colourRoll; }
+  if(options.hue !== undefined) { this.ht.hue = options.hue; }
+  if(options.saturation !== undefined) { this.ht.saturation = options.saturation; }
+  if(options.luminance !== undefined) { this.ht.hue = options.luminance; }
+  if(options.opacity !== undefined) { this.ht.opacity = options.opacity; }
   if(options.canvas !== undefined) { this.canvas = options.canvas; }
   this.ht.settings = options.hypotrochoid;
   this.size = options.size;
+  if(options.scale !== undefined) { this.ht.d *= options.scale; }
  }
 
+ this.visible = this.ht.opacity !== 0.0 && this.ht.d !== 0.0;
+
  /**
-  * Expose the internal render function.
+  * Expose the render function.
   */
 
- this.render = function() { self._render(); };
+ this.render = function() { self._step(); };
 }
 
 /**
@@ -78,23 +92,25 @@ function Hygress(options)
 
 Object.defineProperty(Hygress.prototype, "hypotrochoid", {
  get: function() { return this.ht.settings; },
- set: function(s)
+ set: function(x)
  {
-  this.ht.settings = s;
+  this.ht.settings = x;
  }
 });
 
 /**
  * Getter and Setter for the internal canvas.
+ * 
+ * @param {HTMLCanvasElement} x - The new canvas.
  */
 
 Object.defineProperty(Hygress.prototype, "canvas", {
  get: function() { return this.ctx.canvas; },
- set: function(c)
+ set: function(x)
  {
-  if(c !== undefined && c.getContext !== undefined)
+  if(x !== undefined && x.getContext !== undefined)
   {
-   this.ctx = c.getContext("2d");
+   this.ctx = x.getContext("2d");
   }
  }
 });
@@ -102,7 +118,7 @@ Object.defineProperty(Hygress.prototype, "canvas", {
 /**
  * Getter and Setter for the size of the internal canvas.
  * 
- * @param {Array} s - The new size in the form of [width, height].
+ * @param {Array} x - The new size in the form of [width, height].
  */
 
 Object.defineProperty(Hygress.prototype, "size", {
@@ -113,13 +129,13 @@ Object.defineProperty(Hygress.prototype, "size", {
    this.ctx.canvas.height
   ];
  },
- set: function(s)
+ set: function(x)
  {
   var min;
 
-  if(s !== undefined && s.length === 2)
+  if(x !== undefined && x.length === 2)
   {
-   min = (s[0] < s[1]) ? s[0] : s[1];
+   min = (x[0] < x[1]) ? x[0] : x[1];
    this.ctx.canvas.width = min;
    this.ctx.canvas.height = min;
    this.htSize = min >> 1;
@@ -131,17 +147,18 @@ Object.defineProperty(Hygress.prototype, "size", {
 /**
  * Getter and Setter for the hypotrochoid's size.
  *
- * @param {number} o - [x, y].
+ * @param {number} x - The new size of the hypotrochoid.
  */
 
 Object.defineProperty(Hygress.prototype, "htSize", {
  get: function() { return this.ht.d; },
- set: function(d)
+ set: function(x)
  {
-  if(d !== undefined && typeof d === "number" && !isNaN(d))
+  if(x !== undefined && typeof x === "number" && !isNaN(x))
   {
-   this.ht.d = d;
+   this.ht.d = x;
    this._scale.max = this._scale.target = this.ht.d;
+   if(this.ht.d !== 0.0) { this.visible = true; }
   }
  }
 });
@@ -149,17 +166,17 @@ Object.defineProperty(Hygress.prototype, "htSize", {
 /**
  * Getter and Setter for the hypotrochoid's origin.
  *
- * @param {Array} o - The new origin in the form of [x, y].
+ * @param {Array} x - The new origin in the form of [x, y].
  */
 
 Object.defineProperty(Hygress.prototype, "origin", {
  get: function() { return this.ht.origin; },
- set: function(o)
+ set: function(x)
  {
-  if(o !== undefined && o.length === 2)
+  if(x !== undefined && x.length === 2)
   {
-   if(o[0] >= 0 && o[0] <= this.size[0]) { this.ht.origin.x = o[0]; }
-   if(o[1] >= 0 && o[1] <= this.size[1]) { this.ht.origin.y = o[1]; }
+   this.ht.origin.x = x[0];
+   this.ht.origin.y = x[1];
   }
  }
 });
@@ -167,68 +184,67 @@ Object.defineProperty(Hygress.prototype, "origin", {
 /**
  * Getter and Setter for the hypotrochoid's colour roll flag.
  *
- * @param {boolean} c - Whether the colour should iterate over the colour spectrum.
+ * @param {boolean} x - Whether the colour should continuously change.
  */
 
 Object.defineProperty(Hygress.prototype, "colourRoll", {
  get: function() { return this.ht.colourRoll; },
- set: function(c)
+ set: function(x)
  {
-  if(c !== undefined && typeof c === "boolean")
+  if(x !== undefined && typeof x === "boolean")
   {
-   this.ht.colourRoll = c;
+   this.ht.colourRoll = x;
   }
  }
 });
 
 /**
- * Getter and Setter for the opacity of the hypotrochoid.
+ * Getter and Setter for the hypotrochoid's hue.
  *
- * Setting the opacity to a new value triggers a gradual change
- * towards the target value. The transition is linear and 
- * depends on the transitionTime variable.
+ * @param {number} x - The hue in degree.
  */
 
-Object.defineProperty(Hygress.prototype, "opacity", {
- get: function() { return this.ht.opacity; },
- set: function(o)
+Object.defineProperty(Hygress.prototype, "hue", {
+ get: function() { return this.ht.colour; },
+ set: function(x)
  {
-  if(o !== undefined && typeof o === "number" && !isNaN(o))
+  if(x !== undefined && typeof x === "number" && !isNaN(x))
   {
-   if(o < 0.0) { o = 0.0; }
-   if(o > 1.0) { o = 1.0; }
-
-   this._opacity.start = this.ht.opacity;
-   this._opacity.target = o;
-   this._opacity.difference = this.ht.opacity - this._opacity.target;
-   this._opacity.elapsed = 0;
-   this._opacity.transitionActive = true;
+   this.ht.hue = x;
   }
  }
 });
 
 /**
- * Getter and Setter for the scale of the hypotrochoid.
+ * Getter and Setter for the hypotrochoid's saturation.
  *
- * Setting the scale to a new value triggers a gradual change
- * towards the target value. The transition is linear and 
- * depends on the transitionTime variable.
+ * @param {number} x - The saturation in percent.
  */
 
-Object.defineProperty(Hygress.prototype, "scale", {
- get: function() { return this.ht.d; },
- set: function(d)
+Object.defineProperty(Hygress.prototype, "saturation", {
+ get: function() { return this.ht.colour; },
+ set: function(x)
  {
-  if(d !== undefined && typeof d === "number" && !isNaN(d))
+  if(x !== undefined && typeof x === "number" && !isNaN(x))
   {
-   if(d < 0.0) { d = 0.0; }
-   if(d > 1.0) { d = 1.0; }
+   this.ht.saturation = x;
+  }
+ }
+});
 
-   this._scale.start = this.ht.d;
-   this._scale.target = d * this._scale.max;
-   this._scale.difference = this.ht.d - this._scale.target;
-   this._scale.elapsed = 0;
-   this._scale.transitionActive = true;
+/**
+ * Getter and Setter for the hypotrochoid's luminance.
+ *
+ * @param {number} x - The luminance in percent.
+ */
+
+Object.defineProperty(Hygress.prototype, "luminance", {
+ get: function() { return this.ht.colour; },
+ set: function(x)
+ {
+  if(x !== undefined && typeof x === "number" && !isNaN(x))
+  {
+   this.ht.luminance = x;
   }
  }
 });
@@ -239,11 +255,69 @@ Object.defineProperty(Hygress.prototype, "scale", {
 
 Object.defineProperty(Hygress.prototype, "lineWidth", {
  get: function() { return this.ht.lineWidth; },
- set: function(l)
+ set: function(x)
  {
-  if(l !== undefined && typeof l === "number" && !isNaN(l))
+  if(x !== undefined && typeof x === "number" && !isNaN(x))
   {
-   this.ht.lineWidth = l;
+   this.ht.lineWidth = x;
+  }
+ }
+});
+
+/**
+ * Getter and Setter for the opacity of the hypotrochoid.
+ *
+ * Setting the opacity to a new value triggers a gradual change
+ * towards the target value. The transition is linear and 
+ * depends on the transitionTime variable.
+ *
+ * @param {number} x - The opacity in the range from 0.0 to 1.0.
+ */
+
+Object.defineProperty(Hygress.prototype, "opacity", {
+ get: function() { return this.ht.opacity; },
+ set: function(x)
+ {
+  if(x !== undefined && typeof x === "number" && !isNaN(x))
+  {
+   if(x < 0.0) { x = 0.0; }
+   if(x > 1.0) { x = 1.0; }
+
+   this._opacity.start = this.ht.opacity;
+   this._opacity.target = x;
+   this._opacity.difference = this.ht.opacity - this._opacity.target;
+   this._opacity.elapsed = 0;
+   this._opacity.transitionActive = true;
+   this.visible = true;
+  }
+ }
+});
+
+/**
+ * Getter and Setter for the scale of the hypotrochoid.
+ *
+ * Setting the scale to a new value triggers a gradual change
+ * towards the target value. The transition is linear and 
+ * depends on the transitionTime variable.
+ *
+ * @param {number} x - The scale in the range from 0.0 to 1.0.
+ */
+
+Object.defineProperty(Hygress.prototype, "scale", {
+ get: function() { return this.ht.d; },
+ set: function(x)
+ {
+  if(x !== undefined && typeof x === "number" && !isNaN(x))
+  {
+   if(x < 0.0) { x = 0.0; }
+   if(x > 1.0) { x = 1.0; }
+
+   this._scale.start = this.ht.d;
+   this._scale.target = x * this._scale.max;
+   this._scale.difference = this.ht.d - this._scale.target;
+   this._scale.elapsed = 0;
+   this._scale.transitionActive = true;
+   this.visible = true;
   }
  }
 });
@@ -267,7 +341,17 @@ Hygress.prototype._update = function(elapsed)
   if(percentage > 1.0) { percentage = 1.0; }
   this.ht.opacity = opacity.start - percentage * opacity.difference;
   opacity.elapsed += elapsed;
-  if(this.ht.opacity === opacity.target) { opacity.transitionActive = false; }
+
+  if(this.ht.opacity === opacity.target)
+  {
+   opacity.transitionActive = false;
+
+   if(this.ht.opacity === 0.0)
+   {
+    this._draw();
+    this.visible = false;
+   }
+  }
  }
 
  if(scale.transitionActive)
@@ -276,18 +360,42 @@ Hygress.prototype._update = function(elapsed)
   if(percentage > 1.0) { percentage = 1.0; }
   this.ht.d = scale.start - percentage * scale.difference;
   scale.elapsed += elapsed;
-  if(this.ht.d === scale.target) { scale.transitionActive = false; }
+
+  if(this.ht.d === scale.target)
+  {
+   scale.transitionActive = false;
+
+   if(this.ht.d === 0.0)
+   {
+    this._draw();
+    this.visible = false;
+   }
+  }
  }
 
  this.ht.update();
- this.accumulator -= this.dt;
 };
 
 /**
- * Renders the progress.
+ * Draws the hypotrochoid.
  */
 
-Hygress.prototype._render = function()
+Hygress.prototype._draw = function()
+{
+ if(this.clearCanvas)
+ {
+  this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+ }
+
+ this.ht.draw(this.ctx);
+};
+
+/**
+ * Updates and renders the hypotrochoid while taking
+ * the elapsed time since the last frame into account.
+ */
+
+Hygress.prototype._step = function()
 {
  var elapsed;
 
@@ -298,15 +406,18 @@ Hygress.prototype._render = function()
 
  if(this.accumulator >= this.dt)
  {
-  this._update(elapsed);
+  if(this.visible)
+  {
+   this._update(elapsed);
+  }
+
+  this.accumulator -= this.dt;
  }
 
- if(this.clearCanvas)
+ if(this.visible)
  {
-  this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+  this._draw();
  }
-
- this.ht.draw(this.ctx);
 };
 
 /**
@@ -362,7 +473,10 @@ function equal(a, b)
  * @param {number} [options.iterations] - Limits the processing of very detailed hypotrochoids. Default: 64.
  * @param {number} [options.opacity] - The opacity. Default: 0.75.
  * @param {number} [options.lineWidth] - The line width. Default: 0.5.
- * @param {boolean} [options.colourRoll] - The line width. Default: true.
+ * @param {boolean} [options.colourRoll] - Whether the colour should change continuously. Default: true.
+ * @param {number} [options.hue] - The hue in degree. If not specified, the hue starts at 0°.
+ * @param {number} [options.saturation] - The saturation in percent. Defaults to 100%.
+ * @param {number} [options.luminance] - The luminance in percent. Defaults to 50%.
  */
 
 function Hypotrochoid(options)
@@ -371,9 +485,8 @@ function Hypotrochoid(options)
  this.rotation = 0.0;
  this.theta = 0.0;
  this.step = 360.0 * Math.PI / 180.0;
- this.hue = 0.0;
  this.firstCoord = {x: 0.0, y: 0.0};
- this.prevCoord = {x: 0.0, y: 0.0}; // Not to be confused with "pervCoord".
+ this.prevCoord = {x: 0.0, y: 0.0};
 
  // Set the defaults.
  this.r = 0.42;
@@ -385,6 +498,9 @@ function Hypotrochoid(options)
  this.opacity = 0.75;
  this.lineWidth = 0.5;
  this.colourRoll = true;
+ this.hue = 0.0;
+ this.saturation = 100.0;
+ this.luminance = 50.0;
 
  this.setting = options;
  this.rInv = 1.0 / this.r;
@@ -402,7 +518,10 @@ function Hypotrochoid(options)
  * @param {number} [options.iterations] - Limits the processing of too detailed hypotrochoids. Default: no limit.
  * @param {number} [options.opacity] - The opacity. Default: 0.75.
  * @param {number} [options.lineWidth] - The line width. Default: 0.5.
- * @param {boolean} [options.colourRoll] - The line width. Default: true.
+ * @param {boolean} [options.colourRoll] - Whether the colour should change continuously. Default: true.
+ * @param {number} [options.hue] - The hue in degree. If not specified, the hue starts at 0°.
+ * @param {number} [options.saturation] - The saturation in percent. Defaults to 100%.
+ * @param {number} [options.luminance] - The luminance in percent. Defaults to 50%.
  */
 
 Object.defineProperty(Hypotrochoid.prototype, "settings", {
@@ -417,7 +536,10 @@ Object.defineProperty(Hypotrochoid.prototype, "settings", {
    origin: this.origin,
    opacity: this.opacity,
    lineWidth: this.lineWidth,
-   colourRoll: this.colourRoll
+   colourRoll: this.colourRoll,
+   saturation: this.saturation,
+   luminance: this.luminance,
+   hue: this.hue
   };
  },
  set: function(options)
@@ -433,6 +555,9 @@ Object.defineProperty(Hypotrochoid.prototype, "settings", {
    if(options.opacity !== undefined) { this.opacity = options.opacity; }
    if(options.lineWidth !== undefined) { this.lineWidth = options.lineWidth; }
    if(options.colourRoll !== undefined) { this.colourRoll = options.colourRoll; }
+   if(options.saturation !== undefined) { this.saturation = options.saturation; }
+   if(options.luminance !== undefined) { this.luminance = options.luminance; }
+   if(options.hue !== undefined) { this.hue = options.hue; }
   }
  }
 });
@@ -477,10 +602,10 @@ Hypotrochoid.prototype.draw = function(ctx)
  this.prevCoord.x = 0.0;
  i = this.iterations;
 
+ ctx.beginPath();
+
  while(i >= 0 && (bypass || !equal(this.firstCoord.x, x) || !equal(this.firstCoord.y, y)))
  {
-  ctx.beginPath();
-
   if(bypass) { bypass = false; }
   this.theta += this.step;
 
@@ -500,13 +625,13 @@ Hypotrochoid.prototype.draw = function(ctx)
    bypass = true;
   }
 
-  ctx.strokeStyle = "hsla(" + (this.hue % 360) + ", 100%, 50%, " + this.opacity + ")";
-  ctx.stroke();
-
   this.prevCoord.x = x;
   this.prevCoord.y = y;
   --i;
  }
+
+ ctx.strokeStyle = "hsla(" + this.hue + ", " + this.saturation + "%, " + this.luminance + "%, " + this.opacity + ")";
+ ctx.stroke();
 
  ctx.restore();
 };
