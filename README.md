@@ -29,10 +29,19 @@ $ npm install hygress
 // Note: using require is not necessary with the browser bundle.
 var Hygress = require("hygress");
 
+// All parameters are optional and can always 
+// be adjusted by accessing them as properties.
 var hygress = new Hygress({
+ dt: 1 / 60,
  hypotrochoid: Hygress.Hypotrochoid.PENTAGRAM,
  size: [400, 300],
- clearCanvas: false
+ scale: 1.0,
+ clearCanvas: false,
+ colourRoll: false,
+ saturation: 90.0,
+ luminance: 75.0,
+ opacity: 0.25,
+ hue: 180.0
 });
 
 // Grab the canvas and put it on the page.
