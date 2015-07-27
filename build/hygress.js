@@ -1,5 +1,5 @@
 /**
- * hygress v0.0.9 build 27.07.2015
+ * hygress v0.0.10 build 27.07.2015
  * https://github.com/vanruesc/hygress
  * Copyright 2015 Raoul van Rueschen, Zlib
  */
@@ -447,6 +447,7 @@ Hygress.Hypotrochoid = Object.freeze({
  MULTISTAR: {r: 0.675, R: 1.64, iterations: 34, rotation: 0.023},
  HYPNOTIZER: {r: 0.42, R: 0.86, iterations: 43, rotation: 0.01},
  NEGATIVE: {r: 0.35, R: 0.614, iterations: 100, rotation: 0.023},
+ WINDMILL: {r: 0.7853, R: 1.3751, iterations: 64, rotation: 0.01},
  TRIPLET: {r: 1.671, R: 2.509, iterations: 160, rotation: 0.046},
  RING: {r: 3.9, R: 5.0, iterations: 50, rotation: 0.013}
 });
