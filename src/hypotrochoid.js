@@ -5,6 +5,8 @@ var EPSILON = 0.0001;
 /**
  * Checks if two float values are (almost) equal.
  *
+ * @method equal
+ * @private
  * @param {number} a - Value a.
  * @param {number} b - Value b.
  * @return {boolean} Whether the values are equal or not.
@@ -19,6 +21,7 @@ function equal(a, b)
  * Hypotrochoid.
  * => http://en.wikipedia.org/wiki/Hypotrochoid
  *
+ * @class Hypotrochoid
  * @constructor
  * @param {Object} options - The settings.
  * @param {number} [options.R] - Radius of the outer circle.
@@ -45,8 +48,8 @@ function Hypotrochoid(options)
  this.prevCoord = {x: 0.0, y: 0.0};
 
  // Set the defaults.
- this.r = Math.random() * 2.0;
- this.R = this.r + Math.random() * 2.0 + 0.00001;
+ this.r = Math.random() * 2.0 + EPSILON;
+ this.R = this.r + Math.random() * 2.0 + EPSILON;
  this.d = 0.0;
  this.iterations = (Math.random() * 300 + 3) | 0;
  this.rotationSpeed = Math.random() * 0.05;
@@ -63,21 +66,23 @@ function Hypotrochoid(options)
 }
 
 /**
- * Getter and Setter for all parameters.
- * 
- * @param {Object} options - The new settings.
- * @param {number} [options.R] - Radius of the outer circle.
- * @param {number} [options.r] - Radius of the inner circle.
- * @param {number} [options.d] - Distance from the center to the inner circle.
- * @param {{x: number, y: number}} [options.origin] - Object with x and y components, representing the origin coordinates.
- * @param {number} [options.rotation] - Sets the rotational direction and speed. (Negative for left rotation, 0.0 for no rotation.)
- * @param {number} [options.iterations] - Limits the processing of too detailed hypotrochoids. Default: no limit.
- * @param {number} [options.opacity] - The opacity. Default: 0.75.
- * @param {number} [options.lineWidth] - The line width. Default: 0.5.
- * @param {boolean} [options.colourRoll] - Whether the colour should change continuously. Default: true.
- * @param {number} [options.hue] - The hue in degree. If not specified, the hue starts at 0°.
- * @param {number} [options.saturation] - The saturation in percent. Defaults to 100%.
- * @param {number} [options.luminance] - The luminance in percent. Defaults to 50%.
+ * The hypotrochoid's settings:
+ *
+ *  r
+ *  R
+ *  d
+ *  iterations
+ *  rotation
+ *  origin
+ *  opacity
+ *  lineWidth
+ *  colourRoll
+ *  saturation
+ *  luminance
+ *  hue
+ *
+ * @property settings
+ * @type Object
  */
 
 Object.defineProperty(Hypotrochoid.prototype, "settings", {
@@ -120,6 +125,8 @@ Object.defineProperty(Hypotrochoid.prototype, "settings", {
 
 /**
  * Updates hue and rotation.
+ *
+ * @method update
  */
 
 Hypotrochoid.prototype.update = function()
@@ -141,6 +148,7 @@ Hypotrochoid.prototype.update = function()
  * Draws the hypotrochoid onto the given 2D-context.
  * This function does not clear the canvas.
  *
+ * @method draw
  * @param {CanvasRenderingContext2D} ctx - The surface to draw on.
  */
 
@@ -191,5 +199,12 @@ Hypotrochoid.prototype.draw = function(ctx)
 
  ctx.restore();
 };
+
+/**
+ * Export as submodule.
+ *
+ * @module Hygress
+ * @submodule Hypotrochoid
+ */
 
 module.exports = Hypotrochoid;
