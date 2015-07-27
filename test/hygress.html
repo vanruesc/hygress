@@ -25,9 +25,10 @@
 
     document.addEventListener("DOMContentLoaded", function()
     {
-      hygress = new Hygress({opacity: 0.0});
+      hygress = new Hygress({scale: 0.0});
       document.getElementById("container").appendChild(hygress.canvas);
       hygress.size = [window.innerWidth, window.innerHeight];
+      hygress.htSize = window.innerHeight * 0.35;
       window.addEventListener("resize", resize);
       render();
     });

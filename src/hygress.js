@@ -36,6 +36,7 @@ function Hygress(options)
  this.ht = new Hypotrochoid();
 
  this.transitionTime = 0.25;
+
  this._opacity = {
   start: 0.0,
   difference: 0.0,
@@ -43,6 +44,7 @@ function Hygress(options)
   elapsed: 0,
   transitionActive: false
  };
+
  this._scale = {
   start: 0.0,
   difference: 0.0,
@@ -66,6 +68,7 @@ function Hygress(options)
   if(options.saturation !== undefined) { this.ht.saturation = options.saturation; }
   if(options.luminance !== undefined) { this.ht.hue = options.luminance; }
   if(options.canvas !== undefined) { this.canvas = options.canvas; }
+
   this.ht.settings = options.hypotrochoid;
   this.size = options.size;
 
@@ -96,10 +99,7 @@ function Hygress(options)
 
 Object.defineProperty(Hygress.prototype, "hypotrochoid", {
  get: function() { return this.ht.settings; },
- set: function(x)
- {
-  this.ht.settings = x;
- }
+ set: function(x) { this.ht.settings = x; }
 });
 
 /**
@@ -142,15 +142,7 @@ Object.defineProperty(Hygress.prototype, "size", {
    min = (x[0] < x[1]) ? x[0] : x[1];
    this.ctx.canvas.width = min;
    this.ctx.canvas.height = min;
-
-   this._scale.max = min >> 1;
-   this._scale.target = this._scale.factor * this._scale.max;
-
-   if(!this._scale.transitionActive)
-   {
-    this.ht.d = this._scale.target;
-   }
-
+   this.htSize = min >> 1;
    this.ht.origin.x = this.ht.origin.y = this._scale.max;
   }
  }
@@ -168,7 +160,13 @@ Object.defineProperty(Hygress.prototype, "htSize", {
  {
   if(x !== undefined && typeof x === "number" && !isNaN(x))
   {
-   this.ht.d = this._scale.max = x;
+   this._scale.max = x;
+   this._scale.target = this._scale.factor * this._scale.max;
+
+   if(!this._scale.transitionActive)
+   {
+    this.ht.d = this._scale.target;
+   }
   }
  }
 });
@@ -436,12 +434,13 @@ Hygress.prototype._step = function()
  */
 
 Hygress.Hypotrochoid = Object.freeze({
- PENTAGRAM: {r: 3.0, R: 5.0, iterations: 5, rotation: 0.03},
+ ILLUMINATI: {r: 0.0147, R: 0.022, iterations: 220, rotation: 0.003},
  MULTISTAR: {r: 0.675, R: 1.64, iterations: 34, rotation: 0.023},
  HYPNOTIZER: {r: 0.42, R: 0.86, iterations: 43, rotation: 0.01},
  NEGATIVE: {r: 0.35, R: 0.614, iterations: 100, rotation: 0.023},
  WINDMILL: {r: 0.7853, R: 1.3751, iterations: 64, rotation: 0.01},
  TRIPLET: {r: 1.671, R: 2.509, iterations: 160, rotation: 0.046},
+ PENTAGRAM: {r: 3.0, R: 5.0, iterations: 5, rotation: 0.03},
  RING: {r: 3.9, R: 5.0, iterations: 50, rotation: 0.013}
 });
 
