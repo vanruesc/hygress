@@ -1,6 +1,90 @@
-"use strict";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src\hygress.js - hygress</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
 
-var Hypotrochoid = require("./hypotrochoid");
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="hygress" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.11</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Hygress.html">Hygress</a></li>
+                                <li><a href="../classes/Hypotrochoid.html">Hypotrochoid</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/Hygress.html">Hygress</a></li>
+                                <li><a href="../modules/Hypotrochoid.html">Hypotrochoid</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: src\hygress.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+&quot;use strict&quot;;
+
+var Hypotrochoid = require(&quot;./hypotrochoid&quot;);
 
 /**
  * Hygress.
@@ -33,7 +117,7 @@ function Hygress(options)
  this.then = this.now;
  this.accumulator = 0;
  this.ctx = null;
- this.canvas = document.createElement("canvas");
+ this.canvas = document.createElement(&quot;canvas&quot;);
  this.ht = new Hypotrochoid();
 
  this.transitionTime = 0.25;
@@ -85,7 +169,7 @@ function Hygress(options)
   }
  }
 
- this.visible = this.ht.opacity > 0.0 && this.ht.d > 0.0;
+ this.visible = this.ht.opacity &gt; 0.0 &amp;&amp; this.ht.d &gt; 0.0;
 
  /**
   * The render function which should be called each frame.
@@ -105,7 +189,7 @@ function Hygress(options)
  * @type Object
  */
 
-Object.defineProperty(Hygress.prototype, "hypotrochoid", {
+Object.defineProperty(Hygress.prototype, &quot;hypotrochoid&quot;, {
  get: function() { return this.ht.settings; },
  set: function(x) { this.ht.settings = x; }
 });
@@ -117,13 +201,13 @@ Object.defineProperty(Hygress.prototype, "hypotrochoid", {
  * @type HTMLCanvasElement
  */
 
-Object.defineProperty(Hygress.prototype, "canvas", {
+Object.defineProperty(Hygress.prototype, &quot;canvas&quot;, {
  get: function() { return this.ctx.canvas; },
  set: function(x)
  {
-  if(x !== undefined && x.getContext !== undefined)
+  if(x !== undefined &amp;&amp; x.getContext !== undefined)
   {
-   this.ctx = x.getContext("2d");
+   this.ctx = x.getContext(&quot;2d&quot;);
   }
  }
 });
@@ -136,7 +220,7 @@ Object.defineProperty(Hygress.prototype, "canvas", {
  * @type Array
  */
 
-Object.defineProperty(Hygress.prototype, "size", {
+Object.defineProperty(Hygress.prototype, &quot;size&quot;, {
  get: function()
  {
   return [
@@ -148,29 +232,29 @@ Object.defineProperty(Hygress.prototype, "size", {
  {
   var min;
 
-  if(x !== undefined && x.length === 2)
+  if(x !== undefined &amp;&amp; x.length === 2)
   {
-   min = (x[0] < x[1]) ? x[0] : x[1];
+   min = (x[0] &lt; x[1]) ? x[0] : x[1];
    this.ctx.canvas.width = min;
    this.ctx.canvas.height = min;
-   this.htSize = min >> 1;
+   this.htSize = min &gt;&gt; 1;
    this.ht.origin.x = this.ht.origin.y = this._scale.max;
   }
  }
 });
 
 /**
- * The hypotrochoid's size.
+ * The hypotrochoid&#x27;s size.
  *
  * @property htSize
  * @type number
  */
 
-Object.defineProperty(Hygress.prototype, "htSize", {
+Object.defineProperty(Hygress.prototype, &quot;htSize&quot;, {
  get: function() { return this.ht.d; },
  set: function(x)
  {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
+  if(x !== undefined &amp;&amp; typeof x === &quot;number&quot; &amp;&amp; !isNaN(x))
   {
    this._scale.max = x;
    this._scale.target = this._scale.factor * this._scale.max;
@@ -184,18 +268,18 @@ Object.defineProperty(Hygress.prototype, "htSize", {
 });
 
 /**
- * The hypotrochoid's origin.
+ * The hypotrochoid&#x27;s origin.
  * The origin can be set as [x, y].
  *
  * @property origin
  * @type Array
  */
 
-Object.defineProperty(Hygress.prototype, "origin", {
+Object.defineProperty(Hygress.prototype, &quot;origin&quot;, {
  get: function() { return this.ht.origin; },
  set: function(x)
  {
-  if(x !== undefined && x.length === 2)
+  if(x !== undefined &amp;&amp; x.length === 2)
   {
    this.ht.origin.x = x[0];
    this.ht.origin.y = x[1];
@@ -204,17 +288,17 @@ Object.defineProperty(Hygress.prototype, "origin", {
 });
 
 /**
- * The hypotrochoid's colour roll flag.
+ * The hypotrochoid&#x27;s colour roll flag.
  *
  * @property colourRoll
  * @type boolean
  */
 
-Object.defineProperty(Hygress.prototype, "colourRoll", {
+Object.defineProperty(Hygress.prototype, &quot;colourRoll&quot;, {
  get: function() { return this.ht.colourRoll; },
  set: function(x)
  {
-  if(x !== undefined && typeof x === "boolean")
+  if(x !== undefined &amp;&amp; typeof x === &quot;boolean&quot;)
   {
    this.ht.colourRoll = x;
   }
@@ -222,17 +306,17 @@ Object.defineProperty(Hygress.prototype, "colourRoll", {
 });
 
 /**
- * The hypotrochoid's hue in degree.
+ * The hypotrochoid&#x27;s hue in degree.
  *
  * @property hue
  * @type number
  */
 
-Object.defineProperty(Hygress.prototype, "hue", {
+Object.defineProperty(Hygress.prototype, &quot;hue&quot;, {
  get: function() { return this.ht.colour; },
  set: function(x)
  {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
+  if(x !== undefined &amp;&amp; typeof x === &quot;number&quot; &amp;&amp; !isNaN(x))
   {
    this.ht.hue = x;
   }
@@ -240,17 +324,17 @@ Object.defineProperty(Hygress.prototype, "hue", {
 });
 
 /**
- * The hypotrochoid's saturation in percent.
+ * The hypotrochoid&#x27;s saturation in percent.
  *
  * @property saturation
  * @type number
  */
 
-Object.defineProperty(Hygress.prototype, "saturation", {
+Object.defineProperty(Hygress.prototype, &quot;saturation&quot;, {
  get: function() { return this.ht.colour; },
  set: function(x)
  {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
+  if(x !== undefined &amp;&amp; typeof x === &quot;number&quot; &amp;&amp; !isNaN(x))
   {
    this.ht.saturation = x;
   }
@@ -258,17 +342,17 @@ Object.defineProperty(Hygress.prototype, "saturation", {
 });
 
 /**
- * The hypotrochoid's luminance in percent.
+ * The hypotrochoid&#x27;s luminance in percent.
  *
  * @property luminance
  * @type number
  */
 
-Object.defineProperty(Hygress.prototype, "luminance", {
+Object.defineProperty(Hygress.prototype, &quot;luminance&quot;, {
  get: function() { return this.ht.colour; },
  set: function(x)
  {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
+  if(x !== undefined &amp;&amp; typeof x === &quot;number&quot; &amp;&amp; !isNaN(x))
   {
    this.ht.luminance = x;
   }
@@ -282,11 +366,11 @@ Object.defineProperty(Hygress.prototype, "luminance", {
  * @type number
  */
 
-Object.defineProperty(Hygress.prototype, "lineWidth", {
+Object.defineProperty(Hygress.prototype, &quot;lineWidth&quot;, {
  get: function() { return this.ht.lineWidth; },
  set: function(x)
  {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
+  if(x !== undefined &amp;&amp; typeof x === &quot;number&quot; &amp;&amp; !isNaN(x))
   {
    this.ht.lineWidth = x;
   }
@@ -304,14 +388,14 @@ Object.defineProperty(Hygress.prototype, "lineWidth", {
  * @type number
  */
 
-Object.defineProperty(Hygress.prototype, "opacity", {
+Object.defineProperty(Hygress.prototype, &quot;opacity&quot;, {
  get: function() { return this.ht.opacity; },
  set: function(x)
  {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
+  if(x !== undefined &amp;&amp; typeof x === &quot;number&quot; &amp;&amp; !isNaN(x))
   {
-   if(x < 0.0) { x = 0.0; }
-   if(x > 1.0) { x = 1.0; }
+   if(x &lt; 0.0) { x = 0.0; }
+   if(x &gt; 1.0) { x = 1.0; }
 
    this._opacity.start = this.ht.opacity;
    this._opacity.target = x;
@@ -334,14 +418,14 @@ Object.defineProperty(Hygress.prototype, "opacity", {
  * @type number
  */
 
-Object.defineProperty(Hygress.prototype, "scale", {
+Object.defineProperty(Hygress.prototype, &quot;scale&quot;, {
  get: function() { return this.ht.d; },
  set: function(x)
  {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
+  if(x !== undefined &amp;&amp; typeof x === &quot;number&quot; &amp;&amp; !isNaN(x))
   {
-   if(x < 0.0) { x = 0.0; }
-   if(x > 1.0) { x = 1.0; }
+   if(x &lt; 0.0) { x = 0.0; }
+   if(x &gt; 1.0) { x = 1.0; }
 
    this._scale.factor = x;
    this._scale.start = this.ht.d;
@@ -372,7 +456,7 @@ Hygress.prototype._update = function(elapsed)
  if(opacity.transitionActive)
  {
   percentage = opacity.elapsed / this.transitionTime;
-  if(percentage > 1.0) { percentage = 1.0; }
+  if(percentage &gt; 1.0) { percentage = 1.0; }
   this.ht.opacity = opacity.start - percentage * opacity.difference;
   opacity.elapsed += elapsed;
 
@@ -391,7 +475,7 @@ Hygress.prototype._update = function(elapsed)
  if(scale.transitionActive)
  {
   percentage = scale.elapsed / this.transitionTime;
-  if(percentage > 1.0) { percentage = 1.0; }
+  if(percentage &gt; 1.0) { percentage = 1.0; }
   this.ht.d = scale.start - percentage * scale.difference;
   scale.elapsed += elapsed;
 
@@ -444,7 +528,7 @@ Hygress.prototype._step = function()
  this.accumulator += elapsed;
  this.then = this.now;
 
- if(this.accumulator >= this.dt)
+ if(this.accumulator &gt;= this.dt)
  {
   if(this.visible)
   {
@@ -487,3 +571,22 @@ Hygress.Hypotrochoid = Object.freeze({
  */
 
 module.exports = Hygress;
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

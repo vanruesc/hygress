@@ -11,7 +11,7 @@ draw something is entirely yours.
 
 ## Installation
 
-This module can be used directly in the browser:
+Download the [minified library](http://vanruesc.github.io/hygress/build/hygress.min.js) and include it in your project:
 
 ```html
 <script src="/js/hygress.min.js"></script>
@@ -75,7 +75,7 @@ hygress.scale = 0.0;
 ```
 
 ## Documentation
-_(Coming soon)_
+[API](http://vanruesc.github.io/hygress/docs)
 
 ## Contributing
 Maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code.
