@@ -45,11 +45,11 @@ function Hypotrochoid(options)
  this.prevCoord = {x: 0.0, y: 0.0};
 
  // Set the defaults.
- this.r = 0.42;
- this.R = 0.86;
+ this.r = Math.random() * 2.0;
+ this.R = this.r + Math.random() * 2.0 + 0.00001;
  this.d = 0.0;
- this.iterations = 64;
- this.rotationSpeed = 0.01;
+ this.iterations = (Math.random() * 300 + 3) | 0;
+ this.rotationSpeed = Math.random() * 0.05;
  this.origin = {x: 0.0, y: 0.0};
  this.opacity = 0.75;
  this.lineWidth = 0.5;

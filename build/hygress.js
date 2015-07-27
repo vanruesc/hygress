@@ -1,5 +1,5 @@
 /**
- * hygress v0.0.8 build 27.07.2015
+ * hygress v0.0.9 build 27.07.2015
  * https://github.com/vanruesc/hygress
  * Copyright 2015 Raoul van Rueschen, Zlib
  */
@@ -15,17 +15,17 @@ var Hypotrochoid = require("./hypotrochoid");
  *
  * @constructor
  * @param {Object} [options] - The settings.
- * @param {number} [options.dt] - A delta time constant.
- * @param {Object} [options.hypotrochoid] - The hypotrochoid settings.
+ * @param {number} [options.dt] - A delta time constant. Defaults to 1/60.
+ * @param {Object} [options.hypotrochoid] - The hypotrochoid settings. If none is supplied, a random one will be created.
  * @param {HTMLCanvasElement} [options.canvas] - The canvas to use. A new one will be created if none is supplied.
  * @param {boolean} [options.clearCanvas] - Whether the canvas should be cleared before rendering. Default is true.
- * @param {boolean} [options.colourRoll] - Whether the colour should iterate over the colour spectrum. Default is true.
- * @param {number} [options.hue] - The hue in degree. If not specified, the hue starts at 0°.
+ * @param {boolean} [options.colourRoll] - Whether the colour should continuously change (rainbow). Default is true.
+ * @param {number} [options.hue] - The hue in degree. If not specified, the hue is set to 0°.
  * @param {number} [options.saturation] - The saturation in percent. Defaults to 100%.
  * @param {number} [options.luminance] - The luminance in percent. Defaults to 50%.
  * @param {number} [options.opacity] - The initial opacity. Defaults to 0.75.
  * @param {number} [options.scale] - The initial scale. Defaults to 1.0.
- * @param {number} [options.transitionTime] - The initial transitionTime. Defaults to 0.2.
+ * @param {number} [options.transitionTime] - The initial transitionTime. Defaults to 0.25.
  * @param {Array} [options.size] - The canvas size.
  */
 
@@ -42,7 +42,7 @@ function Hygress(options)
  this.canvas = document.createElement("canvas");
  this.ht = new Hypotrochoid();
 
- this.transitionTime = 0.2;
+ this.transitionTime = 0.25;
  this._opacity = {
   start: 0.0,
   difference: 0.0,
@@ -55,10 +55,12 @@ function Hygress(options)
   difference: 0.0,
   target: 0.0,
   max: 0.0,
+  factor: 1.0,
   elapsed: 0,
   transitionActive: false
  };
 
+ this.visible = true;
  this.size = this.size;
 
  if(options !== undefined)
@@ -70,14 +72,23 @@ function Hygress(options)
   if(options.hue !== undefined) { this.ht.hue = options.hue; }
   if(options.saturation !== undefined) { this.ht.saturation = options.saturation; }
   if(options.luminance !== undefined) { this.ht.hue = options.luminance; }
-  if(options.opacity !== undefined) { this.ht.opacity = options.opacity; }
   if(options.canvas !== undefined) { this.canvas = options.canvas; }
   this.ht.settings = options.hypotrochoid;
   this.size = options.size;
-  if(options.scale !== undefined) { this.ht.d *= options.scale; }
+
+  if(options.opacity !== undefined)
+  {
+   this.ht.opacity = this._opacity.target = options.opacity;
+  }
+
+  if(options.scale !== undefined)
+  {
+   this._scale.factor = options.scale;
+   this.ht.d *= this._scale.factor;
+  }
  }
 
- this.visible = this.ht.opacity !== 0.0 && this.ht.d !== 0.0;
+ this.visible = this.ht.opacity > 0.0 && this.ht.d > 0.0;
 
  /**
   * Expose the render function.
@@ -138,8 +149,16 @@ Object.defineProperty(Hygress.prototype, "size", {
    min = (x[0] < x[1]) ? x[0] : x[1];
    this.ctx.canvas.width = min;
    this.ctx.canvas.height = min;
-   this.htSize = min >> 1;
-   this.ht.origin.x = this.ht.origin.y = this.ht.d;
+
+   this._scale.max = min >> 1;
+   this._scale.target = this._scale.factor * this._scale.max;
+
+   if(!this._scale.transitionActive)
+   {
+    this.ht.d = this._scale.target;
+   }
+
+   this.ht.origin.x = this.ht.origin.y = this._scale.max;
   }
  }
 });
@@ -156,9 +175,7 @@ Object.defineProperty(Hygress.prototype, "htSize", {
  {
   if(x !== undefined && typeof x === "number" && !isNaN(x))
   {
-   this.ht.d = x;
-   this._scale.max = this._scale.target = this.ht.d;
-   if(this.ht.d !== 0.0) { this.visible = true; }
+   this.ht.d = this._scale.max = x;
   }
  }
 });
@@ -271,7 +288,7 @@ Object.defineProperty(Hygress.prototype, "lineWidth", {
  * towards the target value. The transition is linear and 
  * depends on the transitionTime variable.
  *
- * @param {number} x - The opacity in the range from 0.0 to 1.0.
+ * @param {number} x - The opacity [0.0, 1.0].
  */
 
 Object.defineProperty(Hygress.prototype, "opacity", {
@@ -300,7 +317,7 @@ Object.defineProperty(Hygress.prototype, "opacity", {
  * towards the target value. The transition is linear and 
  * depends on the transitionTime variable.
  *
- * @param {number} x - The scale in the range from 0.0 to 1.0.
+ * @param {number} x - The scale [0.0, 1.0].
  */
 
 Object.defineProperty(Hygress.prototype, "scale", {
@@ -312,8 +329,9 @@ Object.defineProperty(Hygress.prototype, "scale", {
    if(x < 0.0) { x = 0.0; }
    if(x > 1.0) { x = 1.0; }
 
+   this._scale.factor = x;
    this._scale.start = this.ht.d;
-   this._scale.target = x * this._scale.max;
+   this._scale.target = this._scale.factor * this._scale.max;
    this._scale.difference = this.ht.d - this._scale.target;
    this._scale.elapsed = 0;
    this._scale.transitionActive = true;
@@ -425,18 +443,12 @@ Hygress.prototype._step = function()
  */
 
 Hygress.Hypotrochoid = Object.freeze({
- PENTAGRAM: {
-  r: 3.0,
-  R: 5.0,
-  iterations: 5,
-  rotation: 0.03
- },
- ZAYESH: {
-  r: 0.2,
-  R: 0.59,
-  iterations: 16,
-  rotation: 0.046
- }
+ PENTAGRAM: {r: 3.0, R: 5.0, iterations: 5, rotation: 0.03},
+ MULTISTAR: {r: 0.675, R: 1.64, iterations: 34, rotation: 0.023},
+ HYPNOTIZER: {r: 0.42, R: 0.86, iterations: 43, rotation: 0.01},
+ NEGATIVE: {r: 0.35, R: 0.614, iterations: 100, rotation: 0.023},
+ TRIPLET: {r: 1.671, R: 2.509, iterations: 160, rotation: 0.046},
+ RING: {r: 3.9, R: 5.0, iterations: 50, rotation: 0.013}
 });
 
 module.exports = Hygress;
@@ -489,11 +501,11 @@ function Hypotrochoid(options)
  this.prevCoord = {x: 0.0, y: 0.0};
 
  // Set the defaults.
- this.r = 0.42;
- this.R = 0.86;
+ this.r = Math.random() * 2.0;
+ this.R = this.r + Math.random() * 2.0 + 0.00001;
  this.d = 0.0;
- this.iterations = 64;
- this.rotationSpeed = 0.01;
+ this.iterations = (Math.random() * 300 + 3) | 0;
+ this.rotationSpeed = Math.random() * 0.05;
  this.origin = {x: 0.0, y: 0.0};
  this.opacity = 0.75;
  this.lineWidth = 0.5;

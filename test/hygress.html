@@ -11,6 +11,12 @@
 
     var hygress;
 
+    function resize()
+    {
+     var w = window.innerWidth, h = window.innerHeight;
+     hygress.size = [w, h];
+    }
+
     function render()
     {
      hygress.render();
@@ -19,9 +25,10 @@
 
     document.addEventListener("DOMContentLoaded", function()
     {
-      hygress = new Hygress({hypotrochoid: Hygress.Hypotrochoid.ZAYESH});
+      hygress = new Hygress({opacity: 0.0});
       document.getElementById("container").appendChild(hygress.canvas);
-      hygress.size = [600, 600];
+      hygress.size = [window.innerWidth, window.innerHeight];
+      window.addEventListener("resize", resize);
       render();
     });
 
