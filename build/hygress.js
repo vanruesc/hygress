@@ -1,5 +1,5 @@
 /**
- * hygress v0.0.10 build 27.07.2015
+ * hygress v0.0.11 build 27.07.2015
  * https://github.com/vanruesc/hygress
  * Copyright 2015 Raoul van Rueschen, Zlib
  */
@@ -13,6 +13,7 @@ var Hypotrochoid = require("./hypotrochoid");
  * Hygress.
  * A hy(potrochoid pro)gress visualisation.
  *
+ * @class Hygress
  * @constructor
  * @param {Object} [options] - The settings.
  * @param {number} [options.dt] - A delta time constant. Defaults to 1/60.
@@ -43,6 +44,7 @@ function Hygress(options)
  this.ht = new Hypotrochoid();
 
  this.transitionTime = 0.25;
+
  this._opacity = {
   start: 0.0,
   difference: 0.0,
@@ -50,6 +52,7 @@ function Hygress(options)
   elapsed: 0,
   transitionActive: false
  };
+
  this._scale = {
   start: 0.0,
   difference: 0.0,
@@ -73,6 +76,7 @@ function Hygress(options)
   if(options.saturation !== undefined) { this.ht.saturation = options.saturation; }
   if(options.luminance !== undefined) { this.ht.hue = options.luminance; }
   if(options.canvas !== undefined) { this.canvas = options.canvas; }
+
   this.ht.settings = options.hypotrochoid;
   this.size = options.size;
 
@@ -91,28 +95,33 @@ function Hygress(options)
  this.visible = this.ht.opacity > 0.0 && this.ht.d > 0.0;
 
  /**
-  * Expose the render function.
+  * The render function which should be called each frame.
+  *
+  * @method render
   */
 
  this.render = function() { self._step(); };
 }
 
 /**
- * Getter and Setter for the internal hypotrochoid.
+ * The internal hypotrochoid.
+ * Assigning a new object only overwrites the defined
+ * fields and keeps the other ones.
+ *
+ * @property hypotrochoid
+ * @type Object
  */
 
 Object.defineProperty(Hygress.prototype, "hypotrochoid", {
  get: function() { return this.ht.settings; },
- set: function(x)
- {
-  this.ht.settings = x;
- }
+ set: function(x) { this.ht.settings = x; }
 });
 
 /**
- * Getter and Setter for the internal canvas.
- * 
- * @param {HTMLCanvasElement} x - The new canvas.
+ * The internal canvas.
+ *
+ * @property canvas
+ * @type HTMLCanvasElement
  */
 
 Object.defineProperty(Hygress.prototype, "canvas", {
@@ -127,9 +136,11 @@ Object.defineProperty(Hygress.prototype, "canvas", {
 });
 
 /**
- * Getter and Setter for the size of the internal canvas.
+ * The size of the internal canvas.
+ * It can be set as [width, height].
  * 
- * @param {Array} x - The new size in the form of [width, height].
+ * @property size
+ * @type Array
  */
 
 Object.defineProperty(Hygress.prototype, "size", {
@@ -156,9 +167,10 @@ Object.defineProperty(Hygress.prototype, "size", {
 });
 
 /**
- * Getter and Setter for the hypotrochoid's size.
+ * The hypotrochoid's size.
  *
- * @param {number} x - The new size of the hypotrochoid.
+ * @property htSize
+ * @type number
  */
 
 Object.defineProperty(Hygress.prototype, "htSize", {
@@ -167,7 +179,6 @@ Object.defineProperty(Hygress.prototype, "htSize", {
  {
   if(x !== undefined && typeof x === "number" && !isNaN(x))
   {
-   //this.ht.d = this._scale.max = x;
    this._scale.max = x;
    this._scale.target = this._scale.factor * this._scale.max;
 
@@ -180,9 +191,11 @@ Object.defineProperty(Hygress.prototype, "htSize", {
 });
 
 /**
- * Getter and Setter for the hypotrochoid's origin.
+ * The hypotrochoid's origin.
+ * The origin can be set as [x, y].
  *
- * @param {Array} x - The new origin in the form of [x, y].
+ * @property origin
+ * @type Array
  */
 
 Object.defineProperty(Hygress.prototype, "origin", {
@@ -198,9 +211,10 @@ Object.defineProperty(Hygress.prototype, "origin", {
 });
 
 /**
- * Getter and Setter for the hypotrochoid's colour roll flag.
+ * The hypotrochoid's colour roll flag.
  *
- * @param {boolean} x - Whether the colour should continuously change.
+ * @property colourRoll
+ * @type boolean
  */
 
 Object.defineProperty(Hygress.prototype, "colourRoll", {
@@ -215,9 +229,10 @@ Object.defineProperty(Hygress.prototype, "colourRoll", {
 });
 
 /**
- * Getter and Setter for the hypotrochoid's hue.
+ * The hypotrochoid's hue in degree.
  *
- * @param {number} x - The hue in degree.
+ * @property hue
+ * @type number
  */
 
 Object.defineProperty(Hygress.prototype, "hue", {
@@ -232,9 +247,10 @@ Object.defineProperty(Hygress.prototype, "hue", {
 });
 
 /**
- * Getter and Setter for the hypotrochoid's saturation.
+ * The hypotrochoid's saturation in percent.
  *
- * @param {number} x - The saturation in percent.
+ * @property saturation
+ * @type number
  */
 
 Object.defineProperty(Hygress.prototype, "saturation", {
@@ -249,9 +265,10 @@ Object.defineProperty(Hygress.prototype, "saturation", {
 });
 
 /**
- * Getter and Setter for the hypotrochoid's luminance.
+ * The hypotrochoid's luminance in percent.
  *
- * @param {number} x - The luminance in percent.
+ * @property luminance
+ * @type number
  */
 
 Object.defineProperty(Hygress.prototype, "luminance", {
@@ -266,7 +283,10 @@ Object.defineProperty(Hygress.prototype, "luminance", {
 });
 
 /**
- * Getter and Setter for the line width of the hypotrochoid.
+ * The line width of the hypotrochoid.
+ *
+ * @property lineWidth
+ * @type number
  */
 
 Object.defineProperty(Hygress.prototype, "lineWidth", {
@@ -281,13 +301,14 @@ Object.defineProperty(Hygress.prototype, "lineWidth", {
 });
 
 /**
- * Getter and Setter for the opacity of the hypotrochoid.
+ * The opacity of the hypotrochoid - [0.0, 1.0].
  *
  * Setting the opacity to a new value triggers a gradual change
  * towards the target value. The transition is linear and 
  * depends on the transitionTime variable.
  *
- * @param {number} x - The opacity [0.0, 1.0].
+ * @property opacity
+ * @type number
  */
 
 Object.defineProperty(Hygress.prototype, "opacity", {
@@ -310,13 +331,14 @@ Object.defineProperty(Hygress.prototype, "opacity", {
 });
 
 /**
- * Getter and Setter for the scale of the hypotrochoid.
+ * The scale of the hypotrochoid - [0.0, 1.0].
  *
  * Setting the scale to a new value triggers a gradual change
  * towards the target value. The transition is linear and 
  * depends on the transitionTime variable.
  *
- * @param {number} x - The scale [0.0, 1.0].
+ * @property scale
+ * @type number
  */
 
 Object.defineProperty(Hygress.prototype, "scale", {
@@ -342,6 +364,8 @@ Object.defineProperty(Hygress.prototype, "scale", {
 /**
  * Updates the animation.
  *
+ * @method _update
+ * @private
  * @param {number} elapsed - The elapsed time since the last frame.
  */
 
@@ -395,6 +419,9 @@ Hygress.prototype._update = function(elapsed)
 
 /**
  * Draws the hypotrochoid.
+ *
+ * @method _draw
+ * @private
  */
 
 Hygress.prototype._draw = function()
@@ -410,6 +437,9 @@ Hygress.prototype._draw = function()
 /**
  * Updates and renders the hypotrochoid while taking
  * the elapsed time since the last frame into account.
+ *
+ * @method _step
+ * @private
  */
 
 Hygress.prototype._step = function()
@@ -439,6 +469,10 @@ Hygress.prototype._step = function()
 
 /**
  * Predefined hypotrochoids.
+ *
+ * @property Hypotrochoid
+ * @static
+ * @final
  */
 
 Hygress.Hypotrochoid = Object.freeze({
@@ -452,6 +486,12 @@ Hygress.Hypotrochoid = Object.freeze({
  RING: {r: 3.9, R: 5.0, iterations: 50, rotation: 0.013}
 });
 
+/**
+ * Export as module.
+ *
+ * @module Hygress
+ */
+
 module.exports = Hygress;
 
 },{"./hypotrochoid":2}],2:[function(require,module,exports){
@@ -462,6 +502,8 @@ var EPSILON = 0.0001;
 /**
  * Checks if two float values are (almost) equal.
  *
+ * @method equal
+ * @private
  * @param {number} a - Value a.
  * @param {number} b - Value b.
  * @return {boolean} Whether the values are equal or not.
@@ -476,6 +518,7 @@ function equal(a, b)
  * Hypotrochoid.
  * => http://en.wikipedia.org/wiki/Hypotrochoid
  *
+ * @class Hypotrochoid
  * @constructor
  * @param {Object} options - The settings.
  * @param {number} [options.R] - Radius of the outer circle.
@@ -502,8 +545,8 @@ function Hypotrochoid(options)
  this.prevCoord = {x: 0.0, y: 0.0};
 
  // Set the defaults.
- this.r = Math.random() * 2.0;
- this.R = this.r + Math.random() * 2.0 + 0.00001;
+ this.r = Math.random() * 2.0 + EPSILON;
+ this.R = this.r + Math.random() * 2.0 + EPSILON;
  this.d = 0.0;
  this.iterations = (Math.random() * 300 + 3) | 0;
  this.rotationSpeed = Math.random() * 0.05;
@@ -520,21 +563,23 @@ function Hypotrochoid(options)
 }
 
 /**
- * Getter and Setter for all parameters.
- * 
- * @param {Object} options - The new settings.
- * @param {number} [options.R] - Radius of the outer circle.
- * @param {number} [options.r] - Radius of the inner circle.
- * @param {number} [options.d] - Distance from the center to the inner circle.
- * @param {{x: number, y: number}} [options.origin] - Object with x and y components, representing the origin coordinates.
- * @param {number} [options.rotation] - Sets the rotational direction and speed. (Negative for left rotation, 0.0 for no rotation.)
- * @param {number} [options.iterations] - Limits the processing of too detailed hypotrochoids. Default: no limit.
- * @param {number} [options.opacity] - The opacity. Default: 0.75.
- * @param {number} [options.lineWidth] - The line width. Default: 0.5.
- * @param {boolean} [options.colourRoll] - Whether the colour should change continuously. Default: true.
- * @param {number} [options.hue] - The hue in degree. If not specified, the hue starts at 0°.
- * @param {number} [options.saturation] - The saturation in percent. Defaults to 100%.
- * @param {number} [options.luminance] - The luminance in percent. Defaults to 50%.
+ * The hypotrochoid's settings:
+ *
+ *  r
+ *  R
+ *  d
+ *  iterations
+ *  rotation
+ *  origin
+ *  opacity
+ *  lineWidth
+ *  colourRoll
+ *  saturation
+ *  luminance
+ *  hue
+ *
+ * @property settings
+ * @type Object
  */
 
 Object.defineProperty(Hypotrochoid.prototype, "settings", {
@@ -577,6 +622,8 @@ Object.defineProperty(Hypotrochoid.prototype, "settings", {
 
 /**
  * Updates hue and rotation.
+ *
+ * @method update
  */
 
 Hypotrochoid.prototype.update = function()
@@ -598,6 +645,7 @@ Hypotrochoid.prototype.update = function()
  * Draws the hypotrochoid onto the given 2D-context.
  * This function does not clear the canvas.
  *
+ * @method draw
  * @param {CanvasRenderingContext2D} ctx - The surface to draw on.
  */
 
@@ -648,6 +696,13 @@ Hypotrochoid.prototype.draw = function(ctx)
 
  ctx.restore();
 };
+
+/**
+ * Export as submodule.
+ *
+ * @module Hygress
+ * @submodule Hypotrochoid
+ */
 
 module.exports = Hypotrochoid;
 
