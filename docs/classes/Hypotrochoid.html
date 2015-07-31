@@ -83,11 +83,10 @@
 
 
         <div class="foundat">
-            Defined in: <a href="../files/src_hypotrochoid.js.html#l20"><code>src\hypotrochoid.js:20</code></a>
+            Defined in: <a href="../files/src_hypotrochoid.js.html#l39"><code>src\hypotrochoid.js:39</code></a>
         </div>
 
-            Module: <a href="../modules/Hypotrochoid.html">Hypotrochoid</a><br>
-            Parent Module: <a href="../modules/Hygress.html">Hygress</a>
+            Module: <a href="../modules/Hypotrochoid.html">Hypotrochoid</a>
 
 </div>
 
@@ -106,7 +105,7 @@
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>options</code>
+                        <code class="optional">[options]</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
@@ -121,7 +120,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/src_hypotrochoid.js.html#l20"><code>src\hypotrochoid.js:20</code></a>
+        <a href="../files/src_hypotrochoid.js.html#l39"><code>src\hypotrochoid.js:39</code></a>
         </p>
 
 
@@ -137,8 +136,9 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">options</code>
+                        <code class="param-name optional">[options]</code>
                         <span class="type">Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
 
 
                     <div class="param-description">
@@ -176,7 +176,7 @@
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[d]</code>
+                                    <code class="param-name optional">[d=0.0]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
@@ -189,7 +189,7 @@
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[origin]</code>
+                                    <code class="param-name optional">[origin={x: 0.0, y: 0.0}]</code>
                                     <span class="type">Object</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
@@ -202,7 +202,7 @@
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[rotation]</code>
+                                    <code class="param-name optional">[rotation=0.0]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
@@ -215,91 +215,91 @@
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[iterations]</code>
+                                    <code class="param-name optional">[iterations=64]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>Limits the processing of very detailed hypotrochoids. Default: 64.</li>
+<li>Limits the processing of very detailed hypotrochoids.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[opacity]</code>
+                                    <code class="param-name optional">[opacity=0.75]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>The opacity. Default: 0.75.</li>
+<li>The opacity.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[lineWidth]</code>
+                                    <code class="param-name optional">[lineWidth=0.5]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>The line width. Default: 0.5.</li>
+<li>The line width.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[colourRoll]</code>
+                                    <code class="param-name optional">[colourRoll=true]</code>
                                     <span class="type">Boolean</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>Whether the colour should change continuously. Default: true.</li>
+<li>Whether the colour should change continuously.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[hue]</code>
+                                    <code class="param-name optional">[hue=0.0]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>The hue in degree. If not specified, the hue starts at 0°.</li>
+<li>The hue in degree.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[saturation]</code>
+                                    <code class="param-name optional">[saturation=100.0]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>The saturation in percent. Defaults to 100%.</li>
+<li>The saturation in percent.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[luminance]</code>
+                                    <code class="param-name optional">[luminance=50.0]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>The luminance in percent. Defaults to 50%.</li>
+<li>The luminance in percent.</li>
 </ul>
 
                                 </div>
@@ -338,6 +338,7 @@
                             <li class="index-item method private">
                                 <a href="#method_equal">equal</a>
 
+                                    <span class="flag static">static</span>
                             </li>
                             <li class="index-item method">
                                 <a href="#method_update">update</a>
@@ -351,7 +352,88 @@
 
                     <ul class="index-list properties">
                             <li class="index-item property">
+                                <a href="#property_colourRoll">colourRoll</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_d">d</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_EPSILON">EPSILON</a>
+
+                                    <span class="flag static">static</span>
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_firstCoord">firstCoord</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_firstCoord">firstCoord</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_hue">hue</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_iterations">iterations</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_lineWidth">lineWidth</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_luminance">luminance</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_opacity">opacity</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_origin">origin</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_r">r</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_R">R</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_rInv">rInv</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_rotation">rotation</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_rotationSpeed">rotationSpeed</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_saturation">saturation</a>
+
+                            </li>
+                            <li class="index-item property">
                                 <a href="#property_settings">settings</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_step">step</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_theta">theta</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_TWO_PI">TWO_PI</a>
 
                             </li>
                     </ul>
@@ -382,10 +464,9 @@
 
 
     <div class="meta">
-                    <p>Provided by the <a href="../modules/Hygress.html">Hygress</a> module.</p>
                 <p>
                 Defined in
-        <a href="../files/src_hypotrochoid.js.html#l147"><code>src\hypotrochoid.js:147</code></a>
+        <a href="../files/src_hypotrochoid.js.html#l324"><code>src\hypotrochoid.js:324</code></a>
         </p>
 
 
@@ -443,14 +524,14 @@ This function does not clear the canvas.</p>
         <span class="flag private">private</span>
 
 
+        <span class="flag static">static</span>
 
 
 
     <div class="meta">
-                    <p>Provided by the <a href="../modules/Hygress.html">Hygress</a> module.</p>
                 <p>
                 Defined in
-        <a href="../files/src_hypotrochoid.js.html#l5"><code>src\hypotrochoid.js:5</code></a>
+        <a href="../files/src_hypotrochoid.js.html#l23"><code>src\hypotrochoid.js:23</code></a>
         </p>
 
 
@@ -520,10 +601,9 @@ This function does not clear the canvas.</p>
 
 
     <div class="meta">
-                    <p>Provided by the <a href="../modules/Hygress.html">Hygress</a> module.</p>
                 <p>
                 Defined in
-        <a href="../files/src_hypotrochoid.js.html#l126"><code>src\hypotrochoid.js:126</code></a>
+        <a href="../files/src_hypotrochoid.js.html#l303"><code>src\hypotrochoid.js:303</code></a>
         </p>
 
 
@@ -544,6 +624,438 @@ This function does not clear the canvas.</p>
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
+                    <div id="property_colourRoll" class="property item">
+                        <h3 class="name"><code>colourRoll</code></h3>
+                        <span class="type">Boolean</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l195"><code>src\hypotrochoid.js:195</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Colour roll flag.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_d" class="property item">
+                        <h3 class="name"><code>d</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l141"><code>src\hypotrochoid.js:141</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>d.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_EPSILON" class="property item private">
+                        <h3 class="name"><code>EPSILON</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                            <span class="flag final">final</span>
+                    
+                            <span class="flag static">static</span>
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l11"><code>src\hypotrochoid.js:11</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>A float threshold.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_firstCoord" class="property item private">
+                        <h3 class="name"><code>firstCoord</code></h3>
+                        <span class="type">Object</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l103"><code>src\hypotrochoid.js:103</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The first 2D-point in the draw process.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_firstCoord" class="property item private">
+                        <h3 class="name"><code>firstCoord</code></h3>
+                        <span class="type">Object</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l113"><code>src\hypotrochoid.js:113</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The previous 2D-point in the draw process.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_hue" class="property item">
+                        <h3 class="name"><code>hue</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l204"><code>src\hypotrochoid.js:204</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The current hue.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_iterations" class="property item">
+                        <h3 class="name"><code>iterations</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l150"><code>src\hypotrochoid.js:150</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Maximum iteration count.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_lineWidth" class="property item">
+                        <h3 class="name"><code>lineWidth</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l186"><code>src\hypotrochoid.js:186</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The line width.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_luminance" class="property item">
+                        <h3 class="name"><code>luminance</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l222"><code>src\hypotrochoid.js:222</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The current limunance.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_opacity" class="property item">
+                        <h3 class="name"><code>opacity</code></h3>
+                        <span class="type">Object</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l177"><code>src\hypotrochoid.js:177</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>the current opacity.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_origin" class="property item">
+                        <h3 class="name"><code>origin</code></h3>
+                        <span class="type">Object</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l168"><code>src\hypotrochoid.js:168</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The origin of the hypotrochoid.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_r" class="property item">
+                        <h3 class="name"><code>r</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l123"><code>src\hypotrochoid.js:123</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>r.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_R" class="property item">
+                        <h3 class="name"><code>R</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l132"><code>src\hypotrochoid.js:132</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>R.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_rInv" class="property item private">
+                        <h3 class="name"><code>rInv</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l234"><code>src\hypotrochoid.js:234</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The inverted r value.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_rotation" class="property item private">
+                        <h3 class="name"><code>rotation</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l73"><code>src\hypotrochoid.js:73</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Current rotation.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_rotationSpeed" class="property item">
+                        <h3 class="name"><code>rotationSpeed</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l159"><code>src\hypotrochoid.js:159</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Rotation speed and direction.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_saturation" class="property item">
+                        <h3 class="name"><code>saturation</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l213"><code>src\hypotrochoid.js:213</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The current saturation.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
                     <div id="property_settings" class="property item">
                         <h3 class="name"><code>settings</code></h3>
                         <span class="type">Object</span>
@@ -553,10 +1065,9 @@ This function does not clear the canvas.</p>
                     
                     
                         <div class="meta">
-                                        <p>Provided by the <a href="../modules/Hygress.html">Hygress</a> module.</p>
                                     <p>
                                     Defined in
-                            <a href="../files/src_hypotrochoid.js.html#l68"><code>src\hypotrochoid.js:68</code></a>
+                            <a href="../files/src_hypotrochoid.js.html#l245"><code>src\hypotrochoid.js:245</code></a>
                             </p>
                     
                     
@@ -577,6 +1088,85 @@ This function does not clear the canvas.</p>
                     luminance,
                     hue
                     }</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_step" class="property item private">
+                        <h3 class="name"><code>step</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l93"><code>src\hypotrochoid.js:93</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Theta is incremented by step.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_theta" class="property item private">
+                        <h3 class="name"><code>theta</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l83"><code>src\hypotrochoid.js:83</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Incremented by step, used to draw the hypotrochoid.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_TWO_PI" class="property item private">
+                        <h3 class="name"><code>TWO_PI</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                            <span class="flag final">final</span>
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hypotrochoid.js.html#l62"><code>src\hypotrochoid.js:62</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Pi * 2.</p>
                     
                         </div>
                     

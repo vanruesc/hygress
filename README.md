@@ -32,7 +32,6 @@ var Hygress = require("hygress");
 // All parameters are optional and can always 
 // be adjusted by accessing them as properties.
 var hygress = new Hygress({
- dt: 1 / 60,
  hypotrochoid: Hygress.Hypotrochoid.PENTAGRAM,
  size: [400, 300],
  scale: 1.0,

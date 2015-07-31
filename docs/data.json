@@ -32,19 +32,16 @@
     "modules": {
         "Hygress": {
             "name": "Hygress",
-            "submodules": {
-                "Hypotrochoid": 1
-            },
+            "submodules": {},
             "classes": {
-                "Hygress": 1,
-                "Hypotrochoid": 1
+                "Hygress": 1
             },
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "src\\hypotrochoid.js",
-            "line": 20,
-            "description": "Export as module."
+            "file": "src\\hygress.js",
+            "line": 13,
+            "description": "The Hygress module is the class."
         },
         "Hypotrochoid": {
             "name": "Hypotrochoid",
@@ -53,13 +50,11 @@
                 "Hypotrochoid": 1
             },
             "fors": {},
-            "is_submodule": 1,
             "namespaces": {},
-            "module": "Hygress",
-            "namespace": "",
+            "tag": "module",
             "file": "src\\hypotrochoid.js",
-            "line": 20,
-            "description": "Export as submodule."
+            "line": 39,
+            "description": "The Hypotrochoid class is used by Hygress."
         }
     },
     "classes": {
@@ -72,8 +67,9 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "Hygress",
+            "namespace": "",
             "file": "src\\hygress.js",
-            "line": 5,
+            "line": 13,
             "description": "Hygress.\nA hy(potrochoid pro)gress visualisation.",
             "is_constructor": 1,
             "params": [
@@ -85,9 +81,10 @@
                     "props": [
                         {
                             "name": "dt",
-                            "description": "- A delta time constant. Defaults to 1/60.",
+                            "description": "- A delta time constant.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "1/60"
                         },
                         {
                             "name": "hypotrochoid",
@@ -103,51 +100,59 @@
                         },
                         {
                             "name": "clearCanvas",
-                            "description": "- Whether the canvas should be cleared before rendering. Default is true.",
+                            "description": "- Whether the canvas should be cleared before rendering.",
                             "type": "Boolean",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "true"
                         },
                         {
                             "name": "colourRoll",
-                            "description": "- Whether the colour should continuously change (rainbow). Default is true.",
+                            "description": "- Whether the colour should continuously change (rainbow).",
                             "type": "Boolean",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "true"
                         },
                         {
                             "name": "hue",
-                            "description": "- The hue in degree. If not specified, the hue is set to 0°.",
+                            "description": "- The hue in degree.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "0.0"
                         },
                         {
                             "name": "saturation",
-                            "description": "- The saturation in percent. Defaults to 100%.",
+                            "description": "- The saturation in percent.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "100.0"
                         },
                         {
                             "name": "luminance",
-                            "description": "- The luminance in percent. Defaults to 50%.",
+                            "description": "- The luminance in percent.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "50.0"
                         },
                         {
                             "name": "opacity",
-                            "description": "- The initial opacity. Defaults to 0.75.",
+                            "description": "- The initial opacity.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "0.75"
                         },
                         {
                             "name": "scale",
-                            "description": "- The initial scale. Defaults to 1.0.",
+                            "description": "- The initial scale.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "1.0"
                         },
                         {
                             "name": "transitionTime",
-                            "description": "- The initial transitionTime. Defaults to 0.25.",
+                            "description": "- The initial transitionTime.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "0.25"
                         },
                         {
                             "name": "size",
@@ -167,10 +172,10 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Hygress",
+            "module": "Hypotrochoid",
             "namespace": "",
             "file": "src\\hypotrochoid.js",
-            "line": 20,
+            "line": 39,
             "description": "Hypotrochoid.\nhttp://en.wikipedia.org/wiki/Hypotrochoid",
             "is_constructor": 1,
             "params": [
@@ -178,6 +183,7 @@
                     "name": "options",
                     "description": "- The settings.",
                     "type": "Object",
+                    "optional": true,
                     "props": [
                         {
                             "name": "R",
@@ -195,188 +201,336 @@
                             "name": "d",
                             "description": "- Distance from the center to the inner circle.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "0.0"
                         },
                         {
                             "name": "origin",
                             "description": "- Object with x and y components, representing the origin coordinates.",
                             "type": "Object",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "{x: 0.0, y: 0.0}"
                         },
                         {
                             "name": "rotation",
                             "description": "- Sets the rotational direction and speed. (Negative for left rotation, 0.0 for no rotation.)",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "0.0"
                         },
                         {
                             "name": "iterations",
-                            "description": "- Limits the processing of very detailed hypotrochoids. Default: 64.",
+                            "description": "- Limits the processing of very detailed hypotrochoids.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "64"
                         },
                         {
                             "name": "opacity",
-                            "description": "- The opacity. Default: 0.75.",
+                            "description": "- The opacity.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "0.75"
                         },
                         {
                             "name": "lineWidth",
-                            "description": "- The line width. Default: 0.5.",
+                            "description": "- The line width.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "0.5"
                         },
                         {
                             "name": "colourRoll",
-                            "description": "- Whether the colour should change continuously. Default: true.",
+                            "description": "- Whether the colour should change continuously.",
                             "type": "Boolean",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "true"
                         },
                         {
                             "name": "hue",
-                            "description": "- The hue in degree. If not specified, the hue starts at 0°.",
+                            "description": "- The hue in degree.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "0.0"
                         },
                         {
                             "name": "saturation",
-                            "description": "- The saturation in percent. Defaults to 100%.",
+                            "description": "- The saturation in percent.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "100.0"
                         },
                         {
                             "name": "luminance",
-                            "description": "- The luminance in percent. Defaults to 50%.",
+                            "description": "- The luminance in percent.",
                             "type": "Number",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "50.0"
                         }
                     ]
                 }
-            ],
-            "submodule": "Hypotrochoid"
+            ]
         }
     },
     "classitems": [
         {
             "file": "src\\hygress.js",
-            "line": 90,
-            "description": "The render function which should be called each frame.",
-            "itemtype": "method",
-            "name": "render",
-            "class": "Hygress"
+            "line": 38,
+            "description": "Clear flag.",
+            "itemtype": "property",
+            "name": "clearCanvas",
+            "type": "Boolean",
+            "class": "Hygress",
+            "module": "Hygress"
+        },
+        {
+            "file": "src\\hygress.js",
+            "line": 47,
+            "description": "Delta time.",
+            "itemtype": "property",
+            "name": "dt",
+            "type": "Number",
+            "class": "Hygress",
+            "module": "Hygress"
+        },
+        {
+            "file": "src\\hygress.js",
+            "line": 56,
+            "description": "Rendering is bound to time and not to frames.",
+            "itemtype": "property",
+            "name": "now",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Hygress",
+            "module": "Hygress"
+        },
+        {
+            "file": "src\\hygress.js",
+            "line": 66,
+            "description": "Rendering is bound to time and not to frames.",
+            "itemtype": "property",
+            "name": "then",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Hygress",
+            "module": "Hygress"
+        },
+        {
+            "file": "src\\hygress.js",
+            "line": 76,
+            "description": "Rendering is bound to time and not to frames.",
+            "itemtype": "property",
+            "name": "accumulator",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Hygress",
+            "module": "Hygress"
+        },
+        {
+            "file": "src\\hygress.js",
+            "line": 86,
+            "description": "Rendering context.",
+            "itemtype": "property",
+            "name": "ctx",
+            "type": "CanvasRenderingContext2D",
+            "access": "private",
+            "tagname": "",
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
             "line": 99,
-            "description": "The internal hypotrochoid.\nAssigning a new object only overwrites the defined\nfields and keeps the other ones.",
+            "description": "The internal hypotrochoid instance.",
             "itemtype": "property",
-            "name": "hypotrochoid",
-            "type": "Object",
-            "class": "Hygress"
+            "name": "ht",
+            "type": "Hypotrochoid",
+            "access": "private",
+            "tagname": "",
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 113,
+            "line": 109,
+            "description": "The transition time.",
+            "itemtype": "property",
+            "name": "transitionTime",
+            "type": "Number",
+            "class": "Hygress",
+            "module": "Hygress"
+        },
+        {
+            "file": "src\\hygress.js",
+            "line": 118,
+            "description": "The internal opacity transition values.",
+            "itemtype": "property",
+            "name": "_opacity",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Hygress",
+            "module": "Hygress"
+        },
+        {
+            "file": "src\\hygress.js",
+            "line": 134,
+            "description": "The internal scale transition values.",
+            "itemtype": "property",
+            "name": "_scale",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Hygress",
+            "module": "Hygress"
+        },
+        {
+            "file": "src\\hygress.js",
+            "line": 152,
+            "description": "Visible flag, used to determine if the hypotrochoid\nshould be drawn this frame.",
+            "itemtype": "property",
+            "name": "visible",
+            "type": "Boolean",
+            "access": "private",
+            "tagname": "",
+            "class": "Hygress",
+            "module": "Hygress"
+        },
+        {
+            "file": "src\\hygress.js",
+            "line": 196,
+            "description": "The render function which should be called each frame.",
+            "itemtype": "method",
+            "name": "render",
+            "class": "Hygress",
+            "module": "Hygress"
+        },
+        {
+            "file": "src\\hygress.js",
+            "line": 205,
+            "description": "The hypotrochoid.\nAssigning a new object only overwrites the defined\nfields and keeps the other ones.",
+            "itemtype": "property",
+            "name": "hypotrochoid",
+            "type": "Object",
+            "class": "Hygress",
+            "module": "Hygress"
+        },
+        {
+            "file": "src\\hygress.js",
+            "line": 219,
             "description": "The internal canvas.",
             "itemtype": "property",
             "name": "canvas",
             "type": "HTMLCanvasElement",
-            "class": "Hygress"
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 131,
+            "line": 237,
             "description": "The size of the internal canvas.\nIt can be set as [width, height].",
             "itemtype": "property",
             "name": "size",
             "type": "Array",
-            "class": "Hygress"
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 162,
+            "line": 268,
             "description": "The hypotrochoid's size.",
             "itemtype": "property",
             "name": "htSize",
-            "type": "number",
-            "class": "Hygress"
+            "type": "Number",
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 186,
+            "line": 292,
             "description": "The hypotrochoid's origin.\nThe origin can be set as [x, y].",
             "itemtype": "property",
             "name": "origin",
             "type": "Array",
-            "class": "Hygress"
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 206,
+            "line": 312,
             "description": "The hypotrochoid's colour roll flag.",
             "itemtype": "property",
             "name": "colourRoll",
-            "type": "boolean",
-            "class": "Hygress"
+            "type": "Boolean",
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 224,
+            "line": 330,
             "description": "The hypotrochoid's hue in degree.",
             "itemtype": "property",
             "name": "hue",
-            "type": "number",
-            "class": "Hygress"
+            "type": "Number",
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 242,
+            "line": 348,
             "description": "The hypotrochoid's saturation in percent.",
             "itemtype": "property",
             "name": "saturation",
-            "type": "number",
-            "class": "Hygress"
+            "type": "Number",
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 260,
+            "line": 366,
             "description": "The hypotrochoid's luminance in percent.",
             "itemtype": "property",
             "name": "luminance",
-            "type": "number",
-            "class": "Hygress"
+            "type": "Number",
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 278,
+            "line": 384,
             "description": "The line width of the hypotrochoid.",
             "itemtype": "property",
             "name": "lineWidth",
-            "type": "number",
-            "class": "Hygress"
+            "type": "Number",
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 296,
+            "line": 402,
             "description": "The opacity of the hypotrochoid. Valid values: 0.0 to 1.0.\n\nSetting the opacity to a new value triggers a gradual change\ntowards the target value. The transition is linear and \ndepends on the transitionTime variable.",
             "itemtype": "property",
             "name": "opacity",
-            "type": "number",
-            "class": "Hygress"
+            "type": "Number",
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 326,
+            "line": 432,
             "description": "The scale of the hypotrochoid. Valid values: 0.0 to 1.0.\n\nSetting the scale to a new value triggers a gradual change\ntowards the target value. The transition is linear and \ndepends on the transitionTime variable.",
             "itemtype": "property",
             "name": "scale",
-            "type": "number",
-            "class": "Hygress"
+            "type": "Number",
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 357,
+            "line": 463,
             "description": "Updates the animation.",
             "itemtype": "method",
             "name": "_update",
@@ -389,47 +543,66 @@
                     "type": "Number"
                 }
             ],
-            "class": "Hygress"
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 413,
+            "line": 519,
             "description": "Draws the hypotrochoid.",
             "itemtype": "method",
             "name": "_draw",
             "access": "private",
             "tagname": "",
-            "class": "Hygress"
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 430,
+            "line": 536,
             "description": "Updates and renders the hypotrochoid while taking\nthe elapsed time since the last frame into account.",
             "itemtype": "method",
             "name": "_step",
             "access": "private",
             "tagname": "",
-            "class": "Hygress"
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 463,
+            "line": 569,
             "description": "Predefined hypotrochoids.",
             "itemtype": "property",
             "name": "Hypotrochoid",
             "type": "Object",
             "static": 1,
             "final": 1,
-            "class": "Hygress"
+            "class": "Hygress",
+            "module": "Hygress"
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 5,
+            "line": 11,
+            "description": "A float threshold.",
+            "itemtype": "property",
+            "name": "EPSILON",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "final": 1,
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 23,
             "description": "Checks if two float values are (almost) equal.",
             "itemtype": "method",
             "name": "equal",
             "access": "private",
             "tagname": "",
+            "static": 1,
             "params": [
                 {
                     "name": "a",
@@ -447,30 +620,235 @@
                 "type": "Boolean"
             },
             "class": "Hypotrochoid",
-            "module": "Hygress"
+            "module": "Hypotrochoid"
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 68,
+            "line": 62,
+            "description": "Pi * 2.",
+            "itemtype": "property",
+            "name": "TWO_PI",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "final": 1,
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 73,
+            "description": "Current rotation.",
+            "itemtype": "property",
+            "name": "rotation",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 83,
+            "description": "Incremented by step, used to draw the hypotrochoid.",
+            "itemtype": "property",
+            "name": "theta",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 93,
+            "description": "Theta is incremented by step.",
+            "itemtype": "property",
+            "name": "step",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 103,
+            "description": "The first 2D-point in the draw process.",
+            "itemtype": "property",
+            "name": "firstCoord",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 113,
+            "description": "The previous 2D-point in the draw process.",
+            "itemtype": "property",
+            "name": "firstCoord",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 123,
+            "description": "r.",
+            "itemtype": "property",
+            "name": "r",
+            "type": "Number",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 132,
+            "description": "R.",
+            "itemtype": "property",
+            "name": "R",
+            "type": "Number",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 141,
+            "description": "d.",
+            "itemtype": "property",
+            "name": "d",
+            "type": "Number",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 150,
+            "description": "Maximum iteration count.",
+            "itemtype": "property",
+            "name": "iterations",
+            "type": "Number",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 159,
+            "description": "Rotation speed and direction.",
+            "itemtype": "property",
+            "name": "rotationSpeed",
+            "type": "Number",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 168,
+            "description": "The origin of the hypotrochoid.",
+            "itemtype": "property",
+            "name": "origin",
+            "type": "Object",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 177,
+            "description": "the current opacity.",
+            "itemtype": "property",
+            "name": "opacity",
+            "type": "Object",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 186,
+            "description": "The line width.",
+            "itemtype": "property",
+            "name": "lineWidth",
+            "type": "Number",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 195,
+            "description": "Colour roll flag.",
+            "itemtype": "property",
+            "name": "colourRoll",
+            "type": "Boolean",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 204,
+            "description": "The current hue.",
+            "itemtype": "property",
+            "name": "hue",
+            "type": "Number",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 213,
+            "description": "The current saturation.",
+            "itemtype": "property",
+            "name": "saturation",
+            "type": "Number",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 222,
+            "description": "The current limunance.",
+            "itemtype": "property",
+            "name": "luminance",
+            "type": "Number",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 234,
+            "description": "The inverted r value.",
+            "itemtype": "property",
+            "name": "rInv",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Hypotrochoid",
+            "module": "Hypotrochoid"
+        },
+        {
+            "file": "src\\hypotrochoid.js",
+            "line": 245,
             "description": "The hypotrochoid's settings: {\n r,\n R,\n d,\n iterations,\n rotation,\n origin,\n opacity,\n lineWidth,\n colourRoll,\n saturation,\n luminance,\n hue\n}",
             "itemtype": "property",
             "name": "settings",
             "type": "Object",
             "class": "Hypotrochoid",
-            "module": "Hygress"
+            "module": "Hypotrochoid"
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 126,
+            "line": 303,
             "description": "Updates hue and rotation.",
             "itemtype": "method",
             "name": "update",
             "class": "Hypotrochoid",
-            "module": "Hygress"
+            "module": "Hypotrochoid"
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 147,
+            "line": 324,
             "description": "Draws the hypotrochoid onto the given 2D-context.\nThis function does not clear the canvas.",
             "itemtype": "method",
             "name": "draw",
@@ -482,7 +860,7 @@
                 }
             ],
             "class": "Hypotrochoid",
-            "module": "Hygress"
+            "module": "Hypotrochoid"
         }
     ],
     "warnings": []
