@@ -1,5 +1,13 @@
 "use strict";
 
+/**
+ * The Hygress module is the class.
+ *
+ * @module Hygress
+ */
+
+module.exports = Hygress;
+
 var Hypotrochoid = require("./hypotrochoid");
 
 /**
@@ -9,17 +17,17 @@ var Hypotrochoid = require("./hypotrochoid");
  * @class Hygress
  * @constructor
  * @param {Object} [options] - The settings.
- * @param {number} [options.dt] - A delta time constant. Defaults to 1/60.
+ * @param {Number} [options.dt=1/60] - A delta time constant.
  * @param {Object} [options.hypotrochoid] - The hypotrochoid settings. If none is supplied, a random one will be created.
  * @param {HTMLCanvasElement} [options.canvas] - The canvas to use. A new one will be created if none is supplied.
- * @param {boolean} [options.clearCanvas] - Whether the canvas should be cleared before rendering. Default is true.
- * @param {boolean} [options.colourRoll] - Whether the colour should continuously change (rainbow). Default is true.
- * @param {number} [options.hue] - The hue in degree. If not specified, the hue is set to 0°.
- * @param {number} [options.saturation] - The saturation in percent. Defaults to 100%.
- * @param {number} [options.luminance] - The luminance in percent. Defaults to 50%.
- * @param {number} [options.opacity] - The initial opacity. Defaults to 0.75.
- * @param {number} [options.scale] - The initial scale. Defaults to 1.0.
- * @param {number} [options.transitionTime] - The initial transitionTime. Defaults to 0.25.
+ * @param {Boolean} [options.clearCanvas=true] - Whether the canvas should be cleared before rendering.
+ * @param {Boolean} [options.colourRoll=true] - Whether the colour should continuously change (rainbow).
+ * @param {Number} [options.hue=0.0] - The hue in degree.
+ * @param {Number} [options.saturation=100.0] - The saturation in percent.
+ * @param {Number} [options.luminance=50.0] - The luminance in percent.
+ * @param {Number} [options.opacity=0.75] - The initial opacity.
+ * @param {Number} [options.scale=1.0] - The initial scale.
+ * @param {Number} [options.transitionTime=0.25] - The initial transitionTime.
  * @param {Array} [options.size] - The canvas size.
  */
 
@@ -27,16 +35,93 @@ function Hygress(options)
 {
  var self = this;
 
+ /**
+  * Clear flag.
+  *
+  * @property clearCanvas
+  * @type Boolean
+  */
+
  this.clearCanvas = true;
+
+ /**
+  * Delta time.
+  *
+  * @property dt
+  * @type Number
+  */
+
  this.dt = 1.0 / 60.0;
+
+ /**
+  * Rendering is bound to time and not to frames.
+  *
+  * @property now
+  * @type Number
+  * @private
+  */
+
  this.now = Date.now() / 1000;
+
+ /**
+  * Rendering is bound to time and not to frames.
+  *
+  * @property then
+  * @type Number
+  * @private
+  */
+
  this.then = this.now;
+
+ /**
+  * Rendering is bound to time and not to frames.
+  *
+  * @property accumulator
+  * @type Number
+  * @private
+  */
+
  this.accumulator = 0;
+
+ /**
+  * Rendering context.
+  *
+  * @property ctx
+  * @type CanvasRenderingContext2D
+  * @private
+  */
+
  this.ctx = null;
+
+ // Set the canvas.
  this.canvas = document.createElement("canvas");
+
+ /**
+  * The internal hypotrochoid instance.
+  *
+  * @property ht
+  * @type Hypotrochoid
+  * @private
+  */
+
  this.ht = new Hypotrochoid();
 
+ /**
+  * The transition time.
+  *
+  * @property transitionTime
+  * @type Number
+  */
+
  this.transitionTime = 0.25;
+
+ /**
+  * The internal opacity transition values.
+  *
+  * @property _opacity
+  * @type Number
+  * @private
+  */
 
  this._opacity = {
   start: 0.0,
@@ -45,6 +130,14 @@ function Hygress(options)
   elapsed: 0,
   transitionActive: false
  };
+
+ /**
+  * The internal scale transition values.
+  *
+  * @property _scale
+  * @type Number
+  * @private
+  */
 
  this._scale = {
   start: 0.0,
@@ -56,9 +149,21 @@ function Hygress(options)
   transitionActive: false
  };
 
+ /**
+  * Visible flag, used to determine if the hypotrochoid
+  * should be drawn this frame.
+  *
+  * @property visible
+  * @type Boolean
+  * @private
+  */
+
  this.visible = true;
+
+ // Set the initial canvas size and the hypotrochoid's size.
  this.size = this.size;
 
+ // Overwrite the default values.
  if(options !== undefined)
  {
   if(options.dt !== undefined) { this.dt = options.dt; }
@@ -85,6 +190,7 @@ function Hygress(options)
   }
  }
 
+ // Update the visible flag.
  this.visible = this.ht.opacity > 0.0 && this.ht.d > 0.0;
 
  /**
@@ -97,7 +203,7 @@ function Hygress(options)
 }
 
 /**
- * The internal hypotrochoid.
+ * The hypotrochoid.
  * Assigning a new object only overwrites the defined
  * fields and keeps the other ones.
  *
@@ -163,7 +269,7 @@ Object.defineProperty(Hygress.prototype, "size", {
  * The hypotrochoid's size.
  *
  * @property htSize
- * @type number
+ * @type Number
  */
 
 Object.defineProperty(Hygress.prototype, "htSize", {
@@ -207,7 +313,7 @@ Object.defineProperty(Hygress.prototype, "origin", {
  * The hypotrochoid's colour roll flag.
  *
  * @property colourRoll
- * @type boolean
+ * @type Boolean
  */
 
 Object.defineProperty(Hygress.prototype, "colourRoll", {
@@ -225,7 +331,7 @@ Object.defineProperty(Hygress.prototype, "colourRoll", {
  * The hypotrochoid's hue in degree.
  *
  * @property hue
- * @type number
+ * @type Number
  */
 
 Object.defineProperty(Hygress.prototype, "hue", {
@@ -243,7 +349,7 @@ Object.defineProperty(Hygress.prototype, "hue", {
  * The hypotrochoid's saturation in percent.
  *
  * @property saturation
- * @type number
+ * @type Number
  */
 
 Object.defineProperty(Hygress.prototype, "saturation", {
@@ -261,7 +367,7 @@ Object.defineProperty(Hygress.prototype, "saturation", {
  * The hypotrochoid's luminance in percent.
  *
  * @property luminance
- * @type number
+ * @type Number
  */
 
 Object.defineProperty(Hygress.prototype, "luminance", {
@@ -279,7 +385,7 @@ Object.defineProperty(Hygress.prototype, "luminance", {
  * The line width of the hypotrochoid.
  *
  * @property lineWidth
- * @type number
+ * @type Number
  */
 
 Object.defineProperty(Hygress.prototype, "lineWidth", {
@@ -301,7 +407,7 @@ Object.defineProperty(Hygress.prototype, "lineWidth", {
  * depends on the transitionTime variable.
  *
  * @property opacity
- * @type number
+ * @type Number
  */
 
 Object.defineProperty(Hygress.prototype, "opacity", {
@@ -331,7 +437,7 @@ Object.defineProperty(Hygress.prototype, "opacity", {
  * depends on the transitionTime variable.
  *
  * @property scale
- * @type number
+ * @type Number
  */
 
 Object.defineProperty(Hygress.prototype, "scale", {
@@ -359,7 +465,7 @@ Object.defineProperty(Hygress.prototype, "scale", {
  *
  * @method _update
  * @private
- * @param {number} elapsed - The elapsed time since the last frame.
+ * @param {Number} elapsed - The elapsed time since the last frame.
  */
 
 Hygress.prototype._update = function(elapsed)
@@ -479,11 +585,3 @@ Hygress.Hypotrochoid = Object.freeze({
  PENTAGRAM: {r: 3.0, R: 5.0, iterations: 5, rotation: 0.03},
  RING: {r: 3.9, R: 5.0, iterations: 50, rotation: 0.013}
 });
-
-/**
- * Export as module.
- *
- * @module Hygress
- */
-
-module.exports = Hygress;

@@ -12,12 +12,12 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "Hygress",
             "name": "Hygress",
-            "description": "Export as module."
+            "description": "The Hygress module is the class."
         },
         {
             "displayName": "Hypotrochoid",
             "name": "Hypotrochoid",
-            "description": "Export as submodule."
+            "description": "The Hypotrochoid class is used by Hygress."
         }
     ]
 } };

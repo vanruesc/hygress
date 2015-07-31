@@ -1,5 +1,23 @@
 "use strict";
 
+/**
+ * The Hypotrochoid class is used by Hygress.
+ *
+ * @module Hypotrochoid
+ */
+
+module.exports = Hypotrochoid;
+
+/**
+ * A float threshold.
+ *
+ * @property EPSILON
+ * @type Number
+ * @private
+ * @static
+ * @final
+ */
+
 var EPSILON = 0.0001;
 
 /**
@@ -7,6 +25,7 @@ var EPSILON = 0.0001;
  *
  * @method equal
  * @private
+ * @static
  * @param {number} a - Value a.
  * @param {number} b - Value b.
  * @return {boolean} Whether the values are equal or not.
@@ -23,45 +42,203 @@ function equal(a, b)
  *
  * @class Hypotrochoid
  * @constructor
- * @param {Object} options - The settings.
- * @param {number} [options.R] - Radius of the outer circle.
- * @param {number} [options.r] - Radius of the inner circle.
- * @param {number} [options.d] - Distance from the center to the inner circle.
- * @param {Object} [options.origin] - Object with x and y components, representing the origin coordinates.
- * @param {number} [options.rotation] - Sets the rotational direction and speed. (Negative for left rotation, 0.0 for no rotation.)
- * @param {number} [options.iterations] - Limits the processing of very detailed hypotrochoids. Default: 64.
- * @param {number} [options.opacity] - The opacity. Default: 0.75.
- * @param {number} [options.lineWidth] - The line width. Default: 0.5.
- * @param {boolean} [options.colourRoll] - Whether the colour should change continuously. Default: true.
- * @param {number} [options.hue] - The hue in degree. If not specified, the hue starts at 0°.
- * @param {number} [options.saturation] - The saturation in percent. Defaults to 100%.
- * @param {number} [options.luminance] - The luminance in percent. Defaults to 50%.
+ * @param {Object} [options] - The settings.
+ * @param {Number} [options.R] - Radius of the outer circle.
+ * @param {Number} [options.r] - Radius of the inner circle.
+ * @param {Number} [options.d=0.0] - Distance from the center to the inner circle.
+ * @param {Object} [options.origin={x: 0.0, y: 0.0}] - Object with x and y components, representing the origin coordinates.
+ * @param {Number} [options.rotation=0.0] - Sets the rotational direction and speed. (Negative for left rotation, 0.0 for no rotation.)
+ * @param {Number} [options.iterations=64] - Limits the processing of very detailed hypotrochoids.
+ * @param {Number} [options.opacity=0.75] - The opacity.
+ * @param {Number} [options.lineWidth=0.5] - The line width.
+ * @param {Boolean} [options.colourRoll=true] - Whether the colour should change continuously.
+ * @param {Number} [options.hue=0.0] - The hue in degree.
+ * @param {Number} [options.saturation=100.0] - The saturation in percent.
+ * @param {Number} [options.luminance=50.0] - The luminance in percent.
  */
 
 function Hypotrochoid(options)
 {
+ /**
+  * Pi * 2.
+  *
+  * @property TWO_PI
+  * @type Number
+  * @private
+  * @final
+  */
+
  this.TWO_PI = Math.PI * 2;
+
+ /**
+  * Current rotation.
+  *
+  * @property rotation
+  * @type Number
+  * @private
+  */
+
  this.rotation = 0.0;
+
+ /**
+  * Incremented by step, used to draw the hypotrochoid.
+  *
+  * @property theta
+  * @type Number
+  * @private
+  */
+
  this.theta = 0.0;
+
+ /**
+  * Theta is incremented by step.
+  *
+  * @property step
+  * @type Number
+  * @private
+  */
+
  this.step = 360.0 * Math.PI / 180.0;
+
+ /**
+  * The first 2D-point in the draw process.
+  *
+  * @property firstCoord
+  * @type Object
+  * @private
+  */
+
  this.firstCoord = {x: 0.0, y: 0.0};
+
+ /**
+  * The previous 2D-point in the draw process.
+  *
+  * @property firstCoord
+  * @type Object
+  * @private
+  */
+
  this.prevCoord = {x: 0.0, y: 0.0};
 
- // Set the defaults.
+ /**
+  * r.
+  *
+  * @property r
+  * @type Number
+  */
+
  this.r = Math.random() * 2.0 + EPSILON;
+
+ /**
+  * R.
+  *
+  * @property R
+  * @type Number
+  */
+
  this.R = this.r + Math.random() * 2.0 + EPSILON;
+
+ /**
+  * d.
+  *
+  * @property d
+  * @type Number
+  */
+
  this.d = 0.0;
+
+ /**
+  * Maximum iteration count.
+  *
+  * @property iterations
+  * @type Number
+  */
+
  this.iterations = (Math.random() * 300 + 3) | 0;
- this.rotationSpeed = Math.random() * 0.05;
+
+ /**
+  * Rotation speed and direction.
+  *
+  * @property rotationSpeed
+  * @type Number
+  */
+
+ this.rotationSpeed = Math.random() * 0.05 - Math.random() * 0.05;
+
+ /**
+  * The origin of the hypotrochoid.
+  *
+  * @property origin
+  * @type Object
+  */
+
  this.origin = {x: 0.0, y: 0.0};
+
+ /**
+  * the current opacity.
+  *
+  * @property opacity
+  * @type Object
+  */
+
  this.opacity = 0.75;
+
+ /**
+  * The line width.
+  *
+  * @property lineWidth
+  * @type Number
+  */
+
  this.lineWidth = 0.5;
+
+ /**
+  * Colour roll flag.
+  *
+  * @property colourRoll
+  * @type Boolean
+  */
+
  this.colourRoll = true;
+
+ /**
+  * The current hue.
+  *
+  * @property hue
+  * @type Number
+  */
+
  this.hue = 0.0;
+
+ /**
+  * The current saturation.
+  *
+  * @property saturation
+  * @type Number
+  */
+
  this.saturation = 100.0;
+
+ /**
+  * The current limunance.
+  *
+  * @property luminance
+  * @type Number
+  */
+
  this.luminance = 50.0;
 
+ // Overwrite the defaults.
  this.setting = options;
+
+ /**
+  * The inverted r value.
+  *
+  * @property rInv
+  * @type Number
+  * @private
+  */
+
  this.rInv = 1.0 / this.r;
 }
 
@@ -199,12 +376,3 @@ Hypotrochoid.prototype.draw = function(ctx)
 
  ctx.restore();
 };
-
-/**
- * Export as submodule.
- *
- * @module Hygress
- * @submodule Hypotrochoid
- */
-
-module.exports = Hypotrochoid;

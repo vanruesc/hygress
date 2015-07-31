@@ -83,7 +83,7 @@
 
 
         <div class="foundat">
-            Defined in: <a href="../files/src_hygress.js.html#l5"><code>src\hygress.js:5</code></a>
+            Defined in: <a href="../files/src_hygress.js.html#l13"><code>src\hygress.js:13</code></a>
         </div>
 
             Module: <a href="../modules/Hygress.html">Hygress</a>
@@ -120,7 +120,7 @@ A hy(potrochoid pro)gress visualisation.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/src_hygress.js.html#l5"><code>src\hygress.js:5</code></a>
+        <a href="../files/src_hygress.js.html#l13"><code>src\hygress.js:13</code></a>
         </p>
 
 
@@ -150,13 +150,13 @@ A hy(potrochoid pro)gress visualisation.</p>
 
                         <ul class="params-list">
                             <li class="param">
-                                    <code class="param-name optional">[dt]</code>
+                                    <code class="param-name optional">[dt=1/60]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>A delta time constant. Defaults to 1/60.</li>
+<li>A delta time constant.</li>
 </ul>
 
                                 </div>
@@ -189,104 +189,104 @@ A hy(potrochoid pro)gress visualisation.</p>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[clearCanvas]</code>
+                                    <code class="param-name optional">[clearCanvas=true]</code>
                                     <span class="type">Boolean</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>Whether the canvas should be cleared before rendering. Default is true.</li>
+<li>Whether the canvas should be cleared before rendering.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[colourRoll]</code>
+                                    <code class="param-name optional">[colourRoll=true]</code>
                                     <span class="type">Boolean</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>Whether the colour should continuously change (rainbow). Default is true.</li>
+<li>Whether the colour should continuously change (rainbow).</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[hue]</code>
+                                    <code class="param-name optional">[hue=0.0]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>The hue in degree. If not specified, the hue is set to 0°.</li>
+<li>The hue in degree.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[saturation]</code>
+                                    <code class="param-name optional">[saturation=100.0]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>The saturation in percent. Defaults to 100%.</li>
+<li>The saturation in percent.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[luminance]</code>
+                                    <code class="param-name optional">[luminance=50.0]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>The luminance in percent. Defaults to 50%.</li>
+<li>The luminance in percent.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[opacity]</code>
+                                    <code class="param-name optional">[opacity=0.75]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>The initial opacity. Defaults to 0.75.</li>
+<li>The initial opacity.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[scale]</code>
+                                    <code class="param-name optional">[scale=1.0]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>The initial scale. Defaults to 1.0.</li>
+<li>The initial scale.</li>
 </ul>
 
                                 </div>
 
                             </li>
                             <li class="param">
-                                    <code class="param-name optional">[transitionTime]</code>
+                                    <code class="param-name optional">[transitionTime=0.25]</code>
                                     <span class="type">Number</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
 
                                 <div class="param-description">
                                     <ul>
-<li>The initial transitionTime. Defaults to 0.25.</li>
+<li>The initial transitionTime.</li>
 </ul>
 
                                 </div>
@@ -354,12 +354,40 @@ A hy(potrochoid pro)gress visualisation.</p>
                     <h3>Properties</h3>
 
                     <ul class="index-list properties">
+                            <li class="index-item property private">
+                                <a href="#property__opacity">_opacity</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property__scale">_scale</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_accumulator">accumulator</a>
+
+                            </li>
                             <li class="index-item property">
                                 <a href="#property_canvas">canvas</a>
 
                             </li>
                             <li class="index-item property">
+                                <a href="#property_clearCanvas">clearCanvas</a>
+
+                            </li>
+                            <li class="index-item property">
                                 <a href="#property_colourRoll">colourRoll</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_ctx">ctx</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_dt">dt</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_ht">ht</a>
 
                             </li>
                             <li class="index-item property">
@@ -371,13 +399,13 @@ A hy(potrochoid pro)gress visualisation.</p>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_hypotrochoid">hypotrochoid</a>
-
-                            </li>
-                            <li class="index-item property">
                                 <a href="#property_Hypotrochoid">Hypotrochoid</a>
 
                                     <span class="flag static">static</span>
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_hypotrochoid">hypotrochoid</a>
+
                             </li>
                             <li class="index-item property">
                                 <a href="#property_lineWidth">lineWidth</a>
@@ -385,6 +413,10 @@ A hy(potrochoid pro)gress visualisation.</p>
                             </li>
                             <li class="index-item property">
                                 <a href="#property_luminance">luminance</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_now">now</a>
 
                             </li>
                             <li class="index-item property">
@@ -405,6 +437,18 @@ A hy(potrochoid pro)gress visualisation.</p>
                             </li>
                             <li class="index-item property">
                                 <a href="#property_size">size</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_then">then</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_transitionTime">transitionTime</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_visible">visible</a>
 
                             </li>
                     </ul>
@@ -432,7 +476,7 @@ A hy(potrochoid pro)gress visualisation.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/src_hygress.js.html#l413"><code>src\hygress.js:413</code></a>
+        <a href="../files/src_hygress.js.html#l519"><code>src\hygress.js:519</code></a>
         </p>
 
 
@@ -464,7 +508,7 @@ A hy(potrochoid pro)gress visualisation.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/src_hygress.js.html#l430"><code>src\hygress.js:430</code></a>
+        <a href="../files/src_hygress.js.html#l536"><code>src\hygress.js:536</code></a>
         </p>
 
 
@@ -503,7 +547,7 @@ the elapsed time since the last frame into account.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/src_hygress.js.html#l357"><code>src\hygress.js:357</code></a>
+        <a href="../files/src_hygress.js.html#l463"><code>src\hygress.js:463</code></a>
         </p>
 
 
@@ -553,7 +597,7 @@ the elapsed time since the last frame into account.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/src_hygress.js.html#l90"><code>src\hygress.js:90</code></a>
+        <a href="../files/src_hygress.js.html#l196"><code>src\hygress.js:196</code></a>
         </p>
 
 
@@ -574,6 +618,84 @@ the elapsed time since the last frame into account.</p>
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
+                    <div id="property__opacity" class="property item private">
+                        <h3 class="name"><code>_opacity</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l118"><code>src\hygress.js:118</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The internal opacity transition values.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property__scale" class="property item private">
+                        <h3 class="name"><code>_scale</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l134"><code>src\hygress.js:134</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The internal scale transition values.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_accumulator" class="property item private">
+                        <h3 class="name"><code>accumulator</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l76"><code>src\hygress.js:76</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Rendering is bound to time and not to frames.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
                     <div id="property_canvas" class="property item">
                         <h3 class="name"><code>canvas</code></h3>
                         <span class="type">HTMLCanvasElement</span>
@@ -585,7 +707,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l113"><code>src\hygress.js:113</code></a>
+                            <a href="../files/src_hygress.js.html#l219"><code>src\hygress.js:219</code></a>
                             </p>
                     
                     
@@ -593,6 +715,31 @@ the elapsed time since the last frame into account.</p>
                     
                         <div class="description">
                             <p>The internal canvas.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_clearCanvas" class="property item">
+                        <h3 class="name"><code>clearCanvas</code></h3>
+                        <span class="type">Boolean</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l38"><code>src\hygress.js:38</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Clear flag.</p>
                     
                         </div>
                     
@@ -610,7 +757,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l206"><code>src\hygress.js:206</code></a>
+                            <a href="../files/src_hygress.js.html#l312"><code>src\hygress.js:312</code></a>
                             </p>
                     
                     
@@ -618,6 +765,83 @@ the elapsed time since the last frame into account.</p>
                     
                         <div class="description">
                             <p>The hypotrochoid's colour roll flag.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_ctx" class="property item private">
+                        <h3 class="name"><code>ctx</code></h3>
+                        <span class="type">CanvasRenderingContext2D</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l86"><code>src\hygress.js:86</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Rendering context.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_dt" class="property item">
+                        <h3 class="name"><code>dt</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l47"><code>src\hygress.js:47</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Delta time.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_ht" class="property item private">
+                        <h3 class="name"><code>ht</code></h3>
+                        <span class="type"><a href="../classes/Hypotrochoid.html" class="crosslink">Hypotrochoid</a></span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l99"><code>src\hygress.js:99</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The internal hypotrochoid instance.</p>
                     
                         </div>
                     
@@ -635,7 +859,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l162"><code>src\hygress.js:162</code></a>
+                            <a href="../files/src_hygress.js.html#l268"><code>src\hygress.js:268</code></a>
                             </p>
                     
                     
@@ -660,7 +884,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l224"><code>src\hygress.js:224</code></a>
+                            <a href="../files/src_hygress.js.html#l330"><code>src\hygress.js:330</code></a>
                             </p>
                     
                     
@@ -668,33 +892,6 @@ the elapsed time since the last frame into account.</p>
                     
                         <div class="description">
                             <p>The hypotrochoid's hue in degree.</p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-                    <div id="property_hypotrochoid" class="property item">
-                        <h3 class="name"><code>hypotrochoid</code></h3>
-                        <span class="type">Object</span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/src_hygress.js.html#l99"><code>src\hygress.js:99</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>The internal hypotrochoid.
-                    Assigning a new object only overwrites the defined
-                    fields and keeps the other ones.</p>
                     
                         </div>
                     
@@ -714,7 +911,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l463"><code>src\hygress.js:463</code></a>
+                            <a href="../files/src_hygress.js.html#l569"><code>src\hygress.js:569</code></a>
                             </p>
                     
                     
@@ -722,6 +919,33 @@ the elapsed time since the last frame into account.</p>
                     
                         <div class="description">
                             <p>Predefined hypotrochoids.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_hypotrochoid" class="property item">
+                        <h3 class="name"><code>hypotrochoid</code></h3>
+                        <span class="type">Object</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l205"><code>src\hygress.js:205</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The hypotrochoid.
+                    Assigning a new object only overwrites the defined
+                    fields and keeps the other ones.</p>
                     
                         </div>
                     
@@ -739,7 +963,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l278"><code>src\hygress.js:278</code></a>
+                            <a href="../files/src_hygress.js.html#l384"><code>src\hygress.js:384</code></a>
                             </p>
                     
                     
@@ -764,7 +988,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l260"><code>src\hygress.js:260</code></a>
+                            <a href="../files/src_hygress.js.html#l366"><code>src\hygress.js:366</code></a>
                             </p>
                     
                     
@@ -772,6 +996,32 @@ the elapsed time since the last frame into account.</p>
                     
                         <div class="description">
                             <p>The hypotrochoid's luminance in percent.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_now" class="property item private">
+                        <h3 class="name"><code>now</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l56"><code>src\hygress.js:56</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Rendering is bound to time and not to frames.</p>
                     
                         </div>
                     
@@ -789,7 +1039,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l296"><code>src\hygress.js:296</code></a>
+                            <a href="../files/src_hygress.js.html#l402"><code>src\hygress.js:402</code></a>
                             </p>
                     
                     
@@ -817,7 +1067,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l186"><code>src\hygress.js:186</code></a>
+                            <a href="../files/src_hygress.js.html#l292"><code>src\hygress.js:292</code></a>
                             </p>
                     
                     
@@ -843,7 +1093,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l242"><code>src\hygress.js:242</code></a>
+                            <a href="../files/src_hygress.js.html#l348"><code>src\hygress.js:348</code></a>
                             </p>
                     
                     
@@ -868,7 +1118,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l326"><code>src\hygress.js:326</code></a>
+                            <a href="../files/src_hygress.js.html#l432"><code>src\hygress.js:432</code></a>
                             </p>
                     
                     
@@ -896,7 +1146,7 @@ the elapsed time since the last frame into account.</p>
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_hygress.js.html#l131"><code>src\hygress.js:131</code></a>
+                            <a href="../files/src_hygress.js.html#l237"><code>src\hygress.js:237</code></a>
                             </p>
                     
                     
@@ -905,6 +1155,84 @@ the elapsed time since the last frame into account.</p>
                         <div class="description">
                             <p>The size of the internal canvas.
                     It can be set as [width, height].</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_then" class="property item private">
+                        <h3 class="name"><code>then</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l66"><code>src\hygress.js:66</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Rendering is bound to time and not to frames.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_transitionTime" class="property item">
+                        <h3 class="name"><code>transitionTime</code></h3>
+                        <span class="type">Number</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l109"><code>src\hygress.js:109</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The transition time.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_visible" class="property item private">
+                        <h3 class="name"><code>visible</code></h3>
+                        <span class="type">Boolean</span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_hygress.js.html#l152"><code>src\hygress.js:152</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Visible flag, used to determine if the hypotrochoid
+                    should be drawn this frame.</p>
                     
                         </div>
                     
