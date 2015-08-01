@@ -1,11 +1,5 @@
 "use strict";
 
-/**
- * The Hypotrochoid class is used by Hygress.
- *
- * @module Hypotrochoid
- */
-
 module.exports = Hypotrochoid;
 
 /**

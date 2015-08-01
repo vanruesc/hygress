@@ -1,11 +1,5 @@
 "use strict";
 
-/**
- * The Hygress module is the class.
- *
- * @module Hygress
- */
-
 module.exports = Hygress;
 
 var Hypotrochoid = require("./hypotrochoid");
