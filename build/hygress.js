@@ -1,5 +1,5 @@
 /**
- * hygress v0.0.12 build 01.08.2015
+ * hygress v0.0.12 build 04.08.2015
  * https://github.com/vanruesc/hygress
  * Copyright 2015 Raoul van Rueschen, Zlib
  */
@@ -7,9 +7,226 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Hygress = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
+module.exports = CanvasRenderer;
+
+/**
+ * A canvas renderer base class.
+ *
+ * @class CanvasRenderer
+ * @constructor
+ * @param {Object} [options] - The settings.
+ * @param {Number} [options.dt=1/60] - The update rate in seconds.
+ * @param {Boolean} [options.clearCanvas=true] - Whether the canvas should automatically be cleared.
+ * @param {Boolean} [options.enabled=true] - Whether the animation should be rendered. If set to false, the render function will merely update the time.
+ * @param {Number} [options.size] - The canvas size.
+ */
+
+function CanvasRenderer(options)
+{
+ var self = this;
+
+ /**
+  * Delta time in milliseconds.
+  *
+  * @property dt
+  * @type Number
+  */
+
+ this.dt = 1000.0 / 60.0;
+
+ /**
+  * Used for time based rendering. Milliseconds.
+  *
+  * @property now
+  * @type Number
+  * @private
+  */
+
+ this.now = ((window.performance !== undefined) ? window.performance.now() : Date.now()) / 1000.0;
+
+ /**
+  * Used for time based rendering. Milliseconds.
+  *
+  * @property then
+  * @type Number
+  * @private
+  */
+
+ this.then = this.now;
+
+ /**
+  * Used for time based rendering. Milliseconds.
+  *
+  * @property accumulator
+  * @type Number
+  * @private
+  */
+
+ this.accumulator = 0;
+
+ /**
+  * The rendering context.
+  *
+  * @property ctx
+  * @type CanvasRenderingContext2D
+  * @private
+  */
+
+ this.ctx = null;
+
+ // Create an initial canvas.
+ this.canvas = document.createElement("canvas");
+
+ /**
+  * Clear flag.
+  *
+  * @property clearCanvas
+  * @type Boolean
+  */
+
+ this.clearCanvas = true;
+
+ /**
+  * Enabled flag.
+  *
+  * @property enabled
+  * @type Boolean
+  */
+
+ this.enabled = true;
+
+ // Overwrite the defaults.
+ if(options !== undefined)
+ {
+  if(options.dt !== undefined) { this.dt = options.dt * 1000.0; }
+  if(options.canvas !== undefined) { this.canvas = options.canvas; }
+  if(options.clearCanvas !== undefined) { this.clearCanvas = options.clearCanvas; }
+  this.size = options.size;
+ }
+
+ /**
+  * The animation loop.
+  *
+  * @method render
+  */
+
+ this.render = function(now) { self._render(now); };
+}
+
+/**
+ * The canvas.
+ *
+ * @property canvas
+ * @type HTMLCanvasElement
+ */
+
+Object.defineProperty(CanvasRenderer.prototype, "canvas", {
+ get: function() { return this.ctx.canvas; },
+ set: function(x)
+ {
+  if(x !== undefined && x.getContext !== undefined)
+  {
+   this.ctx = x.getContext("2d");
+  }
+ }
+});
+
+/**
+ * The size of the canvas.
+ *
+ * @property size
+ * @type Array
+ * @example
+ *  [width, height]
+ */
+
+Object.defineProperty(CanvasRenderer.prototype, "size", {
+ get: function()
+ {
+  return [
+   this.ctx.canvas.width,
+   this.ctx.canvas.height
+  ];
+ },
+ set: function(x)
+ {
+  if(x !== undefined && x.length === 2)
+  {
+   this.ctx.canvas.width = x[0];
+   this.ctx.canvas.height = x[1];
+  }
+ }
+});
+
+/**
+ * Abstract update method.
+ *
+ * This method will be called by the render function
+ * at a maximum rate of 60 fps. If the framerate drops,
+ * the animation will, of course, slow down. That's the
+ * intended behaviour.
+ *
+ * @method update
+ * @param {Number} elapsed - The time since the last update call in milliseconds.
+ */
+
+CanvasRenderer.prototype.update = function(elapsed) {};
+
+/**
+ * Abstract draw method.
+ *
+ * @method draw
+ */
+
+CanvasRenderer.prototype.draw = function() {};
+
+/**
+ * Renders the animation.
+ *
+ * @method _render
+ * @private
+ * @param {DOMHighResTimeStamp} now - The time since the page was loaded.
+ */
+
+CanvasRenderer.prototype._render = function(now)
+{
+ var elapsed;
+
+ if(now === undefined)
+ {
+  now = (window.performance !== undefined) ? window.performance.now() : Date.now();
+ }
+
+ if(this.clearCanvas)
+ {
+  this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+ }
+
+ this.now = now;
+ elapsed = this.now - this.then;
+ this.then = this.now;
+
+ if(this.enabled)
+ {
+  this.accumulator += elapsed;
+
+  if(this.accumulator >= this.dt)
+  {
+   this.update(elapsed);
+   this.accumulator -= this.dt;
+  }
+
+  this.draw();
+ }
+};
+
+},{}],2:[function(require,module,exports){
+"use strict";
+
 module.exports = Hygress;
 
-var Hypotrochoid = require("./hypotrochoid");
+var CanvasRenderer = require("canvasrenderer"),
+ Hypotrochoid = require("./hypotrochoid");
 
 /**
  * Hygress.
@@ -17,8 +234,9 @@ var Hypotrochoid = require("./hypotrochoid");
  *
  * @class Hygress
  * @constructor
+ * @extends CanvasRenderer
  * @param {Object} [options] - The settings.
- * @param {Number} [options.dt=1/60] - A delta time constant.
+ * @param {Number} [options.dt=1/60] - The update rate in seconds.
  * @param {Object} [options.hypotrochoid] - The hypotrochoid settings. If none is supplied, a random one will be created.
  * @param {HTMLCanvasElement} [options.canvas] - The canvas to use. A new one will be created if none is supplied.
  * @param {Boolean} [options.clearCanvas=true] - Whether the canvas should be cleared before rendering.
@@ -34,68 +252,7 @@ var Hypotrochoid = require("./hypotrochoid");
 
 function Hygress(options)
 {
- var self = this;
-
- /**
-  * Clear flag.
-  *
-  * @property clearCanvas
-  * @type Boolean
-  */
-
- this.clearCanvas = true;
-
- /**
-  * Delta time.
-  *
-  * @property dt
-  * @type Number
-  */
-
- this.dt = 1.0 / 60.0;
-
- /**
-  * Rendering is bound to time and not to frames.
-  *
-  * @property now
-  * @type Number
-  * @private
-  */
-
- this.now = Date.now() / 1000;
-
- /**
-  * Rendering is bound to time and not to frames.
-  *
-  * @property then
-  * @type Number
-  * @private
-  */
-
- this.then = this.now;
-
- /**
-  * Rendering is bound to time and not to frames.
-  *
-  * @property accumulator
-  * @type Number
-  * @private
-  */
-
- this.accumulator = 0;
-
- /**
-  * Rendering context.
-  *
-  * @property ctx
-  * @type CanvasRenderingContext2D
-  * @private
-  */
-
- this.ctx = null;
-
- // Set the canvas.
- this.canvas = document.createElement("canvas");
+ CanvasRenderer.call(this, options);
 
  /**
   * The internal hypotrochoid instance.
@@ -193,15 +350,10 @@ function Hygress(options)
 
  // Update the visible flag.
  this.visible = this.ht.opacity > 0.0 && this.ht.d > 0.0;
-
- /**
-  * The render function which should be called each frame.
-  *
-  * @method render
-  */
-
- this.render = function() { self._step(); };
 }
+
+Hygress.prototype = Object.create(CanvasRenderer.prototype);
+Hygress.prototype.constructor = Hygress;
 
 /**
  * The hypotrochoid.
@@ -218,29 +370,12 @@ Object.defineProperty(Hygress.prototype, "hypotrochoid", {
 });
 
 /**
- * The internal canvas.
- *
- * @property canvas
- * @type HTMLCanvasElement
- */
-
-Object.defineProperty(Hygress.prototype, "canvas", {
- get: function() { return this.ctx.canvas; },
- set: function(x)
- {
-  if(x !== undefined && x.getContext !== undefined)
-  {
-   this.ctx = x.getContext("2d");
-  }
- }
-});
-
-/**
  * The size of the internal canvas.
- * It can be set as [width, height].
  * 
  * @property size
  * @type Array
+ * @example
+ *  [width, height]
  */
 
 Object.defineProperty(Hygress.prototype, "size", {
@@ -292,10 +427,11 @@ Object.defineProperty(Hygress.prototype, "htSize", {
 
 /**
  * The hypotrochoid's origin.
- * The origin can be set as [x, y].
  *
  * @property origin
  * @type Array
+ * @example
+ *  [x, y]
  */
 
 Object.defineProperty(Hygress.prototype, "origin", {
@@ -464,106 +600,77 @@ Object.defineProperty(Hygress.prototype, "scale", {
 /**
  * Updates the animation.
  *
- * @method _update
+ * @method update
  * @private
- * @param {Number} elapsed - The elapsed time since the last frame.
+ * @param {Number} elapsed - The elapsed time since the last frame in milliseconds.
  */
 
-Hygress.prototype._update = function(elapsed)
+Hygress.prototype.update = function(elapsed)
 {
  var opacity, scale, percentage;
 
- opacity = this._opacity;
- scale = this._scale;
+ // Need seconds.
+ elapsed /= 1000.0;
 
- if(opacity.transitionActive)
+ if(this.visible)
  {
-  percentage = opacity.elapsed / this.transitionTime;
-  if(percentage > 1.0) { percentage = 1.0; }
-  this.ht.opacity = opacity.start - percentage * opacity.difference;
-  opacity.elapsed += elapsed;
+  opacity = this._opacity;
+  scale = this._scale;
 
-  if(this.ht.opacity === opacity.target)
+  if(opacity.transitionActive)
   {
-   opacity.transitionActive = false;
+   percentage = opacity.elapsed / this.transitionTime;
+   if(percentage > 1.0) { percentage = 1.0; }
+   this.ht.opacity = opacity.start - percentage * opacity.difference;
+   opacity.elapsed += elapsed;
 
-   if(this.ht.opacity === 0.0)
+   if(this.ht.opacity === opacity.target)
    {
-    this._draw();
-    this.visible = false;
+    opacity.transitionActive = false;
+
+    if(this.ht.opacity === 0.0)
+    {
+     this.draw();
+     this.visible = false;
+    }
    }
   }
- }
 
- if(scale.transitionActive)
- {
-  percentage = scale.elapsed / this.transitionTime;
-  if(percentage > 1.0) { percentage = 1.0; }
-  this.ht.d = scale.start - percentage * scale.difference;
-  scale.elapsed += elapsed;
-
-  if(this.ht.d === scale.target)
+  if(scale.transitionActive)
   {
-   scale.transitionActive = false;
+   percentage = scale.elapsed / this.transitionTime;
+   if(percentage > 1.0) { percentage = 1.0; }
+   this.ht.d = scale.start - percentage * scale.difference;
+   scale.elapsed += elapsed;
 
-   if(this.ht.d === 0.0)
+   if(this.ht.d === scale.target)
    {
-    this._draw();
-    this.visible = false;
+    scale.transitionActive = false;
+
+    if(this.ht.d === 0.0)
+    {
+     this.draw();
+     this.visible = false;
+    }
    }
   }
- }
 
- this.ht.update();
+  this.ht.update();
+ }
 };
 
 /**
  * Draws the hypotrochoid.
  *
- * @method _draw
+ * @method draw
  * @private
  */
 
-Hygress.prototype._draw = function()
+Hygress.prototype.draw = function()
 {
- if(this.clearCanvas)
- {
-  this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
- }
-
- this.ht.draw(this.ctx);
-};
-
-/**
- * Updates and renders the hypotrochoid while taking
- * the elapsed time since the last frame into account.
- *
- * @method _step
- * @private
- */
-
-Hygress.prototype._step = function()
-{
- var elapsed;
-
- this.now = Date.now() / 1000;
- elapsed = this.now - this.then;
- this.accumulator += elapsed;
- this.then = this.now;
-
- if(this.accumulator >= this.dt)
- {
-  if(this.visible)
-  {
-   this._update(elapsed);
-  }
-
-  this.accumulator -= this.dt;
- }
-
  if(this.visible)
  {
-  this._draw();
+  this.ht.draw(this.ctx);
  }
 };
 
@@ -587,7 +694,7 @@ Hygress.Hypotrochoid = Object.freeze({
  RING: {r: 3.9, R: 5.0, iterations: 50, rotation: 0.013}
 });
 
-},{"./hypotrochoid":2}],2:[function(require,module,exports){
+},{"./hypotrochoid":3,"canvasrenderer":1}],3:[function(require,module,exports){
 "use strict";
 
 module.exports = Hypotrochoid;
@@ -961,5 +1068,5 @@ Hypotrochoid.prototype.draw = function(ctx)
  ctx.restore();
 };
 
-},{}]},{},[1])(1)
+},{}]},{},[2])(2)
 });
