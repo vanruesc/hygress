@@ -36,9 +36,10 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\hygress.js",
-            "line": 7,
+            "line": 8,
             "description": "Hygress.\nA hy(potrochoid pro)gress visualisation.",
             "is_constructor": 1,
+            "extends": "CanvasRenderer",
             "params": [
                 {
                     "name": "options",
@@ -48,7 +49,7 @@
                     "props": [
                         {
                             "name": "dt",
-                            "description": "- A delta time constant.",
+                            "description": "- The update rate in seconds.",
                             "type": "Number",
                             "optional": true,
                             "optdefault": "1/60"
@@ -240,69 +241,7 @@
     "classitems": [
         {
             "file": "src\\hygress.js",
-            "line": 32,
-            "description": "Clear flag.",
-            "itemtype": "property",
-            "name": "clearCanvas",
-            "type": "Boolean",
-            "class": "Hygress"
-        },
-        {
-            "file": "src\\hygress.js",
-            "line": 41,
-            "description": "Delta time.",
-            "itemtype": "property",
-            "name": "dt",
-            "type": "Number",
-            "class": "Hygress"
-        },
-        {
-            "file": "src\\hygress.js",
-            "line": 50,
-            "description": "Rendering is bound to time and not to frames.",
-            "itemtype": "property",
-            "name": "now",
-            "type": "Number",
-            "access": "private",
-            "tagname": "",
-            "class": "Hygress"
-        },
-        {
-            "file": "src\\hygress.js",
-            "line": 60,
-            "description": "Rendering is bound to time and not to frames.",
-            "itemtype": "property",
-            "name": "then",
-            "type": "Number",
-            "access": "private",
-            "tagname": "",
-            "class": "Hygress"
-        },
-        {
-            "file": "src\\hygress.js",
-            "line": 70,
-            "description": "Rendering is bound to time and not to frames.",
-            "itemtype": "property",
-            "name": "accumulator",
-            "type": "Number",
-            "access": "private",
-            "tagname": "",
-            "class": "Hygress"
-        },
-        {
-            "file": "src\\hygress.js",
-            "line": 80,
-            "description": "Rendering context.",
-            "itemtype": "property",
-            "name": "ctx",
-            "type": "CanvasRenderingContext2D",
-            "access": "private",
-            "tagname": "",
-            "class": "Hygress"
-        },
-        {
-            "file": "src\\hygress.js",
-            "line": 93,
+            "line": 34,
             "description": "The internal hypotrochoid instance.",
             "itemtype": "property",
             "name": "ht",
@@ -313,7 +252,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 103,
+            "line": 44,
             "description": "The transition time.",
             "itemtype": "property",
             "name": "transitionTime",
@@ -322,7 +261,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 112,
+            "line": 53,
             "description": "The internal opacity transition values.",
             "itemtype": "property",
             "name": "_opacity",
@@ -333,7 +272,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 128,
+            "line": 69,
             "description": "The internal scale transition values.",
             "itemtype": "property",
             "name": "_scale",
@@ -344,7 +283,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 146,
+            "line": 87,
             "description": "Visible flag, used to determine if the hypotrochoid\nshould be drawn this frame.",
             "itemtype": "property",
             "name": "visible",
@@ -355,15 +294,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 190,
-            "description": "The render function which should be called each frame.",
-            "itemtype": "method",
-            "name": "render",
-            "class": "Hygress"
-        },
-        {
-            "file": "src\\hygress.js",
-            "line": 199,
+            "line": 135,
             "description": "The hypotrochoid.\nAssigning a new object only overwrites the defined\nfields and keeps the other ones.",
             "itemtype": "property",
             "name": "hypotrochoid",
@@ -372,25 +303,19 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 213,
-            "description": "The internal canvas.",
-            "itemtype": "property",
-            "name": "canvas",
-            "type": "HTMLCanvasElement",
-            "class": "Hygress"
-        },
-        {
-            "file": "src\\hygress.js",
-            "line": 231,
-            "description": "The size of the internal canvas.\nIt can be set as [width, height].",
+            "line": 149,
+            "description": "The size of the internal canvas.",
             "itemtype": "property",
             "name": "size",
             "type": "Array",
+            "example": [
+                "\n [width, height]"
+            ],
             "class": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 262,
+            "line": 181,
             "description": "The hypotrochoid's size.",
             "itemtype": "property",
             "name": "htSize",
@@ -399,16 +324,19 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 286,
-            "description": "The hypotrochoid's origin.\nThe origin can be set as [x, y].",
+            "line": 205,
+            "description": "The hypotrochoid's origin.",
             "itemtype": "property",
             "name": "origin",
             "type": "Array",
+            "example": [
+                "\n [x, y]"
+            ],
             "class": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 306,
+            "line": 226,
             "description": "The hypotrochoid's colour roll flag.",
             "itemtype": "property",
             "name": "colourRoll",
@@ -417,7 +345,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 324,
+            "line": 244,
             "description": "The hypotrochoid's hue in degree.",
             "itemtype": "property",
             "name": "hue",
@@ -426,7 +354,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 342,
+            "line": 262,
             "description": "The hypotrochoid's saturation in percent.",
             "itemtype": "property",
             "name": "saturation",
@@ -435,7 +363,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 360,
+            "line": 280,
             "description": "The hypotrochoid's luminance in percent.",
             "itemtype": "property",
             "name": "luminance",
@@ -444,7 +372,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 378,
+            "line": 298,
             "description": "The line width of the hypotrochoid.",
             "itemtype": "property",
             "name": "lineWidth",
@@ -453,7 +381,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 396,
+            "line": 316,
             "description": "The opacity of the hypotrochoid. Valid values: 0.0 to 1.0.\n\nSetting the opacity to a new value triggers a gradual change\ntowards the target value. The transition is linear and \ndepends on the transitionTime variable.",
             "itemtype": "property",
             "name": "opacity",
@@ -462,7 +390,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 426,
+            "line": 346,
             "description": "The scale of the hypotrochoid. Valid values: 0.0 to 1.0.\n\nSetting the scale to a new value triggers a gradual change\ntowards the target value. The transition is linear and \ndepends on the transitionTime variable.",
             "itemtype": "property",
             "name": "scale",
@@ -471,16 +399,16 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 457,
+            "line": 377,
             "description": "Updates the animation.",
             "itemtype": "method",
-            "name": "_update",
+            "name": "update",
             "access": "private",
             "tagname": "",
             "params": [
                 {
                     "name": "elapsed",
-                    "description": "- The elapsed time since the last frame.",
+                    "description": "- The elapsed time since the last frame in milliseconds.",
                     "type": "Number"
                 }
             ],
@@ -488,27 +416,17 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 513,
+            "line": 439,
             "description": "Draws the hypotrochoid.",
             "itemtype": "method",
-            "name": "_draw",
+            "name": "draw",
             "access": "private",
             "tagname": "",
             "class": "Hygress"
         },
         {
             "file": "src\\hygress.js",
-            "line": 530,
-            "description": "Updates and renders the hypotrochoid while taking\nthe elapsed time since the last frame into account.",
-            "itemtype": "method",
-            "name": "_step",
-            "access": "private",
-            "tagname": "",
-            "class": "Hygress"
-        },
-        {
-            "file": "src\\hygress.js",
-            "line": 563,
+            "line": 454,
             "description": "Predefined hypotrochoids.",
             "itemtype": "property",
             "name": "Hypotrochoid",
