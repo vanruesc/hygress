@@ -1,5 +1,5 @@
 /**
- * hygress v0.0.12 build 04.08.2015
+ * hygress v0.0.13 build 05.08.2015
  * https://github.com/vanruesc/hygress
  * Copyright 2015 Raoul van Rueschen, Zlib
  */
@@ -42,7 +42,7 @@ function CanvasRenderer(options)
   * @private
   */
 
- this.now = ((window.performance !== undefined) ? window.performance.now() : Date.now()) / 1000.0;
+ this.now = (window.performance !== undefined) ? window.performance.now() : Date.now();
 
  /**
   * Used for time based rendering. Milliseconds.
