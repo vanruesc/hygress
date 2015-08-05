@@ -1,5 +1,5 @@
 /**
- * hygress v0.0.13 build 05.08.2015
+ * hygress v0.0.15 build 05.08.2015
  * https://github.com/vanruesc/hygress
  * Copyright 2015 Raoul van Rueschen, Zlib
  */
@@ -101,6 +101,7 @@ function CanvasRenderer(options)
   if(options.dt !== undefined) { this.dt = options.dt * 1000.0; }
   if(options.canvas !== undefined) { this.canvas = options.canvas; }
   if(options.clearCanvas !== undefined) { this.clearCanvas = options.clearCanvas; }
+  if(options.enabled !== undefined) { this.enabled = options.enabled; }
   this.size = options.size;
  }
 

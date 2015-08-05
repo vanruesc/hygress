@@ -2,7 +2,7 @@
     "project": {
         "name": "hygress",
         "description": "A hy(potrochoid pro)gress visualisation library.",
-        "version": "0.0.12",
+        "version": "0.0.15",
         "url": "https://github.com/vanruesc/hygress"
     },
     "files": {
