@@ -34,7 +34,7 @@
 		"jshint:lib": "jshint src",
 		"jshint": "npm run jshint:banner && npm run jshint:test && npm run jshint:lib",
 		"prebuild": "npm run jshint",
-		"build": "mkdirp build && browserify src/hygress.js -t babelify -s Stay -o build/hygress.js",
+		"build": "mkdirp build && browserify src/hygress.js -t babelify -s Hygress -o build/hygress.js",
 		"uglify": "uglifyjs build/hygress.js -c -m -o build/hygress.min.js",
 		"mocha": "mocha test",
 		"pretest": "npm run build",
