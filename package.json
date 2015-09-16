@@ -1,6 +1,6 @@
 {
   "name": "hygress",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A hy(potrochoid pro)gress visualisation library.",
   "homepage": "https://github.com/vanruesc/hygress",
   "main": "src/hygress",
