@@ -1,7 +1,3 @@
-"use strict";
-
-module.exports = Hypotrochoid;
-
 /**
  * A float threshold.
  *
@@ -25,9 +21,10 @@ var EPSILON = 0.0001;
  * @return {boolean} Whether the values are equal or not.
  */
 
-function equal(a, b)
-{
- return Math.abs(a - b) <= EPSILON;
+function equal(a, b) {
+
+	return Math.abs(a - b) <= EPSILON;
+
 }
 
 /**
@@ -51,189 +48,190 @@ function equal(a, b)
  * @param {Number} [options.luminance=50.0] - The luminance in percent.
  */
 
-function Hypotrochoid(options)
-{
- /**
-  * Pi * 2.
-  *
-  * @property TWO_PI
-  * @type Number
-  * @private
-  * @final
-  */
+export default function Hypotrochoid(options) {
 
- this.TWO_PI = Math.PI * 2;
+	/**
+	 * Pi * 2.
+	 *
+	 * @property TWO_PI
+	 * @type Number
+	 * @private
+	 * @final
+	 */
 
- /**
-  * Current rotation.
-  *
-  * @property rotation
-  * @type Number
-  * @private
-  */
+	this.TWO_PI = Math.PI * 2;
 
- this.rotation = 0.0;
+	/**
+	 * Current rotation.
+	 *
+	 * @property rotation
+	 * @type Number
+	 * @private
+	 */
 
- /**
-  * Incremented by step, used to draw the hypotrochoid.
-  *
-  * @property theta
-  * @type Number
-  * @private
-  */
+	this.rotation = 0.0;
 
- this.theta = 0.0;
+	/**
+	 * Incremented by step, used to draw the hypotrochoid.
+	 *
+	 * @property theta
+	 * @type Number
+	 * @private
+	 */
 
- /**
-  * Theta is incremented by step.
-  *
-  * @property step
-  * @type Number
-  * @private
-  */
+	this.theta = 0.0;
 
- this.step = 360.0 * Math.PI / 180.0;
+	/**
+	 * Theta is incremented by step.
+	 *
+	 * @property step
+	 * @type Number
+	 * @private
+	 */
 
- /**
-  * The first 2D-point in the draw process.
-  *
-  * @property firstCoord
-  * @type Object
-  * @private
-  */
+	this.step = 360.0 * Math.PI / 180.0;
 
- this.firstCoord = {x: 0.0, y: 0.0};
+	/**
+	 * The first 2D-point in the draw process.
+	 *
+	 * @property firstCoord
+	 * @type Object
+	 * @private
+	 */
 
- /**
-  * The previous 2D-point in the draw process.
-  *
-  * @property firstCoord
-  * @type Object
-  * @private
-  */
+	this.firstCoord = {x: 0.0, y: 0.0};
 
- this.prevCoord = {x: 0.0, y: 0.0};
+	/**
+	 * The previous 2D-point in the draw process.
+	 *
+	 * @property firstCoord
+	 * @type Object
+	 * @private
+	 */
 
- /**
-  * r.
-  *
-  * @property r
-  * @type Number
-  */
+	this.prevCoord = {x: 0.0, y: 0.0};
 
- this.r = Math.random() * 2.0 + EPSILON;
+	/**
+	 * r.
+	 *
+	 * @property r
+	 * @type Number
+	 */
 
- /**
-  * R.
-  *
-  * @property R
-  * @type Number
-  */
+	this.r = Math.random() * 2.0 + EPSILON;
 
- this.R = this.r + Math.random() * 2.0 + EPSILON;
+	/**
+	 * R.
+	 *
+	 * @property R
+	 * @type Number
+	 */
 
- /**
-  * d.
-  *
-  * @property d
-  * @type Number
-  */
+	this.R = this.r + Math.random() * 2.0 + EPSILON;
 
- this.d = 0.0;
+	/**
+	 * d.
+	 *
+	 * @property d
+	 * @type Number
+	 */
 
- /**
-  * Maximum iteration count.
-  *
-  * @property iterations
-  * @type Number
-  */
+	this.d = 0.0;
 
- this.iterations = (Math.random() * 300 + 3) | 0;
+	/**
+	 * Maximum iteration count.
+	 *
+	 * @property iterations
+	 * @type Number
+	 */
 
- /**
-  * Rotation speed and direction.
-  *
-  * @property rotationSpeed
-  * @type Number
-  */
+	this.iterations = (Math.random() * 300 + 3) | 0;
 
- this.rotationSpeed = Math.random() * 0.05 - Math.random() * 0.05;
+	/**
+	 * Rotation speed and direction.
+	 *
+	 * @property rotationSpeed
+	 * @type Number
+	 */
 
- /**
-  * The origin of the hypotrochoid.
-  *
-  * @property origin
-  * @type Object
-  */
+	this.rotationSpeed = Math.random() * 0.05 - Math.random() * 0.05;
 
- this.origin = {x: 0.0, y: 0.0};
+	/**
+	 * The origin of the hypotrochoid.
+	 *
+	 * @property origin
+	 * @type Object
+	 */
 
- /**
-  * the current opacity.
-  *
-  * @property opacity
-  * @type Object
-  */
+	this.origin = {x: 0.0, y: 0.0};
 
- this.opacity = 0.75;
+	/**
+	 * the current opacity.
+	 *
+	 * @property opacity
+	 * @type Object
+	 */
 
- /**
-  * The line width.
-  *
-  * @property lineWidth
-  * @type Number
-  */
+	this.opacity = 0.75;
 
- this.lineWidth = 0.5;
+	/**
+	 * The line width.
+	 *
+	 * @property lineWidth
+	 * @type Number
+	 */
 
- /**
-  * Colour roll flag.
-  *
-  * @property colourRoll
-  * @type Boolean
-  */
+	this.lineWidth = 0.5;
 
- this.colourRoll = true;
+	/**
+	 * Colour roll flag.
+	 *
+	 * @property colourRoll
+	 * @type Boolean
+	 */
 
- /**
-  * The current hue.
-  *
-  * @property hue
-  * @type Number
-  */
+	this.colourRoll = true;
 
- this.hue = 0.0;
+	/**
+	 * The current hue.
+	 *
+	 * @property hue
+	 * @type Number
+	 */
 
- /**
-  * The current saturation.
-  *
-  * @property saturation
-  * @type Number
-  */
+	this.hue = 0.0;
 
- this.saturation = 100.0;
+	/**
+	 * The current saturation.
+	 *
+	 * @property saturation
+	 * @type Number
+	 */
 
- /**
-  * The current limunance.
-  *
-  * @property luminance
-  * @type Number
-  */
+	this.saturation = 100.0;
 
- this.luminance = 50.0;
+	/**
+	 * The current limunance.
+	 *
+	 * @property luminance
+	 * @type Number
+	 */
 
- // Overwrite the defaults.
- this.setting = options;
+	this.luminance = 50.0;
 
- /**
-  * The inverted r value.
-  *
-  * @property rInv
-  * @type Number
-  * @private
-  */
+	// Overwrite the defaults.
+	this.setting = options;
 
- this.rInv = 1.0 / this.r;
+	/**
+	 * The inverted r value.
+	 *
+	 * @property rInv
+	 * @type Number
+	 * @private
+	 */
+
+	this.rInv = 1.0 / this.r;
+
 }
 
 /**
@@ -257,41 +255,47 @@ function Hypotrochoid(options)
  */
 
 Object.defineProperty(Hypotrochoid.prototype, "settings", {
- get: function()
- {
-  return {
-   r: this.r,
-   R: this.R,
-   d: this.d,
-   iterations: this.iterations,
-   rotation: this.rotationSpeed,
-   origin: this.origin,
-   opacity: this.opacity,
-   lineWidth: this.lineWidth,
-   colourRoll: this.colourRoll,
-   saturation: this.saturation,
-   luminance: this.luminance,
-   hue: this.hue
-  };
- },
- set: function(options)
- {
-  if(options !== undefined)
-  {
-   if(options.r !== undefined) { this.r = options.r; }
-   if(options.R !== undefined) { this.R = options.R; }
-   if(options.d !== undefined) { this.d = options.d; }
-   if(options.iterations !== undefined) { this.iterations = options.iterations; }
-   if(options.rotation !== undefined) { this.rotationSpeed = options.rotation; }
-   if(options.origin !== undefined) { this.origin = options.origin; }
-   if(options.opacity !== undefined) { this.opacity = options.opacity; }
-   if(options.lineWidth !== undefined) { this.lineWidth = options.lineWidth; }
-   if(options.colourRoll !== undefined) { this.colourRoll = options.colourRoll; }
-   if(options.saturation !== undefined) { this.saturation = options.saturation; }
-   if(options.luminance !== undefined) { this.luminance = options.luminance; }
-   if(options.hue !== undefined) { this.hue = options.hue; }
-  }
- }
+
+	get: function() {
+
+		return {
+			r: this.r,
+			R: this.R,
+			d: this.d,
+			iterations: this.iterations,
+			rotation: this.rotationSpeed,
+			origin: this.origin,
+			opacity: this.opacity,
+			lineWidth: this.lineWidth,
+			colourRoll: this.colourRoll,
+			saturation: this.saturation,
+			luminance: this.luminance,
+			hue: this.hue
+		};
+
+	},
+
+	set: function(options) {
+
+		if(options !== undefined) {
+
+			if(options.r !== undefined) { this.r = options.r; }
+			if(options.R !== undefined) { this.R = options.R; }
+			if(options.d !== undefined) { this.d = options.d; }
+			if(options.iterations !== undefined) { this.iterations = options.iterations; }
+			if(options.rotation !== undefined) { this.rotationSpeed = options.rotation; }
+			if(options.origin !== undefined) { this.origin = options.origin; }
+			if(options.opacity !== undefined) { this.opacity = options.opacity; }
+			if(options.lineWidth !== undefined) { this.lineWidth = options.lineWidth; }
+			if(options.colourRoll !== undefined) { this.colourRoll = options.colourRoll; }
+			if(options.saturation !== undefined) { this.saturation = options.saturation; }
+			if(options.luminance !== undefined) { this.luminance = options.luminance; }
+			if(options.hue !== undefined) { this.hue = options.hue; }
+
+		}
+
+	}
+
 });
 
 /**
@@ -300,19 +304,22 @@ Object.defineProperty(Hypotrochoid.prototype, "settings", {
  * @method update
  */
 
-Hypotrochoid.prototype.update = function()
-{
- if(this.colourRoll)
- {
-  this.hue -= 0.5;
-  if(this.hue <= -360.0) { this.hue += 360.0; }
- }
+Hypotrochoid.prototype.update = function() {
 
- if(!equal(this.rotationSpeed, 0.0))
- {
-  this.rotation -= this.rotationSpeed;
-  if(Math.abs(this.rotation) >= this.TWO_PI) { this.rotation -= this.TWO_PI; }
- }
+	if(this.colourRoll) {
+
+		this.hue -= 0.5;
+		if(this.hue <= -360.0) { this.hue += 360.0; }
+
+	}
+
+	if(!equal(this.rotationSpeed, 0.0)) {
+
+		this.rotation -= this.rotationSpeed;
+		if(Math.abs(this.rotation) >= this.TWO_PI) { this.rotation -= this.TWO_PI; }
+
+	}
+
 };
 
 /**
@@ -323,50 +330,53 @@ Hypotrochoid.prototype.update = function()
  * @param {CanvasRenderingContext2D} ctx - The surface to draw on.
  */
 
-Hypotrochoid.prototype.draw = function(ctx)
-{
- var i, q, x = 0.0, y = 0.0, bypass = true;
+Hypotrochoid.prototype.draw = function(ctx) {
 
- ctx.save();
+	var i, q, x = 0.0, y = 0.0, bypass = true;
 
- ctx.lineWidth = this.lineWidth;
- ctx.lineCap = "round";
- ctx.globalCompositeOperation = "source-over";
+	ctx.save();
 
- this.theta = 0.0;
- this.prevCoord.x = 0.0;
- i = this.iterations;
+	ctx.lineWidth = this.lineWidth;
+	ctx.lineCap = "round";
+	ctx.globalCompositeOperation = "source-over";
 
- ctx.beginPath();
+	this.theta = 0.0;
+	this.prevCoord.x = 0.0;
+	i = this.iterations;
 
- while(i >= 0 && (bypass || !equal(this.firstCoord.x, x) || !equal(this.firstCoord.y, y)))
- {
-  if(bypass) { bypass = false; }
-  this.theta += this.step;
+	ctx.beginPath();
 
-  q = (this.r / this.R - 1.0) * this.theta; 
-  x = (this.r - this.R) * Math.cos(this.theta) + this.d * Math.cos(q + this.rotation) + this.origin.x + (this.R - this.r);
-  y = (this.r - this.R) * Math.sin(this.theta) - this.d * Math.sin(q + this.rotation) + this.origin.y;
+	while(i >= 0 && (bypass || !equal(this.firstCoord.x, x) || !equal(this.firstCoord.y, y))) {
 
-  if(this.prevCoord.x)
-  {
-   ctx.moveTo(this.prevCoord.x, this.prevCoord.y);
-   ctx.lineTo(x, y);
-  }
-  else
-  {
-   this.firstCoord.x = x;
-   this.firstCoord.y = y;
-   bypass = true;
-  }
+		if(bypass) { bypass = false; }
+		this.theta += this.step;
 
-  this.prevCoord.x = x;
-  this.prevCoord.y = y;
-  --i;
- }
+		q = (this.r / this.R - 1.0) * this.theta; 
+		x = (this.r - this.R) * Math.cos(this.theta) + this.d * Math.cos(q + this.rotation) + this.origin.x + (this.R - this.r);
+		y = (this.r - this.R) * Math.sin(this.theta) - this.d * Math.sin(q + this.rotation) + this.origin.y;
 
- ctx.strokeStyle = "hsla(" + this.hue + ", " + this.saturation + "%, " + this.luminance + "%, " + this.opacity + ")";
- ctx.stroke();
+		if(this.prevCoord.x) {
 
- ctx.restore();
+			ctx.moveTo(this.prevCoord.x, this.prevCoord.y);
+			ctx.lineTo(x, y);
+
+		} else {
+
+			this.firstCoord.x = x;
+			this.firstCoord.y = y;
+			bypass = true;
+
+		}
+
+		this.prevCoord.x = x;
+		this.prevCoord.y = y;
+		--i;
+
+	}
+
+	ctx.strokeStyle = "hsla(" + this.hue + ", " + this.saturation + "%, " + this.luminance + "%, " + this.opacity + ")";
+	ctx.stroke();
+
+	ctx.restore();
+
 };

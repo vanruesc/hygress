@@ -1,44 +1,63 @@
 {
   "name": "hygress",
+  "version": "0.1.0",
   "description": "A hy(potrochoid pro)gress visualisation library.",
+  "homepage": "https://github.com/vanruesc/hygress",
+  "main": "src/hygress",
+  "license": "Zlib",
+
   "keywords": [
     "hypotrochoid",
     "progress",
     "canvas",
     "visualisation"
   ],
-  "version": "0.0.15",
-  "homepage": "https://github.com/vanruesc/hygress",
+
   "author": {
     "name": "Raoul van Rueschen",
     "email": "vanruesc@fh-brandenburg.de"
   },
+
   "repository": {
     "type": "git",
     "url": "https://github.com/vanruesc/hygress.git"
   },
+
   "bugs": {
     "url": "https://github.com/vanruesc/hygress/issues"
   },
-  "license": "Zlib",
-  "main": "src/hygress",
+
   "scripts": {
-    "test": "grunt"
+		"yuidoc": "yuidoc src -q -c yuidoc.json",
+		"jshint:banner": "jshint banner.js",
+		"jshint:test": "jshint test",
+		"jshint:lib": "jshint src",
+		"jshint": "npm run jshint:banner && npm run jshint:test && npm run jshint:lib",
+		"prebuild": "npm run jshint",
+		"build": "mkdirp build && browserify src/hygress.js -t babelify -s Stay -o build/hygress.js",
+		"uglify": "uglifyjs build/hygress.js -c -m -o build/hygress.min.js",
+		"mocha": "mocha test",
+		"pretest": "npm run build",
+		"test": "npm run mocha",
+		"posttest": "npm run uglify && node banner.js"
   },
+
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 0.10.0"
   },
+
   "dependencies": {
     "canvasrenderer": "x.x.x"
   },
+
   "devDependencies": {
-    "grunt": "0.4.x",
-    "grunt-browserify": "3.x.x",
-    "grunt-contrib-clean": "0.x.x",
-    "grunt-contrib-jasmine": "0.x.x",
-    "grunt-contrib-jshint": "0.11.x",
-    "grunt-contrib-uglify": "0.9.x",
-    "grunt-contrib-watch": "0.6.x",
-    "grunt-contrib-yuidoc": "0.8.x"
+		"babelify": "6.x.x",
+		"browserify": "11.x.x",
+		"mkdirp": "0.x.x",
+		"jshint": "2.x.x",
+		"mocha": "2.x.x",
+		"prepend-file": "1.x.x",
+		"uglify-js": "2.x.x",
+		"yuidocjs": "0.x.x"
   }
 }

@@ -1,29 +1,16 @@
-"use strict";
+var assert = require("assert"),
+	Hygress = require("../build/hygress");
 
-/**
- * Jasmine specs.
- */
+describe("Hygress", function() {
 
-var Hygress = require("../src/hygress");
+	describe("Basics", function() {
 
-describe("Hygress", function()
-{
- var hygress;
+		it("is a constructor function", function() {
 
- it("should be a constructor function", function()
- {
-  expect(typeof Hygress).toBe("function");
-  hygress = new Hygress();
-  expect(typeof hygress).toBe("object");
- });
+			assert.equal(typeof Hygress, "function");
 
- it("should have a canvas", function()
- {
-  expect(typeof hygress.canvas).toBe("object");
- });
+		});
 
- it("should have a settable 2D size", function()
- {
-  expect(hygress.size.length).toBe(2);
- });
+	});
+
 });
