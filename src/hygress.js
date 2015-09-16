@@ -1,9 +1,5 @@
-"use strict";
-
-module.exports = Hygress;
-
-var CanvasRenderer = require("canvasrenderer"),
- Hypotrochoid = require("./hypotrochoid");
+import CanvasRenderer from "canvasrenderer";
+import Hypotrochoid from "./hypotrochoid";
 
 /**
  * Hygress.
@@ -27,106 +23,110 @@ var CanvasRenderer = require("canvasrenderer"),
  * @param {Array} [options.size] - The canvas size.
  */
 
-function Hygress(options)
-{
- CanvasRenderer.call(this, options);
+export default function Hygress(options) {
 
- /**
-  * The internal hypotrochoid instance.
-  *
-  * @property ht
-  * @type Hypotrochoid
-  * @private
-  */
+	CanvasRenderer.call(this, options);
 
- this.ht = new Hypotrochoid();
+	/**
+	 * The internal hypotrochoid instance.
+	 *
+	 * @property ht
+	 * @type Hypotrochoid
+	 * @private
+	 */
 
- /**
-  * The transition time.
-  *
-  * @property transitionTime
-  * @type Number
-  */
+	this.ht = new Hypotrochoid();
 
- this.transitionTime = 0.25;
+	/**
+	 * The transition time.
+	 *
+	 * @property transitionTime
+	 * @type Number
+	 */
 
- /**
-  * The internal opacity transition values.
-  *
-  * @property _opacity
-  * @type Number
-  * @private
-  */
+	this.transitionTime = 0.25;
 
- this._opacity = {
-  start: 0.0,
-  difference: 0.0,
-  target: 0.75,
-  elapsed: 0,
-  transitionActive: false
- };
+	/**
+	 * The internal opacity transition values.
+	 *
+	 * @property _opacity
+	 * @type Number
+	 * @private
+	 */
 
- /**
-  * The internal scale transition values.
-  *
-  * @property _scale
-  * @type Number
-  * @private
-  */
+	this._opacity = {
+		start: 0.0,
+		difference: 0.0,
+		target: 0.75,
+		elapsed: 0,
+		transitionActive: false
+	};
 
- this._scale = {
-  start: 0.0,
-  difference: 0.0,
-  target: 0.0,
-  max: 0.0,
-  factor: 1.0,
-  elapsed: 0,
-  transitionActive: false
- };
+	/**
+	 * The internal scale transition values.
+	 *
+	 * @property _scale
+	 * @type Number
+	 * @private
+	 */
 
- /**
-  * Visible flag, used to determine if the hypotrochoid
-  * should be drawn this frame.
-  *
-  * @property visible
-  * @type Boolean
-  * @private
-  */
+	this._scale = {
+		start: 0.0,
+		difference: 0.0,
+		target: 0.0,
+		max: 0.0,
+		factor: 1.0,
+		elapsed: 0,
+		transitionActive: false
+	};
 
- this.visible = true;
+	/**
+	 * Visible flag, used to determine if the hypotrochoid
+	 * should be drawn this frame.
+	 *
+	 * @property visible
+	 * @type Boolean
+	 * @private
+	 */
 
- // Set the initial canvas size and the hypotrochoid's size.
- this.size = this.size;
+	this.visible = true;
 
- // Overwrite the default values.
- if(options !== undefined)
- {
-  if(options.dt !== undefined) { this.dt = options.dt; }
-  if(options.clearCanvas !== undefined) { this.clearCanvas = options.clearCanvas; }
-  if(options.transitionTime !== undefined) { this.transitionTime = options.transitionTime; }
-  if(options.colourRoll !== undefined) { this.ht.colourRoll = options.colourRoll; }
-  if(options.hue !== undefined) { this.ht.hue = options.hue; }
-  if(options.saturation !== undefined) { this.ht.saturation = options.saturation; }
-  if(options.luminance !== undefined) { this.ht.hue = options.luminance; }
-  if(options.canvas !== undefined) { this.canvas = options.canvas; }
+	// Set the initial canvas size and the hypotrochoid's size.
+	this.size = this.size;
 
-  this.ht.settings = options.hypotrochoid;
-  this.size = options.size;
+	// Overwrite the default values.
+	if(options !== undefined) {
 
-  if(options.opacity !== undefined)
-  {
-   this.ht.opacity = this._opacity.target = options.opacity;
-  }
+		if(options.dt !== undefined) { this.dt = options.dt; }
+		if(options.clearCanvas !== undefined) { this.clearCanvas = options.clearCanvas; }
+		if(options.transitionTime !== undefined) { this.transitionTime = options.transitionTime; }
+		if(options.colourRoll !== undefined) { this.ht.colourRoll = options.colourRoll; }
+		if(options.hue !== undefined) { this.ht.hue = options.hue; }
+		if(options.saturation !== undefined) { this.ht.saturation = options.saturation; }
+		if(options.luminance !== undefined) { this.ht.hue = options.luminance; }
+		if(options.canvas !== undefined) { this.canvas = options.canvas; }
 
-  if(options.scale !== undefined)
-  {
-   this._scale.factor = options.scale;
-   this.ht.d *= this._scale.factor;
-  }
- }
+		this.ht.settings = options.hypotrochoid;
+		this.size = options.size;
 
- // Update the visible flag.
- this.visible = this.ht.opacity > 0.0 && this.ht.d > 0.0;
+		if(options.opacity !== undefined) {
+
+			this.ht.opacity = this._opacity.target = options.opacity;
+
+		}
+
+		if(options.scale !== undefined) {
+
+		this._scale.factor = options.scale;
+		this.ht.d *= this._scale.factor;
+
+		}
+
+	}
+
+	// Update the visible flag.
+	this.visible = this.ht.opacity > 0.0 && this.ht.d > 0.0;
+
 }
 
 Hygress.prototype = Object.create(CanvasRenderer.prototype);
@@ -142,8 +142,10 @@ Hygress.prototype.constructor = Hygress;
  */
 
 Object.defineProperty(Hygress.prototype, "hypotrochoid", {
- get: function() { return this.ht.settings; },
- set: function(x) { this.ht.settings = x; }
+
+	get: function() { return this.ht.settings; },
+	set: function(x) { this.ht.settings = x; }
+
 });
 
 /**
@@ -156,26 +158,32 @@ Object.defineProperty(Hygress.prototype, "hypotrochoid", {
  */
 
 Object.defineProperty(Hygress.prototype, "size", {
- get: function()
- {
-  return [
-   this.ctx.canvas.width,
-   this.ctx.canvas.height
-  ];
- },
- set: function(x)
- {
-  var min;
 
-  if(x !== undefined && x.length === 2)
-  {
-   min = (x[0] < x[1]) ? x[0] : x[1];
-   this.ctx.canvas.width = min;
-   this.ctx.canvas.height = min;
-   this.htSize = min >> 1;
-   this.ht.origin.x = this.ht.origin.y = this._scale.max;
-  }
- }
+	get: function() {
+
+		return [
+			this.ctx.canvas.width,
+			this.ctx.canvas.height
+		];
+
+	},
+
+	set: function(x) {
+
+		var min;
+
+		if(x !== undefined && x.length === 2) {
+
+			min = (x[0] < x[1]) ? x[0] : x[1];
+			this.ctx.canvas.width = min;
+			this.ctx.canvas.height = min;
+			this.htSize = min >> 1;
+			this.ht.origin.x = this.ht.origin.y = this._scale.max;
+
+		}
+
+	}
+
 });
 
 /**
@@ -186,20 +194,26 @@ Object.defineProperty(Hygress.prototype, "size", {
  */
 
 Object.defineProperty(Hygress.prototype, "htSize", {
- get: function() { return this.ht.d; },
- set: function(x)
- {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
-  {
-   this._scale.max = x;
-   this._scale.target = this._scale.factor * this._scale.max;
 
-   if(!this._scale.transitionActive)
-   {
-    this.ht.d = this._scale.target;
-   }
-  }
- }
+	get: function() { return this.ht.d; },
+
+	set: function(x) {
+
+		if(x !== undefined && typeof x === "number" && !isNaN(x)) {
+
+			this._scale.max = x;
+			this._scale.target = this._scale.factor * this._scale.max;
+
+			if(!this._scale.transitionActive) {
+
+				this.ht.d = this._scale.target;
+
+			}
+
+		}
+
+	}
+
 });
 
 /**
@@ -212,15 +226,20 @@ Object.defineProperty(Hygress.prototype, "htSize", {
  */
 
 Object.defineProperty(Hygress.prototype, "origin", {
- get: function() { return this.ht.origin; },
- set: function(x)
- {
-  if(x !== undefined && x.length === 2)
-  {
-   this.ht.origin.x = x[0];
-   this.ht.origin.y = x[1];
-  }
- }
+
+	get: function() { return this.ht.origin; },
+
+	set: function(x) {
+
+		if(x !== undefined && x.length === 2) {
+
+			this.ht.origin.x = x[0];
+			this.ht.origin.y = x[1];
+
+		}
+
+	}
+
 });
 
 /**
@@ -231,14 +250,19 @@ Object.defineProperty(Hygress.prototype, "origin", {
  */
 
 Object.defineProperty(Hygress.prototype, "colourRoll", {
- get: function() { return this.ht.colourRoll; },
- set: function(x)
- {
-  if(x !== undefined && typeof x === "boolean")
-  {
-   this.ht.colourRoll = x;
-  }
- }
+
+	get: function() { return this.ht.colourRoll; },
+
+	set: function(x) {
+
+		if(x !== undefined && typeof x === "boolean") {
+
+			this.ht.colourRoll = x;
+
+		}
+
+	}
+
 });
 
 /**
@@ -249,14 +273,19 @@ Object.defineProperty(Hygress.prototype, "colourRoll", {
  */
 
 Object.defineProperty(Hygress.prototype, "hue", {
- get: function() { return this.ht.colour; },
- set: function(x)
- {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
-  {
-   this.ht.hue = x;
-  }
- }
+
+	get: function() { return this.ht.colour; },
+
+	set: function(x) {
+
+		if(x !== undefined && typeof x === "number" && !isNaN(x)) {
+
+			this.ht.hue = x;
+
+		}
+
+	}
+
 });
 
 /**
@@ -267,14 +296,19 @@ Object.defineProperty(Hygress.prototype, "hue", {
  */
 
 Object.defineProperty(Hygress.prototype, "saturation", {
- get: function() { return this.ht.colour; },
- set: function(x)
- {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
-  {
-   this.ht.saturation = x;
-  }
- }
+
+	get: function() { return this.ht.colour; },
+
+	set: function(x) {
+
+		if(x !== undefined && typeof x === "number" && !isNaN(x)) {
+
+			this.ht.saturation = x;
+
+		}
+
+	}
+
 });
 
 /**
@@ -285,14 +319,19 @@ Object.defineProperty(Hygress.prototype, "saturation", {
  */
 
 Object.defineProperty(Hygress.prototype, "luminance", {
- get: function() { return this.ht.colour; },
- set: function(x)
- {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
-  {
-   this.ht.luminance = x;
-  }
- }
+
+	get: function() { return this.ht.colour; },
+
+	set: function(x) {
+
+		if(x !== undefined && typeof x === "number" && !isNaN(x)) {
+
+			this.ht.luminance = x;
+
+		}
+
+	}
+
 });
 
 /**
@@ -303,14 +342,19 @@ Object.defineProperty(Hygress.prototype, "luminance", {
  */
 
 Object.defineProperty(Hygress.prototype, "lineWidth", {
- get: function() { return this.ht.lineWidth; },
- set: function(x)
- {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
-  {
-   this.ht.lineWidth = x;
-  }
- }
+
+	get: function() { return this.ht.lineWidth; },
+
+	set: function(x) {
+
+		if(x !== undefined && typeof x === "number" && !isNaN(x)) {
+
+			this.ht.lineWidth = x;
+
+		}
+
+	}
+
 });
 
 /**
@@ -325,22 +369,27 @@ Object.defineProperty(Hygress.prototype, "lineWidth", {
  */
 
 Object.defineProperty(Hygress.prototype, "opacity", {
- get: function() { return this.ht.opacity; },
- set: function(x)
- {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
-  {
-   if(x < 0.0) { x = 0.0; }
-   if(x > 1.0) { x = 1.0; }
 
-   this._opacity.start = this.ht.opacity;
-   this._opacity.target = x;
-   this._opacity.difference = this.ht.opacity - this._opacity.target;
-   this._opacity.elapsed = 0;
-   this._opacity.transitionActive = true;
-   this.visible = true;
-  }
- }
+	get: function() { return this.ht.opacity; },
+
+	set: function(x) {
+
+		if(x !== undefined && typeof x === "number" && !isNaN(x)) {
+
+			if(x < 0.0) { x = 0.0; }
+			if(x > 1.0) { x = 1.0; }
+
+			this._opacity.start = this.ht.opacity;
+			this._opacity.target = x;
+			this._opacity.difference = this.ht.opacity - this._opacity.target;
+			this._opacity.elapsed = 0;
+			this._opacity.transitionActive = true;
+			this.visible = true;
+
+		}
+
+	}
+
 });
 
 /**
@@ -355,23 +404,28 @@ Object.defineProperty(Hygress.prototype, "opacity", {
  */
 
 Object.defineProperty(Hygress.prototype, "scale", {
- get: function() { return this.ht.d; },
- set: function(x)
- {
-  if(x !== undefined && typeof x === "number" && !isNaN(x))
-  {
-   if(x < 0.0) { x = 0.0; }
-   if(x > 1.0) { x = 1.0; }
 
-   this._scale.factor = x;
-   this._scale.start = this.ht.d;
-   this._scale.target = this._scale.factor * this._scale.max;
-   this._scale.difference = this.ht.d - this._scale.target;
-   this._scale.elapsed = 0;
-   this._scale.transitionActive = true;
-   this.visible = true;
-  }
- }
+	get: function() { return this.ht.d; },
+
+	set: function(x) {
+
+		if(x !== undefined && typeof x === "number" && !isNaN(x)) {
+
+			if(x < 0.0) { x = 0.0; }
+			if(x > 1.0) { x = 1.0; }
+
+			this._scale.factor = x;
+			this._scale.start = this.ht.d;
+			this._scale.target = this._scale.factor * this._scale.max;
+			this._scale.difference = this.ht.d - this._scale.target;
+			this._scale.elapsed = 0;
+			this._scale.transitionActive = true;
+			this.visible = true;
+
+		}
+
+	}
+
 });
 
 /**
@@ -382,58 +436,66 @@ Object.defineProperty(Hygress.prototype, "scale", {
  * @param {Number} elapsed - The elapsed time since the last frame in milliseconds.
  */
 
-Hygress.prototype.update = function(elapsed)
-{
- var opacity, scale, percentage;
+Hygress.prototype.update = function(elapsed) {
 
- // Need seconds.
- elapsed /= 1000.0;
+	var opacity, scale, percentage;
 
- if(this.visible)
- {
-  opacity = this._opacity;
-  scale = this._scale;
+	// Need seconds.
+	elapsed /= 1000.0;
 
-  if(opacity.transitionActive)
-  {
-   percentage = opacity.elapsed / this.transitionTime;
-   if(percentage > 1.0) { percentage = 1.0; }
-   this.ht.opacity = opacity.start - percentage * opacity.difference;
-   opacity.elapsed += elapsed;
+	if(this.visible) {
 
-   if(this.ht.opacity === opacity.target)
-   {
-    opacity.transitionActive = false;
+		opacity = this._opacity;
+		scale = this._scale;
 
-    if(this.ht.opacity === 0.0)
-    {
-     this.draw();
-     this.visible = false;
-    }
-   }
-  }
+		if(opacity.transitionActive) {
 
-  if(scale.transitionActive)
-  {
-   percentage = scale.elapsed / this.transitionTime;
-   if(percentage > 1.0) { percentage = 1.0; }
-   this.ht.d = scale.start - percentage * scale.difference;
-   scale.elapsed += elapsed;
+			percentage = opacity.elapsed / this.transitionTime;
+			if(percentage > 1.0) { percentage = 1.0; }
+			this.ht.opacity = opacity.start - percentage * opacity.difference;
+			opacity.elapsed += elapsed;
 
-   if(this.ht.d === scale.target)
-   {
-    scale.transitionActive = false;
+			if(this.ht.opacity === opacity.target) {
 
-    if(this.ht.d === 0.0)
-    {
-     this.draw();
-     this.visible = false;
-    }
-   }
-  }
+				opacity.transitionActive = false;
 
-  this.ht.update();
- }
+				if(this.ht.opacity === 0.0) {
+
+					this.draw();
+					this.visible = false;
+
+				}
+
+			}
+
+		}
+
+		if(scale.transitionActive) {
+
+			percentage = scale.elapsed / this.transitionTime;
+			if(percentage > 1.0) { percentage = 1.0; }
+			this.ht.d = scale.start - percentage * scale.difference;
+			scale.elapsed += elapsed;
+
+			if(this.ht.d === scale.target) {
+
+				scale.transitionActive = false;
+
+				if(this.ht.d === 0.0) {
+
+					this.draw();
+					this.visible = false;
+
+				}
+
+			}
+
+		}
+
+		this.ht.update();
+
+	}
+
 };
 
 /**
@@ -443,12 +505,14 @@ Hygress.prototype.update = function(elapsed)
  * @private
  */
 
-Hygress.prototype.draw = function()
-{
- if(this.visible)
- {
-  this.ht.draw(this.ctx);
- }
+Hygress.prototype.draw = function() {
+
+	if(this.visible) {
+
+		this.ht.draw(this.ctx);
+
+	}
+
 };
 
 /**
@@ -461,12 +525,12 @@ Hygress.prototype.draw = function()
  */
 
 Hygress.Hypotrochoid = Object.freeze({
- ILLUMINATI: {r: 0.0147, R: 0.022, iterations: 220, rotation: 0.003},
- MULTISTAR: {r: 0.675, R: 1.64, iterations: 34, rotation: 0.023},
- HYPNOTIZER: {r: 0.42, R: 0.86, iterations: 43, rotation: 0.01},
- NEGATIVE: {r: 0.35, R: 0.614, iterations: 100, rotation: 0.023},
- WINDMILL: {r: 0.7853, R: 1.3751, iterations: 64, rotation: 0.01},
- TRIPLET: {r: 1.671, R: 2.509, iterations: 160, rotation: 0.046},
- PENTAGRAM: {r: 3.0, R: 5.0, iterations: 5, rotation: 0.03},
- RING: {r: 3.9, R: 5.0, iterations: 50, rotation: 0.013}
+	ILLUMINATI: {r: 0.0147, R: 0.022, iterations: 220, rotation: 0.003},
+	MULTISTAR: {r: 0.675, R: 1.64, iterations: 34, rotation: 0.023},
+	HYPNOTIZER: {r: 0.42, R: 0.86, iterations: 43, rotation: 0.01},
+	NEGATIVE: {r: 0.35, R: 0.614, iterations: 100, rotation: 0.023},
+	WINDMILL: {r: 0.7853, R: 1.3751, iterations: 64, rotation: 0.01},
+	TRIPLET: {r: 1.671, R: 2.509, iterations: 160, rotation: 0.046},
+	PENTAGRAM: {r: 3.0, R: 5.0, iterations: 5, rotation: 0.03},
+	RING: {r: 3.9, R: 5.0, iterations: 50, rotation: 0.013}
 });

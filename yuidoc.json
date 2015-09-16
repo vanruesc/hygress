@@ -1,0 +1,9 @@
+{
+	"name": "Hygress API",
+	"description": "A hy(potrochoid pro)gress visualisation library.",
+	"version": "0.1.0",
+	"url": "https://github.com/vanruesc/hygress",
+	"options": {
+		"outdir": "docs"
+	}
+}

@@ -1,8 +1,8 @@
 {
     "project": {
-        "name": "hygress",
+        "name": "Hygress API",
         "description": "A hy(potrochoid pro)gress visualisation library.",
-        "version": "0.0.15",
+        "version": "0.1.0",
         "url": "https://github.com/vanruesc/hygress"
     },
     "files": {
@@ -36,7 +36,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\hygress.js",
-            "line": 8,
+            "line": 4,
             "description": "Hygress.\nA hy(potrochoid pro)gress visualisation.",
             "is_constructor": 1,
             "extends": "CanvasRenderer",
@@ -141,7 +141,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\hypotrochoid.js",
-            "line": 33,
+            "line": 30,
             "description": "Hypotrochoid.\nhttp://en.wikipedia.org/wiki/Hypotrochoid",
             "is_constructor": 1,
             "params": [
@@ -238,10 +238,11 @@
             ]
         }
     },
+    "elements": {},
     "classitems": [
         {
             "file": "src\\hygress.js",
-            "line": 34,
+            "line": 30,
             "description": "The internal hypotrochoid instance.",
             "itemtype": "property",
             "name": "ht",
@@ -252,7 +253,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 44,
+            "line": 40,
             "description": "The transition time.",
             "itemtype": "property",
             "name": "transitionTime",
@@ -261,7 +262,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 53,
+            "line": 49,
             "description": "The internal opacity transition values.",
             "itemtype": "property",
             "name": "_opacity",
@@ -272,7 +273,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 69,
+            "line": 65,
             "description": "The internal scale transition values.",
             "itemtype": "property",
             "name": "_scale",
@@ -283,7 +284,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 87,
+            "line": 83,
             "description": "Visible flag, used to determine if the hypotrochoid\nshould be drawn this frame.",
             "itemtype": "property",
             "name": "visible",
@@ -303,7 +304,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 149,
+            "line": 151,
             "description": "The size of the internal canvas.",
             "itemtype": "property",
             "name": "size",
@@ -315,7 +316,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 181,
+            "line": 189,
             "description": "The hypotrochoid's size.",
             "itemtype": "property",
             "name": "htSize",
@@ -324,7 +325,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 205,
+            "line": 219,
             "description": "The hypotrochoid's origin.",
             "itemtype": "property",
             "name": "origin",
@@ -336,7 +337,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 226,
+            "line": 245,
             "description": "The hypotrochoid's colour roll flag.",
             "itemtype": "property",
             "name": "colourRoll",
@@ -345,7 +346,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 244,
+            "line": 268,
             "description": "The hypotrochoid's hue in degree.",
             "itemtype": "property",
             "name": "hue",
@@ -354,7 +355,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 262,
+            "line": 291,
             "description": "The hypotrochoid's saturation in percent.",
             "itemtype": "property",
             "name": "saturation",
@@ -363,7 +364,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 280,
+            "line": 314,
             "description": "The hypotrochoid's luminance in percent.",
             "itemtype": "property",
             "name": "luminance",
@@ -372,7 +373,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 298,
+            "line": 337,
             "description": "The line width of the hypotrochoid.",
             "itemtype": "property",
             "name": "lineWidth",
@@ -381,7 +382,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 316,
+            "line": 360,
             "description": "The opacity of the hypotrochoid. Valid values: 0.0 to 1.0.\n\nSetting the opacity to a new value triggers a gradual change\ntowards the target value. The transition is linear and \ndepends on the transitionTime variable.",
             "itemtype": "property",
             "name": "opacity",
@@ -390,7 +391,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 346,
+            "line": 395,
             "description": "The scale of the hypotrochoid. Valid values: 0.0 to 1.0.\n\nSetting the scale to a new value triggers a gradual change\ntowards the target value. The transition is linear and \ndepends on the transitionTime variable.",
             "itemtype": "property",
             "name": "scale",
@@ -399,7 +400,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 377,
+            "line": 431,
             "description": "Updates the animation.",
             "itemtype": "method",
             "name": "update",
@@ -416,7 +417,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 439,
+            "line": 501,
             "description": "Draws the hypotrochoid.",
             "itemtype": "method",
             "name": "draw",
@@ -426,7 +427,7 @@
         },
         {
             "file": "src\\hygress.js",
-            "line": 454,
+            "line": 518,
             "description": "Predefined hypotrochoids.",
             "itemtype": "property",
             "name": "Hypotrochoid",
@@ -437,7 +438,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 5,
+            "line": 1,
             "description": "A float threshold.",
             "itemtype": "property",
             "name": "EPSILON",
@@ -450,7 +451,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 17,
+            "line": 13,
             "description": "Checks if two float values are (almost) equal.",
             "itemtype": "method",
             "name": "equal",
@@ -477,7 +478,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 56,
+            "line": 53,
             "description": "Pi * 2.",
             "itemtype": "property",
             "name": "TWO_PI",
@@ -489,7 +490,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 67,
+            "line": 64,
             "description": "Current rotation.",
             "itemtype": "property",
             "name": "rotation",
@@ -500,7 +501,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 77,
+            "line": 74,
             "description": "Incremented by step, used to draw the hypotrochoid.",
             "itemtype": "property",
             "name": "theta",
@@ -511,7 +512,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 87,
+            "line": 84,
             "description": "Theta is incremented by step.",
             "itemtype": "property",
             "name": "step",
@@ -522,7 +523,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 97,
+            "line": 94,
             "description": "The first 2D-point in the draw process.",
             "itemtype": "property",
             "name": "firstCoord",
@@ -533,7 +534,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 107,
+            "line": 104,
             "description": "The previous 2D-point in the draw process.",
             "itemtype": "property",
             "name": "firstCoord",
@@ -544,7 +545,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 117,
+            "line": 114,
             "description": "r.",
             "itemtype": "property",
             "name": "r",
@@ -553,7 +554,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 126,
+            "line": 123,
             "description": "R.",
             "itemtype": "property",
             "name": "R",
@@ -562,7 +563,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 135,
+            "line": 132,
             "description": "d.",
             "itemtype": "property",
             "name": "d",
@@ -571,7 +572,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 144,
+            "line": 141,
             "description": "Maximum iteration count.",
             "itemtype": "property",
             "name": "iterations",
@@ -580,7 +581,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 153,
+            "line": 150,
             "description": "Rotation speed and direction.",
             "itemtype": "property",
             "name": "rotationSpeed",
@@ -589,7 +590,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 162,
+            "line": 159,
             "description": "The origin of the hypotrochoid.",
             "itemtype": "property",
             "name": "origin",
@@ -598,7 +599,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 171,
+            "line": 168,
             "description": "the current opacity.",
             "itemtype": "property",
             "name": "opacity",
@@ -607,7 +608,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 180,
+            "line": 177,
             "description": "The line width.",
             "itemtype": "property",
             "name": "lineWidth",
@@ -616,7 +617,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 189,
+            "line": 186,
             "description": "Colour roll flag.",
             "itemtype": "property",
             "name": "colourRoll",
@@ -625,7 +626,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 198,
+            "line": 195,
             "description": "The current hue.",
             "itemtype": "property",
             "name": "hue",
@@ -634,7 +635,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 207,
+            "line": 204,
             "description": "The current saturation.",
             "itemtype": "property",
             "name": "saturation",
@@ -643,7 +644,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 216,
+            "line": 213,
             "description": "The current limunance.",
             "itemtype": "property",
             "name": "luminance",
@@ -652,7 +653,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 228,
+            "line": 225,
             "description": "The inverted r value.",
             "itemtype": "property",
             "name": "rInv",
@@ -663,7 +664,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 239,
+            "line": 237,
             "description": "The hypotrochoid's settings: {\n r,\n R,\n d,\n iterations,\n rotation,\n origin,\n opacity,\n lineWidth,\n colourRoll,\n saturation,\n luminance,\n hue\n}",
             "itemtype": "property",
             "name": "settings",
@@ -672,7 +673,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 297,
+            "line": 301,
             "description": "Updates hue and rotation.",
             "itemtype": "method",
             "name": "update",
@@ -680,7 +681,7 @@
         },
         {
             "file": "src\\hypotrochoid.js",
-            "line": 318,
+            "line": 325,
             "description": "Draws the hypotrochoid onto the given 2D-context.\nThis function does not clear the canvas.",
             "itemtype": "method",
             "name": "draw",

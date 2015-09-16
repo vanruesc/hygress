@@ -5,6 +5,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Hypotrochoid"
     ],
     "modules": [],
-    "allModules": []
+    "allModules": [],
+    "elements": []
 } };
 });
