@@ -1,5 +1,6 @@
 # Hygress 
-[![Build Status](https://travis-ci.org/vanruesc/hygress.svg?branch=master)](https://travis-ci.org/vanruesc/hygress) 
+[![Build status](https://travis-ci.org/vanruesc/hygress.svg?branch=master)](https://travis-ci.org/vanruesc/hygress) 
+[![Windows build status](https://ci.appveyor.com/api/projects/status/0gnqg48tkekt5knv?svg=true)](https://ci.appveyor.com/project/vanruesc/hygress) 
 [![GitHub version](https://badge.fury.io/gh/vanruesc%2Fhygress.svg)](http://badge.fury.io/gh/vanruesc%2Fhygress) 
 [![npm version](https://badge.fury.io/js/hygress.svg)](http://badge.fury.io/js/hygress) 
 [![Dependencies](https://david-dm.org/vanruesc/hygress.svg?branch=master)](https://david-dm.org/vanruesc/hygress)
