@@ -1,5 +1,5 @@
 /**
- * hygress v0.1.0 build Sep 16 2015
+ * hygress v0.1.2 build Sep 17 2015
  * https://github.com/vanruesc/hygress
  * Copyright 2015 Raoul van Rueschen, Zlib
  */

@@ -1,9 +1,10 @@
 {
   "name": "hygress",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A hy(potrochoid pro)gress visualisation library.",
   "homepage": "https://github.com/vanruesc/hygress",
-  "main": "src/hygress",
+  "main": "build/hygress",
+	"jsnext:main": "src/hygress",
   "license": "Zlib",
 
   "keywords": [
@@ -32,11 +33,12 @@
 		"jshint:test": "jshint test",
 		"jshint:lib": "jshint src",
 		"jshint": "npm run jshint:banner && npm run jshint:test && npm run jshint:lib",
+		"browserify": "browserify src/hygress.js -t babelify -s Hygress -o build/hygress.js",
 		"uglify": "uglifyjs build/hygress.js -c -m -o build/hygress.min.js",
 		"mocha": "mocha test",
 		"yuidoc": "yuidoc src -q -c yuidoc.json",
 		"prebuild": "npm run jshint",
-		"build": "mkdirp build && browserify src/hygress.js -t babelify -s Hygress -o build/hygress.js",
+		"build": "mkdirp build && npm run browserify",
 		"postbuild": "npm run uglify && node banner.js",
 		"pretest": "npm run build",
 		"test": "npm run mocha"
