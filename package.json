@@ -1,34 +1,34 @@
 {
-  "name": "hygress",
-  "version": "0.1.2",
-  "description": "A hy(potrochoid pro)gress visualisation library.",
-  "homepage": "https://github.com/vanruesc/hygress",
-  "main": "build/hygress",
+	"name": "hygress",
+	"version": "0.1.2",
+	"description": "A hy(potrochoid pro)gress visualisation library.",
+	"homepage": "https://github.com/vanruesc/hygress",
+	"main": "build/hygress",
 	"jsnext:main": "src/hygress",
-  "license": "Zlib",
+	"license": "Zlib",
 
-  "keywords": [
-    "hypotrochoid",
-    "progress",
-    "canvas",
-    "visualisation"
-  ],
+	"keywords": [
+		"hypotrochoid",
+		"progress",
+		"canvas",
+		"visualisation"
+	],
 
-  "author": {
-    "name": "Raoul van Rueschen",
-    "email": "vanruesc@fh-brandenburg.de"
-  },
+	"author": {
+		"name": "Raoul van Rueschen",
+		"email": "vanruesc@fh-brandenburg.de"
+	},
 
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vanruesc/hygress.git"
-  },
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/vanruesc/hygress.git"
+	},
 
-  "bugs": {
-    "url": "https://github.com/vanruesc/hygress/issues"
-  },
+	"bugs": {
+		"url": "https://github.com/vanruesc/hygress/issues"
+	},
 
-  "scripts": {
+	"scripts": {
 		"jshint:banner": "jshint banner.js",
 		"jshint:test": "jshint test",
 		"jshint:lib": "jshint src",
@@ -42,17 +42,17 @@
 		"postbuild": "npm run uglify && node banner.js",
 		"pretest": "npm run build",
 		"test": "npm run mocha"
-  },
+	},
 
-  "engines": {
-    "node": ">= 0.10.0"
-  },
+	"engines": {
+		"node": ">= 0.10.0"
+	},
 
-  "dependencies": {
-    "canvasrenderer": "x.x.x"
-  },
+	"dependencies": {
+		"canvasrenderer": "x.x.x"
+	},
 
-  "devDependencies": {
+	"devDependencies": {
 		"babelify": "6.x.x",
 		"browserify": "11.x.x",
 		"mkdirp": "0.x.x",
@@ -61,5 +61,5 @@
 		"prepend-file": "1.x.x",
 		"uglify-js": "2.x.x",
 		"yuidocjs": "0.x.x"
-  }
+	}
 }
