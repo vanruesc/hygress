@@ -1,13 +1,9 @@
 /**
- * hygress v0.1.3 build Sep 18 2015
+ * hygress v0.1.4 build Sep 20 2015
  * https://github.com/vanruesc/hygress
  * Copyright 2015 Raoul van Rueschen, Zlib
  */
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	global.Hygress = factory();
-}(this, function () { 'use strict';
+var Hygress = (function () { 'use strict';
 
 	/**
 	 * A canvas renderer base class.
@@ -740,8 +736,8 @@
 
 			if(options.scale !== undefined) {
 
-			this._scale.factor = options.scale;
-			this.ht.d *= this._scale.factor;
+				this._scale.factor = options.scale;
+				this.ht.d *= this._scale.factor;
 
 			}
 
@@ -1160,4 +1156,4 @@
 
 	return Hygress;
 
-}));
+})();
