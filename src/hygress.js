@@ -117,8 +117,8 @@ export default function Hygress(options) {
 
 		if(options.scale !== undefined) {
 
-		this._scale.factor = options.scale;
-		this.ht.d *= this._scale.factor;
+			this._scale.factor = options.scale;
+			this.ht.d *= this._scale.factor;
 
 		}
 
