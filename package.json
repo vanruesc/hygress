@@ -1,63 +1,65 @@
 {
-  "name": "hygress",
-  "version": "0.1.0",
-  "description": "A hy(potrochoid pro)gress visualisation library.",
-  "homepage": "https://github.com/vanruesc/hygress",
-  "main": "src/hygress",
-  "license": "Zlib",
+	"name": "hygress",
+	"version": "0.1.4",
+	"description": "A hy(potrochoid pro)gress visualisation library.",
+	"homepage": "https://github.com/vanruesc/hygress",
+	"main": "build/hygress",
+	"jsnext:main": "src/hygress",
+	"license": "Zlib",
 
-  "keywords": [
-    "hypotrochoid",
-    "progress",
-    "canvas",
-    "visualisation"
-  ],
+	"keywords": [
+		"hypotrochoid",
+		"progress",
+		"canvas",
+		"visualisation"
+	],
 
-  "author": {
-    "name": "Raoul van Rueschen",
-    "email": "vanruesc@fh-brandenburg.de"
-  },
+	"author": {
+		"name": "Raoul van Rueschen",
+		"email": "vanruesc@fh-brandenburg.de"
+	},
 
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vanruesc/hygress.git"
-  },
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/vanruesc/hygress.git"
+	},
 
-  "bugs": {
-    "url": "https://github.com/vanruesc/hygress/issues"
-  },
+	"bugs": {
+		"url": "https://github.com/vanruesc/hygress/issues"
+	},
 
-  "scripts": {
-		"yuidoc": "yuidoc src -q -c yuidoc.json",
+	"scripts": {
 		"jshint:banner": "jshint banner.js",
 		"jshint:test": "jshint test",
 		"jshint:lib": "jshint src",
 		"jshint": "npm run jshint:banner && npm run jshint:test && npm run jshint:lib",
-		"prebuild": "npm run jshint",
-		"build": "mkdirp build && browserify src/hygress.js -t babelify -s Stay -o build/hygress.js",
+		"rollup": "rollup -f iife -n Hygress -i src/hygress.js -o build/hygress.js",
 		"uglify": "uglifyjs build/hygress.js -c -m -o build/hygress.min.js",
-		"mocha": "mocha test",
+		"mocha": "mocha-phantomjs --setting webSecurityEnabled=false test/index.html",
+		"yuidoc": "yuidoc src -q -c yuidoc.json",
+		"prebuild": "npm run jshint",
+		"build": "npm run rollup",
+		"postbuild": "npm run uglify && node banner.js",
 		"pretest": "npm run build",
-		"test": "npm run mocha",
-		"posttest": "npm run uglify && node banner.js"
-  },
+		"test": "npm run mocha"
+	},
 
-  "engines": {
-    "node": ">= 0.10.0"
-  },
+	"engines": {
+		"node": ">= 0.10.0"
+	},
 
-  "dependencies": {
-    "canvasrenderer": "x.x.x"
-  },
+	"dependencies": {
+		"canvasrenderer": "x.x.x"
+	},
 
-  "devDependencies": {
-		"babelify": "6.x.x",
-		"browserify": "11.x.x",
-		"mkdirp": "0.x.x",
+	"devDependencies": {
 		"jshint": "2.x.x",
 		"mocha": "2.x.x",
+		"mocha-phantomjs": "3.6.0",
+		"phantomjs": "1.9.7-15",
 		"prepend-file": "1.x.x",
+		"rollup": "0.x.x",
 		"uglify-js": "2.x.x",
 		"yuidocjs": "0.x.x"
-  }
+	}
 }
