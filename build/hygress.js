@@ -1,5 +1,5 @@
 /**
- * hygress v0.1.4 build Sep 20 2015
+ * hygress v0.1.5 build Oct 26 2015
  * https://github.com/vanruesc/hygress
  * Copyright 2015 Raoul van Rueschen, Zlib
  */
@@ -180,17 +180,27 @@ var Hygress = (function () { 'use strict';
 	 *
 	 * @method update
 	 * @param {Number} elapsed - The time since the last update call in milliseconds.
+	 * @throws An error if not implemented.
 	 */
 
-	CanvasRenderer.prototype.update = function() {};
+	CanvasRenderer.prototype.update = function() {
+
+		throw new Error("Not implemented.");
+
+	};
 
 	/**
 	 * Abstract draw method.
 	 *
 	 * @method draw
+	 * @throws An error if not implemented.
 	 */
 
-	CanvasRenderer.prototype.draw = function() {};
+	CanvasRenderer.prototype.draw = function() {
+
+		throw new Error("Not implemented.");
+
+	};
 
 	/**
 	 * Renders the animation.
@@ -198,6 +208,7 @@ var Hygress = (function () { 'use strict';
 	 * @method _render
 	 * @private
 	 * @param {DOMHighResTimeStamp} now - The time since the page was loaded.
+	 * @throws An error if update() or draw() hasn't been implemented.
 	 */
 
 	CanvasRenderer.prototype._render = function(now) {
@@ -255,9 +266,9 @@ var Hygress = (function () { 'use strict';
 	 * @method equal
 	 * @private
 	 * @static
-	 * @param {number} a - Value a.
-	 * @param {number} b - Value b.
-	 * @return {boolean} Whether the values are equal or not.
+	 * @param {Number} a - Value a.
+	 * @param {Number} b - Value b.
+	 * @return {Boolean} Whether the values are equal or not.
 	 */
 
 	function equal(a, b) {
@@ -475,18 +486,18 @@ var Hygress = (function () { 'use strict';
 
 	/**
 	 * The hypotrochoid's settings: {
-	 *  r,
-	 *  R,
-	 *  d,
-	 *  iterations,
-	 *  rotation,
-	 *  origin,
-	 *  opacity,
-	 *  lineWidth,
-	 *  colourRoll,
-	 *  saturation,
-	 *  luminance,
-	 *  hue
+	 *		r,
+	 *		R,
+	 *		d,
+	 *		iterations,
+	 *		rotation,
+	 *		origin,
+	 *		opacity,
+	 *		lineWidth,
+	 *		colourRoll,
+	 *		saturation,
+	 *		luminance,
+	 *		hue
 	 * }
 	 *
 	 * @property settings
@@ -996,7 +1007,7 @@ var Hygress = (function () { 'use strict';
 			if(x !== undefined && typeof x === "number" && !isNaN(x)) {
 
 				if(x < 0.0) { x = 0.0; }
-				if(x > 1.0) { x = 1.0; }
+				else if(x > 1.0) { x = 1.0; }
 
 				this._opacity.start = this.ht.opacity;
 				this._opacity.target = x;
@@ -1031,7 +1042,7 @@ var Hygress = (function () { 'use strict';
 			if(x !== undefined && typeof x === "number" && !isNaN(x)) {
 
 				if(x < 0.0) { x = 0.0; }
-				if(x > 1.0) { x = 1.0; }
+				else if(x > 1.0) { x = 1.0; }
 
 				this._scale.factor = x;
 				this._scale.start = this.ht.d;
@@ -1070,7 +1081,7 @@ var Hygress = (function () { 'use strict';
 			if(opacity.transitionActive) {
 
 				percentage = opacity.elapsed / this.transitionTime;
-				if(percentage > 1.0) { percentage = 1.0; }
+				if(percentage > 1.0 || isNaN(percentage)) { percentage = 1.0; }
 				this.ht.opacity = opacity.start - percentage * opacity.difference;
 				opacity.elapsed += elapsed;
 
@@ -1092,7 +1103,7 @@ var Hygress = (function () { 'use strict';
 			if(scale.transitionActive) {
 
 				percentage = scale.elapsed / this.transitionTime;
-				if(percentage > 1.0) { percentage = 1.0; }
+				if(percentage > 1.0 || isNaN(percentage)) { percentage = 1.0; }
 				this.ht.d = scale.start - percentage * scale.difference;
 				scale.elapsed += elapsed;
 

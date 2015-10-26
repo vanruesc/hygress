@@ -16,9 +16,9 @@ var EPSILON = 0.0001;
  * @method equal
  * @private
  * @static
- * @param {number} a - Value a.
- * @param {number} b - Value b.
- * @return {boolean} Whether the values are equal or not.
+ * @param {Number} a - Value a.
+ * @param {Number} b - Value b.
+ * @return {Boolean} Whether the values are equal or not.
  */
 
 function equal(a, b) {
@@ -236,18 +236,18 @@ export default function Hypotrochoid(options) {
 
 /**
  * The hypotrochoid's settings: {
- *  r,
- *  R,
- *  d,
- *  iterations,
- *  rotation,
- *  origin,
- *  opacity,
- *  lineWidth,
- *  colourRoll,
- *  saturation,
- *  luminance,
- *  hue
+ *		r,
+ *		R,
+ *		d,
+ *		iterations,
+ *		rotation,
+ *		origin,
+ *		opacity,
+ *		lineWidth,
+ *		colourRoll,
+ *		saturation,
+ *		luminance,
+ *		hue
  * }
  *
  * @property settings

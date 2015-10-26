@@ -10,6 +10,7 @@ provides can be combined with other rendering processes and doesn't use an
 isolated animation loop. The decision of where, when and how Hygress should 
 draw something is entirely yours.
 
+
 ## Installation
 
 Download the [minified library](http://vanruesc.github.io/hygress/build/hygress.min.js) and include it in your project:
@@ -23,6 +24,7 @@ You can also install it with [npm](https://www.npmjs.com).
 ```sh
 $ npm install hygress
 ``` 
+
 
 ## Usage
 
@@ -73,12 +75,15 @@ hygress.opacity = 0.0;
 hygress.scale = 0.0;
 ```
 
+
 ## Documentation
 [API](http://vanruesc.github.io/hygress/docs)
+
 
 ## Contributing
 Maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code.
 
+
 ## License
-Copyright (c) 2015 Raoul van Rüschen  
+Copyright (c) 2015 Raoul van Rueschen  
 Licensed under the Zlib license.

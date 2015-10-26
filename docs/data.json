@@ -2,7 +2,7 @@
     "project": {
         "name": "Hygress API",
         "description": "A hy(potrochoid pro)gress visualisation library.",
-        "version": "0.1.4",
+        "version": "0.1.5",
         "url": "https://github.com/vanruesc/hygress"
     },
     "files": {
@@ -665,7 +665,7 @@
         {
             "file": "src\\hypotrochoid.js",
             "line": 237,
-            "description": "The hypotrochoid's settings: {\n r,\n R,\n d,\n iterations,\n rotation,\n origin,\n opacity,\n lineWidth,\n colourRoll,\n saturation,\n luminance,\n hue\n}",
+            "description": "The hypotrochoid's settings: {\n\t\tr,\n\t\tR,\n\t\td,\n\t\titerations,\n\t\trotation,\n\t\torigin,\n\t\topacity,\n\t\tlineWidth,\n\t\tcolourRoll,\n\t\tsaturation,\n\t\tluminance,\n\t\thue\n}",
             "itemtype": "property",
             "name": "settings",
             "type": "Object",

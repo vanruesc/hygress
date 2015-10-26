@@ -35,34 +35,41 @@ describe("Hygress", function() {
 
 		var hygress;
 
-		function render() {
-
-			hygress.render();
-			setTimeout(render, hygress.dt);
-
-		}
-
 		before(function() {
 
 			hygress = new Hygress({
 				hypotrochoid: Hygress.Hypotrochoid.NEGATIVE,
-				scale: 0.5
+				opacity: 1.0,
+				scale: 1.0
 			});
 
 		});
 
 		it("renders without errors", function() {
 
-      document.getElementById("mocha").appendChild(hygress.canvas);
-			render();
+			hygress.render();
 
 		});
 
-		it("transitions correctly", function() {
+		it("transitions the opacity correctly", function() {
 
-      hygress.transitionTime = 5.0;
-      //hygress.scale = 0.0;
-      hygress.opacity = 0.0;
+			var opacity = hygress.opacity;
+
+			hygress.transitionTime = 0.0;
+			hygress.opacity = 0.0;
+			hygress.update();
+			assert(opacity !== hygress.opacity);
+
+		});
+
+		it("transitions the scale correctly", function() {
+
+			var scale = hygress.scale;
+
+			hygress.transitionTime = 0.0;
+			hygress.scale = 0.0;
+			hygress.update();
+			assert(scale !== hygress.scale);
 
 		});
 
