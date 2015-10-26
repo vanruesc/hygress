@@ -377,7 +377,7 @@ Object.defineProperty(Hygress.prototype, "opacity", {
 		if(x !== undefined && typeof x === "number" && !isNaN(x)) {
 
 			if(x < 0.0) { x = 0.0; }
-			if(x > 1.0) { x = 1.0; }
+			else if(x > 1.0) { x = 1.0; }
 
 			this._opacity.start = this.ht.opacity;
 			this._opacity.target = x;
@@ -412,7 +412,7 @@ Object.defineProperty(Hygress.prototype, "scale", {
 		if(x !== undefined && typeof x === "number" && !isNaN(x)) {
 
 			if(x < 0.0) { x = 0.0; }
-			if(x > 1.0) { x = 1.0; }
+			else if(x > 1.0) { x = 1.0; }
 
 			this._scale.factor = x;
 			this._scale.start = this.ht.d;
@@ -451,7 +451,7 @@ Hygress.prototype.update = function(elapsed) {
 		if(opacity.transitionActive) {
 
 			percentage = opacity.elapsed / this.transitionTime;
-			if(percentage > 1.0) { percentage = 1.0; }
+			if(percentage > 1.0 || isNaN(percentage)) { percentage = 1.0; }
 			this.ht.opacity = opacity.start - percentage * opacity.difference;
 			opacity.elapsed += elapsed;
 
@@ -473,7 +473,7 @@ Hygress.prototype.update = function(elapsed) {
 		if(scale.transitionActive) {
 
 			percentage = scale.elapsed / this.transitionTime;
-			if(percentage > 1.0) { percentage = 1.0; }
+			if(percentage > 1.0 || isNaN(percentage)) { percentage = 1.0; }
 			this.ht.d = scale.start - percentage * scale.difference;
 			scale.elapsed += elapsed;
 

@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="Hygress API" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.1.4</em>
+            <em>API Docs for: 0.1.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -460,7 +460,7 @@ Object.defineProperty(Hygress.prototype, &quot;opacity&quot;, {
 		if(x !== undefined &amp;&amp; typeof x === &quot;number&quot; &amp;&amp; !isNaN(x)) {
 
 			if(x &lt; 0.0) { x = 0.0; }
-			if(x &gt; 1.0) { x = 1.0; }
+			else if(x &gt; 1.0) { x = 1.0; }
 
 			this._opacity.start = this.ht.opacity;
 			this._opacity.target = x;
@@ -495,7 +495,7 @@ Object.defineProperty(Hygress.prototype, &quot;scale&quot;, {
 		if(x !== undefined &amp;&amp; typeof x === &quot;number&quot; &amp;&amp; !isNaN(x)) {
 
 			if(x &lt; 0.0) { x = 0.0; }
-			if(x &gt; 1.0) { x = 1.0; }
+			else if(x &gt; 1.0) { x = 1.0; }
 
 			this._scale.factor = x;
 			this._scale.start = this.ht.d;
@@ -534,7 +534,7 @@ Hygress.prototype.update = function(elapsed) {
 		if(opacity.transitionActive) {
 
 			percentage = opacity.elapsed / this.transitionTime;
-			if(percentage &gt; 1.0) { percentage = 1.0; }
+			if(percentage &gt; 1.0 || isNaN(percentage)) { percentage = 1.0; }
 			this.ht.opacity = opacity.start - percentage * opacity.difference;
 			opacity.elapsed += elapsed;
 
@@ -556,7 +556,7 @@ Hygress.prototype.update = function(elapsed) {
 		if(scale.transitionActive) {
 
 			percentage = scale.elapsed / this.transitionTime;
-			if(percentage &gt; 1.0) { percentage = 1.0; }
+			if(percentage &gt; 1.0 || isNaN(percentage)) { percentage = 1.0; }
 			this.ht.d = scale.start - percentage * scale.difference;
 			scale.elapsed += elapsed;
 

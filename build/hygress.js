@@ -1,3 +1,8 @@
+/**
+ * hygress v0.1.5 build Oct 26 2015
+ * https://github.com/vanruesc/hygress
+ * Copyright 2015 Raoul van Rueschen, Zlib
+ */
 var Hygress = (function () { 'use strict';
 
 	/**
@@ -261,9 +266,9 @@ var Hygress = (function () { 'use strict';
 	 * @method equal
 	 * @private
 	 * @static
-	 * @param {number} a - Value a.
-	 * @param {number} b - Value b.
-	 * @return {boolean} Whether the values are equal or not.
+	 * @param {Number} a - Value a.
+	 * @param {Number} b - Value b.
+	 * @return {Boolean} Whether the values are equal or not.
 	 */
 
 	function equal(a, b) {
@@ -481,18 +486,18 @@ var Hygress = (function () { 'use strict';
 
 	/**
 	 * The hypotrochoid's settings: {
-	 *  r,
-	 *  R,
-	 *  d,
-	 *  iterations,
-	 *  rotation,
-	 *  origin,
-	 *  opacity,
-	 *  lineWidth,
-	 *  colourRoll,
-	 *  saturation,
-	 *  luminance,
-	 *  hue
+	 *		r,
+	 *		R,
+	 *		d,
+	 *		iterations,
+	 *		rotation,
+	 *		origin,
+	 *		opacity,
+	 *		lineWidth,
+	 *		colourRoll,
+	 *		saturation,
+	 *		luminance,
+	 *		hue
 	 * }
 	 *
 	 * @property settings
@@ -1002,7 +1007,7 @@ var Hygress = (function () { 'use strict';
 			if(x !== undefined && typeof x === "number" && !isNaN(x)) {
 
 				if(x < 0.0) { x = 0.0; }
-				if(x > 1.0) { x = 1.0; }
+				else if(x > 1.0) { x = 1.0; }
 
 				this._opacity.start = this.ht.opacity;
 				this._opacity.target = x;
@@ -1037,7 +1042,7 @@ var Hygress = (function () { 'use strict';
 			if(x !== undefined && typeof x === "number" && !isNaN(x)) {
 
 				if(x < 0.0) { x = 0.0; }
-				if(x > 1.0) { x = 1.0; }
+				else if(x > 1.0) { x = 1.0; }
 
 				this._scale.factor = x;
 				this._scale.start = this.ht.d;
@@ -1076,7 +1081,7 @@ var Hygress = (function () { 'use strict';
 			if(opacity.transitionActive) {
 
 				percentage = opacity.elapsed / this.transitionTime;
-				if(percentage > 1.0) { percentage = 1.0; }
+				if(percentage > 1.0 || isNaN(percentage)) { percentage = 1.0; }
 				this.ht.opacity = opacity.start - percentage * opacity.difference;
 				opacity.elapsed += elapsed;
 
@@ -1098,7 +1103,7 @@ var Hygress = (function () { 'use strict';
 			if(scale.transitionActive) {
 
 				percentage = scale.elapsed / this.transitionTime;
-				if(percentage > 1.0) { percentage = 1.0; }
+				if(percentage > 1.0 || isNaN(percentage)) { percentage = 1.0; }
 				this.ht.d = scale.start - percentage * scale.difference;
 				scale.elapsed += elapsed;
 
