@@ -1,7 +1,7 @@
 /**
- * hygress v0.1.5 build Oct 26 2015
+ * hygress v0.1.6 build Nov 06 2015
  * https://github.com/vanruesc/hygress
- * Copyright 2015 Raoul van Rueschen, Zlib
+ * Copyright 2015 Raoul van Rüschen, Zlib
  */
 var Hygress = (function () { 'use strict';
 
@@ -470,7 +470,7 @@ var Hygress = (function () { 'use strict';
 		this.luminance = 50.0;
 
 		// Overwrite the defaults.
-		this.setting = options;
+		this.settings = options;
 
 		/**
 		 * The inverted r value.

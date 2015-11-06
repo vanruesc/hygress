@@ -220,7 +220,7 @@ export default function Hypotrochoid(options) {
 	this.luminance = 50.0;
 
 	// Overwrite the defaults.
-	this.setting = options;
+	this.settings = options;
 
 	/**
 	 * The inverted r value.
